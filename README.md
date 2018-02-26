@@ -1,0 +1,2 @@
+# SamuraiSushi
+game for tgs
