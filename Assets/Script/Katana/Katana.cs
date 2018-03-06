@@ -9,7 +9,6 @@ public class Katana : MonoBehaviour {
     public Material KatanaM;
     
     private EdgeCollider2D EdgeCollider;
-    private bool IsEcexist = false; //edgecollider's flag
 
     //each points of line and collider
     private List<Vector2> Keypoint = new List<Vector2>();
@@ -36,26 +35,24 @@ public class Katana : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(Input.GetMouseButton(0))
+		if(Input.touchCount>0)
         {
-            if(!IsEcexist)
+            if(Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 EdgeCollider = Cut.AddComponent<EdgeCollider2D>();
-
-                IsEcexist = true;
             }
 
-            if(Input.GetAxisRaw("Mouse X") != 0 || Input.GetAxisRaw("Mouse Y") !=0 )
+            if(Input.GetTouch(0).phase==TouchPhase.Moved)
             {
-                Vector3 MousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5);
-                Vector3 MousePositionReal = new Vector3(Camera.main.ScreenToWorldPoint(MousePosition).x,
-                    Camera.main.ScreenToWorldPoint(MousePosition).y, Camera.main.ScreenToWorldPoint(MousePosition).z);
+                Vector3 TouchPosition = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 5);
+                Vector3 TouchPositionReal = new Vector3(Camera.main.ScreenToWorldPoint(TouchPosition).x,
+                    Camera.main.ScreenToWorldPoint(TouchPosition).y, Camera.main.ScreenToWorldPoint(TouchPosition).z);
 
-                Keypoint3D.Add(MousePositionReal);
+                Keypoint3D.Add(TouchPositionReal);
 
-                Vector2 MousePosition2D= new Vector2(Camera.main.ScreenToWorldPoint(MousePosition).x, Camera.main.ScreenToWorldPoint(MousePosition).y);
+                Vector2 TouchPosition2D= new Vector2(Camera.main.ScreenToWorldPoint(TouchPosition).x, Camera.main.ScreenToWorldPoint(TouchPosition).y);
 
-                Keypoint.Add(MousePosition2D);
+                Keypoint.Add(TouchPosition2D);
             }
                 
         }
@@ -89,14 +86,13 @@ public class Katana : MonoBehaviour {
             }
         }
 
-        if (!Input.GetMouseButton(0))   //when mouse isn't keeping down
+        if (Input.touchCount <= 0)   //when mouse isn't keeping down
         {
             //remove line
             LineRenderer.numPositions = 0;
 
             //remove edge collision
             Destroy(EdgeCollider);
-            IsEcexist = false;
             Keypoint = new List<Vector2>();
             Keypoint3D = new List<Vector3>();
         }            
