@@ -17,6 +17,8 @@ public class Katana : MonoBehaviour {
 
     private int PointCounter = 0;//Destory Controller
 
+    private bool CheckExist = false;
+
 	// Use this for initialization
 	void Start () {
         Cut = new GameObject("Line");
@@ -40,9 +42,10 @@ public class Katana : MonoBehaviour {
             if(Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 EdgeCollider = Cut.AddComponent<EdgeCollider2D>();
+                CheckExist = true;
             }
 
-            if(Input.GetTouch(0).phase==TouchPhase.Moved)
+            if(CheckExist)
             {
                 Vector3 TouchPosition = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 5);
                 Vector3 TouchPositionReal = new Vector3(Camera.main.ScreenToWorldPoint(TouchPosition).x,
@@ -95,6 +98,7 @@ public class Katana : MonoBehaviour {
             Destroy(EdgeCollider);
             Keypoint = new List<Vector2>();
             Keypoint3D = new List<Vector3>();
+            CheckExist = false;
         }            
 
 	}
