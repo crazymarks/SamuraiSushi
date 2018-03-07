@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="Assets\Script\GameController.cs" />
     <Compile Include="Assets\Script\Katana\Katana.cs" />
+    <Compile Include="Assets\Script\Katana\KatanaMouse.cs" />
     <Compile Include="Assets\Script\People\PeopleBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
