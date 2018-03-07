@@ -50,7 +50,7 @@ public class KatanaMouse : MonoBehaviour
 
             if (Input.GetAxisRaw("Mouse X") != 0 || Input.GetAxisRaw("Mouse Y") != 0)
             {
-                Vector3 MousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5);
+                Vector3 MousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 3);
                 Vector3 MousePositionReal = new Vector3(Camera.main.ScreenToWorldPoint(MousePosition).x,
                     Camera.main.ScreenToWorldPoint(MousePosition).y, Camera.main.ScreenToWorldPoint(MousePosition).z);
 

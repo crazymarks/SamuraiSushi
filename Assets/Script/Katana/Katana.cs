@@ -47,7 +47,7 @@ public class Katana : MonoBehaviour {
 
             if(CheckExist)
             {
-                Vector3 TouchPosition = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 5);
+                Vector3 TouchPosition = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 3);
                 Vector3 TouchPositionReal = new Vector3(Camera.main.ScreenToWorldPoint(TouchPosition).x,
                     Camera.main.ScreenToWorldPoint(TouchPosition).y, Camera.main.ScreenToWorldPoint(TouchPosition).z);
 
