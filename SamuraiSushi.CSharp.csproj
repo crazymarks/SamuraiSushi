@@ -81,6 +81,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Fish\Maguro\Down.cs" />
+    <Compile Include="Assets\Script\Fish\Maguro\Left.cs" />
+    <Compile Include="Assets\Script\Fish\Maguro\Maguro.cs" />
+    <Compile Include="Assets\Script\Fish\Maguro\MaguroFailedHead.cs" />
+    <Compile Include="Assets\Script\Fish\Maguro\MaguroFailedTail.cs" />
+    <Compile Include="Assets\Script\Fish\Maguro\Right.cs" />
+    <Compile Include="Assets\Script\Fish\Maguro\Up.cs" />
+    <Compile Include="Assets\Script\Fish\common\FishBase.cs" />
     <Compile Include="Assets\Script\GameController.cs" />
     <Compile Include="Assets\Script\Katana\Katana.cs" />
     <Compile Include="Assets\Script\Katana\KatanaMouse.cs" />
