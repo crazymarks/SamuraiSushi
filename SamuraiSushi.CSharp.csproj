@@ -86,6 +86,7 @@
     <Compile Include="Assets\Script\Fish\Maguro\Maguro.cs" />
     <Compile Include="Assets\Script\Fish\Maguro\MaguroFailedHead.cs" />
     <Compile Include="Assets\Script\Fish\Maguro\MaguroFailedTail.cs" />
+    <Compile Include="Assets\Script\Fish\Maguro\MaguroNiku.cs" />
     <Compile Include="Assets\Script\Fish\Maguro\Right.cs" />
     <Compile Include="Assets\Script\Fish\Maguro\Up.cs" />
     <Compile Include="Assets\Script\Fish\common\FishBase.cs" />

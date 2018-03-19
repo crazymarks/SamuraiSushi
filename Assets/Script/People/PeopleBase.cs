@@ -166,9 +166,9 @@ public abstract class PeopleBase : MonoBehaviour {
     /// <summary>
     /// to change customers state (leave customers list)
     /// </summary>
-    protected virtual void customers_check1(bool beCustomers)
+    protected virtual void customers_check1()
     {
-        IsCustomer = beCustomers;
+        IsCustomer = false;
         state_change();
     }
     protected virtual void customers_check2(int number)
@@ -185,6 +185,13 @@ public abstract class PeopleBase : MonoBehaviour {
         //play animation
         //play animation
         GameController.SendMessage("kill_people", this.name);
+        Destroy(gameObject);
+    }
+
+    protected virtual void killed_by_poison()
+    {
+        //play animation
+        //play animation
         Destroy(gameObject);
     }
 

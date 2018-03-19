@@ -17,8 +17,8 @@ public class Maguro :FishBase {
     public GameObject MaguroFailedHead;
     public GameObject MaguroFailedTail;
     public Vector3 CutPos = new Vector3(0.0f, 0.0f, 7.0f);
-    private Vector2 RicePos = new Vector2(0, 0);
-    private float TableY = 3.1f;  //the height of table
+    private Vector3 RicePos = new Vector3(0, 0, 0);
+    private float TableY = -3.5f;  //the height of table
     //cut check and sushi
 
 	// Update is called once per frame
@@ -29,8 +29,7 @@ public class Maguro :FishBase {
 
             if (IsLeft == true && IsRight == true)         //succeed to cut fish        
             {
-                RicePos = new Vector2(this.transform.position.x, TableY);
-
+                RicePos = new Vector3(this.transform.position.x, TableY,8);
                 Instantiate(MaguroNiku, CutPos, Quaternion.identity);
                 Instantiate(Rice, RicePos, Quaternion.identity);
                 //add rice apper animation (uncompeleted)

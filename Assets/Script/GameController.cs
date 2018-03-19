@@ -10,7 +10,6 @@ public class GameController : MonoBehaviour {
     public float MaxX = 12f;       //screen`s max x   
     public float TopCreateVar = 4f; // define top create-zone
     public GameObject MiddleZone;
-
     //people location
 
     //about people
@@ -27,7 +26,19 @@ public class GameController : MonoBehaviour {
     private float PofCustomers = 0.8f;  // the probability of be a customer  range from 0 to 1 
     //about people
 
+
+    //about fish
+    public GameObject Maguro;        //list code 1
+    public GameObject Tako;          //list code 2
+    public GameObject Kani;          //list code 3
+    public GameObject Fugu;          //list code 4
+    public float CreateSpeed = 2.0f;
+    public Vector3 FishPosition = new Vector3(0f, -3f, 6f);
+    //about fish
+
     //about Sushi
+    private int SushinameCount = 0;
+    public GameObject MaguroSushi;     
     //about Sushi
 
 
@@ -35,8 +46,22 @@ public class GameController : MonoBehaviour {
     public Text MoneyText;
     public Text PeoplekillText; 
     private int Money = 0;            //dont forget to intialize it! 
-    private bool CustomerFlag = false;
-
+    private bool CustomerFlag = true;   //used to invoke the time of people eat sushi
+        //price
+    private int NormalPrice = 100;
+    private int GoldPrice = 200;
+    private int PisionPrice = 100;
+        //price
+    private List<int> SushiList = new List<int>(); //know the types of sushi
+    /*    1 ====================Maguro-normalprice
+          2 ====================Fugu--goldprice
+          3 ====================poison--normalprice                     */
+    private GameObject Sushi;
+    private GameObject SushiDelete;
+    private int SushiDeleteCount = 0;
+    private float CustomerWaitTime = 1.0f;
+    private GameObject peopleEatingSushi;
+    private float CheckTime = 3.0f;
     //about point and eating sushi
 
 
@@ -45,8 +70,6 @@ public class GameController : MonoBehaviour {
     //about ninja
 
 
-    //about fish
-    //about fish
 
  
 
@@ -57,11 +80,25 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         create_people();
+        create_fish();
+        CheckLoop();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         customers_list_check();
+    }
+    /// <summary>
+    ///  ever CHeckTime check eat sushi one time
+    /// </summary>
+    void CheckLoop()
+    {
+        if (CustomerFlag==true)
+        {
+            eat_sushi();
+        }
+        Invoke("CheckLoop",CheckTime);
     }
 
     /// <summary>
@@ -77,7 +114,27 @@ public class GameController : MonoBehaviour {
     /// </summary>
     void create_fish()
     {
+        //fish amount choose (uncomplete)(related to popular)
+        //fish amount choose (uncomplete)(related to popular)
 
+        //fish type choose(uncomplete)
+        float ProbabilityFish = 0;
+        ProbabilityFish = Random.Range(0.0f, 1.0f);
+        if(ProbabilityFish>=0f && ProbabilityFish < 0.6f)
+        {
+            Instantiate(Maguro, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
+            Invoke("create_fish", CreateSpeed);
+        }else if (ProbabilityFish < 0.8f)
+        {
+            Instantiate(Maguro, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
+            Invoke("create_fish", CreateSpeed);
+        }
+        else
+        {
+            Instantiate(Maguro, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
+            Invoke("create_fish", CreateSpeed);
+        }                        
+        //fisu type choose (uncompleter)
     }
 
     /// <summary>
@@ -154,9 +211,7 @@ public class GameController : MonoBehaviour {
     {
         CustomerList.Add(ObjectName);
         People.SendMessage("customers_check2", (CustomerList.Count - 1));
-        Debug.Log("sent number");
-        Debug.Log(CustomerList.Count - 1);
-        Debug.Log(ObjectName);
+
     }
     /// <summary>
     /// to check the amount of customers now  
@@ -180,15 +235,34 @@ public class GameController : MonoBehaviour {
         PeopleKilling = PeopleKilling + 1;
 
         CustomerList.Remove(name);
-            customers_manage(1);    //only change number
+        customers_manage(1);    //only change number
        // PeoplekillText.text = ("殺人数" + PeopleKilling.ToString());
     }
     /// <summary>
-    /// check after (eating sushi)(int i=0)/(kill people)(int i=1)/(add list)(int i=1)
+    /// check after (eating sushi)(int i=0)/(kill people)(int i=1)
     /// </summary>
     void customers_manage(int i)
     {
-        if (i == 1)
+        if (i == 1)      //people will leave if you kill people
+        {
+            int k = CustomerList.Count-1;
+            for (int j = k; j >1; j--)
+            {
+                float l=Random.Range(0.0f, 1.0f);
+                if (l < 0.05f)
+                {
+                    GameObject CustomersTemp = GameObject.Find(CustomerList[j]);
+                    CustomersTemp.SendMessage("customers_check1");
+                    CustomerList.RemoveAt(j);
+                }
+            }
+            for (int j = 0; j < CustomerList.Count; j++)
+            {
+                GameObject CustomersTemp = GameObject.Find(CustomerList[j]);
+                CustomersTemp.SendMessage("customers_check2", j);
+            }
+        }
+        if (i == 0)
         {
             for (int j = 0; j < CustomerList.Count; j++)
             {
@@ -198,4 +272,59 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// add Maguro sushi to list (outside used)
+    /// </summary>
+    /// <param name="position"></param>
+    void create_magurosushi(Vector2 position)
+    {
+        Vector3 SushiPosition = new Vector3(position.x,position.y, 8);
+        Sushi = Instantiate(MaguroSushi,SushiPosition,Quaternion.identity);
+        Sushi.name = "Sushi" + SushinameCount;
+        SushinameCount++;
+        SushiList.Add(1);         //add maguro(code 1)to sushi list
+    }
+
+    /// <summary>
+    /// people eat sushi and get point 
+    /// </summary>
+    void eat_sushi()
+    {
+        if(SushiList.Count>0 && CustomerList.Count > 0)     //customer exist and sushi exist
+        {
+            int SushiType = SushiList[0];
+            //different point for different sushi
+            switch (SushiList[0])
+            {
+                case 1:                                     //maguro
+                    Money = Money + NormalPrice;
+                    break;
+                case 2:
+                    Money = Money + GoldPrice;
+                    break;
+                case 3:
+                    Money = Money + NormalPrice;
+                    break;
+            }
+            //MoneyText.text = Money.ToString();
+
+            SushiList.RemoveAt(0);
+
+            SushiDelete = GameObject.Find("Sushi" + SushiDeleteCount);  //find next sushi to delete
+            Destroy(SushiDelete.gameObject);
+            SushiDeleteCount++;
+
+            //delete customer
+            peopleEatingSushi = GameObject.Find(CustomerList[0]);
+            peopleEatingSushi.SendMessage("after_eatsushi",SushiType); //send type (poision--->die)
+            CustomerFlag = false;
+            Invoke("customer_flag_set", CustomerWaitTime);
+        }
+    }
+    void customer_flag_set()
+    {
+        CustomerFlag = true;
+        CustomerList.RemoveAt(0);
+        customers_manage(0);
+    }
 }
