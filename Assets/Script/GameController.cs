@@ -26,7 +26,6 @@ public class GameController : MonoBehaviour {
     private float PofCustomers = 0.8f;  // the probability of be a customer  range from 0 to 1 
     //about people
 
-
     //about fish
     public GameObject Maguro;        //list code 1
     public GameObject Tako;          //list code 2
@@ -38,7 +37,9 @@ public class GameController : MonoBehaviour {
 
     //about Sushi
     private int SushinameCount = 0;
-    public GameObject MaguroSushi;     
+    public GameObject MaguroSushi;
+    public GameObject SaraNormal;
+    private Vector3 SaraNormalPosition=new Vector3(8.0f,-4.0f,9.0f);  
     //about Sushi
 
 
@@ -64,14 +65,12 @@ public class GameController : MonoBehaviour {
     private float CheckTime = 3.0f;
     //about point and eating sushi
 
-
-
-    //about ninja
-    //about ninja
-
-
-
- 
+    //about ninja and damage
+    private int Life = 3;
+    public GameObject NinjaFly;
+    private float NinjaFlyCreateTime=0.0f;
+    public GameObject YouDied;
+    //about ninja and damage
 
 
 //------------------------------fuction--------------------------------------------------------------------
@@ -79,9 +78,11 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Life = 3;
         create_people();
         create_fish();
         CheckLoop();
+        Invoke("create_ninjafly", 5.0f);
 	}
 	
 	// Update is called once per frame
@@ -298,6 +299,9 @@ public class GameController : MonoBehaviour {
             {
                 case 1:                                     //maguro
                     Money = Money + NormalPrice;
+                    SaraNormalPosition.y += 0.1f;
+                    SaraNormalPosition.z -= 0.00001f;
+                    Instantiate(SaraNormal, SaraNormalPosition, Quaternion.identity);
                     break;
                 case 2:
                     Money = Money + GoldPrice;
@@ -324,7 +328,39 @@ public class GameController : MonoBehaviour {
     void customer_flag_set()
     {
         CustomerFlag = true;
-        CustomerList.RemoveAt(0);
+        if (CustomerList.Count>0)
+        {
+            CustomerList.RemoveAt(0);
+        }
         customers_manage(0);
     }
+
+    //-------------------------------------Ninja-----------------------------------------------
+    /// <summary>
+    /// be attacked  by ninja or other samurai
+    /// </summary>           
+    void get_hurt()
+    {
+        Life--;
+        if (Life == 0)
+        {
+            Invoke("you_died", 1.0f);
+        }
+    }
+
+    void you_died()
+    {
+        Vector3 pos = new Vector3(0, 0, 1);
+        Instantiate(YouDied, pos, Quaternion.identity);
+    }
+
+    void create_ninjafly()
+    {
+        Vector3 pos = new Vector3(Random.Range(-7f,7f),Random.Range(2.0f,3.0f),23);
+        Instantiate(NinjaFly, pos, Quaternion.identity);
+        NinjaFlyCreateTime = Random.Range(4.0f, 7.0f);
+        Invoke("create_ninjafly", NinjaFlyCreateTime);
+    }
+
+    //-------------------------------------Ninja-----------------------------------------------
 }
