@@ -123,16 +123,16 @@ public class GameController : MonoBehaviour {
         ProbabilityFish = Random.Range(0.0f, 1.0f);
         if(ProbabilityFish>=0f && ProbabilityFish < 0.6f)
         {
-            Instantiate(Maguro, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
+            Instantiate(Maguro, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
             Invoke("create_fish", CreateSpeed);
         }else if (ProbabilityFish < 0.8f)
         {
-            Instantiate(Maguro, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
+            Instantiate(Maguro, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
             Invoke("create_fish", CreateSpeed);
         }
         else
         {
-            Instantiate(Maguro, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
+            Instantiate(Maguro, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
             Invoke("create_fish", CreateSpeed);
         }                        
         //fisu type choose (uncompleter)
