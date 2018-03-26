@@ -37,6 +37,7 @@ public class GameController : MonoBehaviour {
     //about Sushi
     private int SushinameCount = 0;
     public GameObject MaguroSushi;
+    public GameObject TakoSushi;
     public GameObject SaraNormal;
     private Vector3 SaraNormalPosition=new Vector3(8.0f,-4.0f,9.0f);  
     //about Sushi
@@ -155,12 +156,12 @@ public class GameController : MonoBehaviour {
             Invoke("create_fish", CreateSpeed);
         }else if (ProbabilityFish < 0.8f)
         {
-            Instantiate(Maguro, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
+            Instantiate(Tako, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
             Invoke("create_fish", CreateSpeed);
         }
         else
         {
-            Instantiate(Maguro, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
+            Instantiate(Tako, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
             Invoke("create_fish", CreateSpeed);
         }                        
         //fisu type choose (uncompleter)
@@ -320,6 +321,19 @@ public class GameController : MonoBehaviour {
         Sushi.name = "Sushi" + SushinameCount;
         SushinameCount++;
         SushiList.Add(1);         //add maguro(code 1)to sushi list
+    }
+
+    /// <summary>
+    /// add Tako sushi to list (outside used)
+    /// </summary>
+    /// <param name="position"></param>
+    void create_takosushi(Vector2 position)
+    {
+        Vector3 SushiPosition = new Vector3(position.x, position.y, 8);
+        Sushi = Instantiate(TakoSushi, SushiPosition, Quaternion.identity);
+        Sushi.name = "Sushi" + SushinameCount;
+        SushinameCount++;
+        SushiList.Add(1);         //add tako(code 1)to sushi list
     }
 
     /// <summary>

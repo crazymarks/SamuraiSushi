@@ -90,6 +90,10 @@
     <Compile Include="Assets\Script\Fish\Maguro\MaguroNiku.cs" />
     <Compile Include="Assets\Script\Fish\Maguro\Right.cs" />
     <Compile Include="Assets\Script\Fish\Maguro\Up.cs" />
+    <Compile Include="Assets\Script\Fish\Tako\Tako.cs" />
+    <Compile Include="Assets\Script\Fish\Tako\TakoFailFoot.cs" />
+    <Compile Include="Assets\Script\Fish\Tako\TakoNiku.cs" />
+    <Compile Include="Assets\Script\Fish\Tako\TakoSumi.cs" />
     <Compile Include="Assets\Script\Fish\common\FishBase.cs" />
     <Compile Include="Assets\Script\GameController.cs" />
     <Compile Include="Assets\Script\Katana\Katana.cs" />
