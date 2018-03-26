@@ -21,8 +21,17 @@ public class Maguro :FishBase {
     private float TableY = -3.5f;  //the height of table
     //cut check and sushi
 
-	// Update is called once per frame
-	void FixedUpdate () {
+    //about controller
+    GameObject GameController;
+
+    protected override void Start()
+    {
+        base.Start();
+        GameController = GameObject.Find("GameController");
+    }
+
+    // Update is called once per frame
+    void FixedUpdate () {
         if (CutTimes >= 2)                      //up to 2 side be touched
         {
             CutPos = this.transform.position;             //get rice and sushi niku location
@@ -35,7 +44,8 @@ public class Maguro :FishBase {
                 //add rice apper animation (uncompeleted)
                 //add rice apper animation (uncompeleted)
 
-                // add related to popular and point(uncompeleted)
+                // add related to popular and point
+                GameController.SendMessage("popular_fish_cut","success");
                 // add related to popular and point
             }
             else                                               //fail to cut fish                 
@@ -43,12 +53,14 @@ public class Maguro :FishBase {
                 Instantiate(MaguroFailedHead, CutPos, Quaternion.identity);
                 Instantiate(MaguroFailedTail, CutPos, Quaternion.identity);
                 //add related to popular and point (uncompeleted)
+                GameController.SendMessage("popular_fish_cut", "fail");
                 //add related to popular and point (uncompeleted)
             }
             Destroy(gameObject);
         }
         if (this.transform.position.y < -4)   // exit screen delete    y can be changed
         {
+            GameController.SendMessage("popular_fish_cut", "fail");
             Destroy(gameObject);
         }
     }

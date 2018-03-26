@@ -10,9 +10,6 @@ public abstract class FishBase : MonoBehaviour {
     protected float ForceX;
     //create and move
 
-    //about controller
-    GameObject GameController;
-
     // Use this for initialization
     protected virtual void Start ()
     {
@@ -20,7 +17,6 @@ public abstract class FishBase : MonoBehaviour {
         Rigidbody = GetComponent<Rigidbody2D>();
         Rigidbody.AddForce(Force, ForceMode2D.Impulse);
 
-        GameController = GameObject.Find("GameController");
 	}
 
     //a function to get random force

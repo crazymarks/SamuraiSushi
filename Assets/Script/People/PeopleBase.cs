@@ -188,6 +188,11 @@ public abstract class PeopleBase : MonoBehaviour {
         Destroy(gameObject);
     }
 
+    protected virtual void get_out()
+    {
+        GameController.SendMessage("people_get_out", this.name);
+        Destroy(gameObject);
+    }
     protected virtual void killed_by_poison()
     {
         //play animation
@@ -212,7 +217,7 @@ public abstract class PeopleBase : MonoBehaviour {
     {
         if (other.name == "OutZone")
         {
-            be_killed();
+            get_out();
         }
     }
 

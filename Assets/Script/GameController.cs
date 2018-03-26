@@ -16,7 +16,6 @@ public class GameController : MonoBehaviour {
     public GameObject Man;           //一般人型 
 
     private GameObject People;          //the name of every human to manage them
-    private int CreateDirection = 0;    //0=up 1=left 2=right
     private int PeopleCount = 0;        //give every people a number to make a list
 
     private float PeopleCreateSpeed; //the speed of people-creating
@@ -51,7 +50,7 @@ public class GameController : MonoBehaviour {
         //price
     private int NormalPrice = 100;
     private int GoldPrice = 200;
-    private int PisionPrice = 100;
+    private int PoisonPrice = 100;
         //price
     private List<int> SushiList = new List<int>(); //know the types of sushi
     /*    1 ====================Maguro-normalprice
@@ -72,6 +71,14 @@ public class GameController : MonoBehaviour {
     public GameObject YouDied;
     //about ninja and damage
 
+    //about popular point
+    private float PopularPoint = 100;
+    private float SuccessPopular = 10;    //each success increase point
+    private int Combo = 0;
+    private int PopularState2 = 300;   
+    private int PopularState3 = 600;
+    private bool GameOverFlag = false;
+   //about popular point
 
 //------------------------------fuction--------------------------------------------------------------------
 
@@ -83,12 +90,19 @@ public class GameController : MonoBehaviour {
         create_fish();
         CheckLoop();
         Invoke("create_ninjafly", 5.0f);
-	}
+        popular_decrease_with_time();
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
+        Debug.Log(PopularPoint);
         customers_list_check();
+        if (PopularPoint <= 0&&GameOverFlag==false)
+        {
+            you_died();
+            GameOverFlag = true;
+        }
     }
     /// <summary>
     ///  ever CHeckTime check eat sushi one time
@@ -103,11 +117,25 @@ public class GameController : MonoBehaviour {
     }
 
     /// <summary>
-    /// change state with different popular value
+    /// each second popular decrease by 1
     /// </summary>
-    void popular_check()
+    void popular_decrease_with_time()
     {
+        PopularPoint = PopularPoint - 1;
+        Invoke("popular_decrease_with_time", 1f);
+    }
 
+    void popular_fish_cut(string result)
+    {
+        if(result == "success")
+        {
+            PopularPoint = PopularPoint + (SuccessPopular + Combo * 0.2f * SuccessPopular);   //increase popular
+            Combo = Combo + 1;
+        }
+        else
+        {
+            Combo = 0;
+        }
     }
 
     /// <summary>
@@ -141,7 +169,7 @@ public class GameController : MonoBehaviour {
     /// <summary>
     ///  create people(amount/type/point/etc.)
     /// </summary>
-    void create_people()
+    void create_people()                                                //0=up 1=left 2=right
     {
         //addpeople choose(uncomplete)
         //addpeople choose(uncomplete)
@@ -229,12 +257,20 @@ public class GameController : MonoBehaviour {
             PofCustomers = 0.8f;
         }
     }
-
+    /// <summary>
+    /// people leave outzone
+    /// </summary>
+    /// <param name="name"></param>
+    void people_get_out(string name)
+    {
+        CustomerList.Remove(name);
+        customers_manage(1);
+    }
 
     void kill_people(string name)
     {
         PeopleKilling = PeopleKilling + 1;
-
+        PopularPoint = PopularPoint - 50;
         CustomerList.Remove(name);
         customers_manage(1);    //only change number
        // PeoplekillText.text = ("殺人数" + PeopleKilling.ToString());

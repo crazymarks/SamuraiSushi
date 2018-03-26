@@ -8,7 +8,6 @@ public class MaguroNiku : MonoBehaviour {
     private Vector2 Force = new Vector2(0, 6);
 
     private GameObject SushiNew;
-    private int NumSushi = 0;
     private Vector2 SushiPosition = new Vector2(0, 0);
 
     //about controller
