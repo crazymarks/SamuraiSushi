@@ -81,24 +81,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\NinjaFlyAttack.cs" />
-    <Compile Include="Assets\Script\Fish\Maguro\Down.cs" />
-    <Compile Include="Assets\Script\Fish\Maguro\Left.cs" />
+    <Compile Include="Assets\Script\Fish\Fugu\Fugu.cs" />
+    <Compile Include="Assets\Script\Fish\Fugu\FuguNikuGolden.cs" />
+    <Compile Include="Assets\Script\Fish\Fugu\FuguNikuPoison.cs" />
     <Compile Include="Assets\Script\Fish\Maguro\Maguro.cs" />
     <Compile Include="Assets\Script\Fish\Maguro\MaguroFailedHead.cs" />
     <Compile Include="Assets\Script\Fish\Maguro\MaguroFailedTail.cs" />
     <Compile Include="Assets\Script\Fish\Maguro\MaguroNiku.cs" />
-    <Compile Include="Assets\Script\Fish\Maguro\Right.cs" />
-    <Compile Include="Assets\Script\Fish\Maguro\Up.cs" />
     <Compile Include="Assets\Script\Fish\Tako\Tako.cs" />
     <Compile Include="Assets\Script\Fish\Tako\TakoFailFoot.cs" />
     <Compile Include="Assets\Script\Fish\Tako\TakoNiku.cs" />
     <Compile Include="Assets\Script\Fish\Tako\TakoSumi.cs" />
+    <Compile Include="Assets\Script\Fish\common\Down.cs" />
     <Compile Include="Assets\Script\Fish\common\FishBase.cs" />
+    <Compile Include="Assets\Script\Fish\common\Left.cs" />
+    <Compile Include="Assets\Script\Fish\common\Right.cs" />
+    <Compile Include="Assets\Script\Fish\common\Up.cs" />
     <Compile Include="Assets\Script\GameController.cs" />
     <Compile Include="Assets\Script\Katana\Katana.cs" />
     <Compile Include="Assets\Script\Katana\KatanaMouse.cs" />
     <Compile Include="Assets\Script\Ninja\NinjaFly.cs" />
+    <Compile Include="Assets\Script\Ninja\NinjaFlyAttack.cs" />
     <Compile Include="Assets\Script\Ninja\YouDied.cs" />
     <Compile Include="Assets\Script\People\Man.cs" />
     <Compile Include="Assets\Script\People\PeopleBase.cs" />

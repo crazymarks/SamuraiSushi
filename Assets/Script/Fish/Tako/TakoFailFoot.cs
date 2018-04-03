@@ -9,7 +9,6 @@ public class TakoFailFoot : MonoBehaviour {
         if(this.transform.transform.position.y<-4) //exit screen
         {
             Destroy(gameObject);
-        }
-		
+        }		
 	}
 }

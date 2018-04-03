@@ -38,6 +38,8 @@ public class GameController : MonoBehaviour {
     private int SushinameCount = 0;
     public GameObject MaguroSushi;
     public GameObject TakoSushi;
+    public GameObject FuguSushiGolden;
+    public GameObject FuguSushiPoison;
     public GameObject SaraNormal;
     private Vector3 SaraNormalPosition=new Vector3(8.0f,-4.0f,9.0f);  
     //about Sushi
@@ -75,6 +77,7 @@ public class GameController : MonoBehaviour {
     //about popular point
     private float PopularPoint = 100;
     private float SuccessPopular = 10;    //each success increase point
+    private float KillPopular = 30;      //kill a people -50 popular point
     private int Combo = 0;
     private int PopularState2 = 300;   
     private int PopularState3 = 600;
@@ -152,16 +155,16 @@ public class GameController : MonoBehaviour {
         ProbabilityFish = Random.Range(0.0f, 1.0f);
         if(ProbabilityFish>=0f && ProbabilityFish < 0.6f)
         {
-            Instantiate(Maguro, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
+            Instantiate(Fugu, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
             Invoke("create_fish", CreateSpeed);
-        }else if (ProbabilityFish < 0.8f)
+        }else if (ProbabilityFish < 0.9f)
         {
-            Instantiate(Tako, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
+            Instantiate(Fugu, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
             Invoke("create_fish", CreateSpeed);
         }
         else
         {
-            Instantiate(Tako, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
+            Instantiate(Fugu, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
             Invoke("create_fish", CreateSpeed);
         }                        
         //fisu type choose (uncompleter)
@@ -181,7 +184,7 @@ public class GameController : MonoBehaviour {
         {
             float x = Random.Range(MiddleZone.transform.position.x - TopCreateVar, 
                 MiddleZone.transform.position.x + TopCreateVar);
-            PeopleCreatePoint = new Vector2(x, MaxY);
+            PeopleCreatePoint = new Vector2(x, 2.5f);
             People = Instantiate(Man, PeopleCreatePoint, Quaternion.identity);
             float j = Random.Range(0.0f, 1.0f); //compare to p of being a customer
             bool BeCustomer = false;
@@ -271,7 +274,7 @@ public class GameController : MonoBehaviour {
     void kill_people(string name)
     {
         PeopleKilling = PeopleKilling + 1;
-        PopularPoint = PopularPoint - 50;
+        PopularPoint = PopularPoint - KillPopular;     //each people -30 popularpoint
         CustomerList.Remove(name);
         customers_manage(1);    //only change number
        // PeoplekillText.text = ("殺人数" + PeopleKilling.ToString());
@@ -309,7 +312,7 @@ public class GameController : MonoBehaviour {
             }
         }
     }
-
+//------------------------------create sushi-------------------------------------------
     /// <summary>
     /// add Maguro sushi to list (outside used)
     /// </summary>
@@ -335,7 +338,31 @@ public class GameController : MonoBehaviour {
         SushinameCount++;
         SushiList.Add(1);         //add tako(code 1)to sushi list
     }
-
+    /// <summary>
+    /// add fugu sushi golden to list (outside used)
+    /// </summary>
+    /// <param name="position"></param>
+    void create_fugusushigolden(Vector2 position)
+    {
+        Vector3 SushiPosition = new Vector3(position.x, position.y, 8);
+        Sushi = Instantiate(FuguSushiGolden, SushiPosition, Quaternion.identity);
+        Sushi.name = "Sushi" + SushinameCount;
+        SushinameCount++;
+        SushiList.Add(2);         //add fugu golden(code 2)to sushi list
+    }
+    /// <summary>
+    /// add fugu sushi poison to list (outside used)
+    /// </summary>
+    /// <param name="position"></param>
+    void create_fugusushipoison(Vector2 position)
+    {
+        Vector3 SushiPosition = new Vector3(position.x, position.y, 8);
+        Sushi = Instantiate(FuguSushiPoison, SushiPosition, Quaternion.identity);
+        Sushi.name = "Sushi" + SushinameCount;
+        SushinameCount++;
+        SushiList.Add(3);         //add fugu poison(code 3)to sushi list
+    }
+    //------------------------------create sushi-------------------------------------------
     /// <summary>
     /// people eat sushi and get point 
     /// </summary>

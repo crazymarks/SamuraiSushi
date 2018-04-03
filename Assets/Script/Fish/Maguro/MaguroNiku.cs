@@ -23,7 +23,7 @@ public class MaguroNiku : MonoBehaviour {
 	
 	// Update is called once per frame
 	void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.name == "Rice(Clone)")
+        if (collision.tag == "Rice")
         {
             //delete niku and rice  create sushi 
             //send message to game control

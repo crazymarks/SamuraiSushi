@@ -197,6 +197,7 @@ public abstract class PeopleBase : MonoBehaviour {
     {
         //play animation
         //play animation
+        GameController.SendMessage("kill_people", this.name);
         Destroy(gameObject);
     }
 

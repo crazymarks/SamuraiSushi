@@ -15,10 +15,15 @@ public class TakoSumi : MonoBehaviour {
 
     void get_transparency()
     {
+        count++;
+        if (count > 50)
+        {
             SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, Transparency);
-            Transparency -= 0.0025f;
-            Invoke("get_transparency", 0.05f);
-        if (Transparency <= 0.5f)
+            Transparency -= 0.02f;
+        }
+        
+        Invoke("get_transparency", 0.05f);
+        if (Transparency <= 0f)
         {
             Destroy(gameObject);
         }
