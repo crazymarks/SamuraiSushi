@@ -41,11 +41,12 @@ public class GameController : MonoBehaviour {
     public GameObject FuguSushiGolden;
     public GameObject FuguSushiPoison;
     public GameObject SaraNormal;
-    private Vector3 SaraNormalPosition=new Vector3(8.0f,-4.0f,9.0f);  
+    private Vector3 SaraNormalPosition=new Vector3(8.0f,-4.0f,9.0f);
     //about Sushi
 
 
     //about point and eating sushi
+    public Text PopularPointText;
     public Text MoneyText;
     public Text PeoplekillText; 
     private int Money = 0;            //dont forget to intialize it! 
@@ -68,6 +69,7 @@ public class GameController : MonoBehaviour {
     //about point and eating sushi
 
     //about ninja and damage
+    public Text LifeText;
     private int Life = 3;
     public GameObject NinjaFly;
     private float NinjaFlyCreateTime=0.0f;
@@ -100,7 +102,7 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log(PopularPoint);
+        PopularPointText.text = ("人気：" + PopularPoint.ToString());
         customers_list_check();
         if (PopularPoint <= 0&&GameOverFlag==false)
         {
@@ -155,11 +157,11 @@ public class GameController : MonoBehaviour {
         ProbabilityFish = Random.Range(0.0f, 1.0f);
         if(ProbabilityFish>=0f && ProbabilityFish < 0.6f)
         {
-            Instantiate(Fugu, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
+            Instantiate(Maguro, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
             Invoke("create_fish", CreateSpeed);
         }else if (ProbabilityFish < 0.9f)
         {
-            Instantiate(Fugu, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
+            Instantiate(Tako, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
             Invoke("create_fish", CreateSpeed);
         }
         else
@@ -277,7 +279,7 @@ public class GameController : MonoBehaviour {
         PopularPoint = PopularPoint - KillPopular;     //each people -30 popularpoint
         CustomerList.Remove(name);
         customers_manage(1);    //only change number
-       // PeoplekillText.text = ("殺人数" + PeopleKilling.ToString());
+        PeoplekillText.text = ("殺人数:" + PeopleKilling.ToString());
     }
     /// <summary>
     /// check after (eating sushi)(int i=0)/(kill people)(int i=1)
@@ -387,7 +389,7 @@ public class GameController : MonoBehaviour {
                     Money = Money + NormalPrice;
                     break;
             }
-            //MoneyText.text = Money.ToString();
+            MoneyText.text = ("金：" + Money.ToString());
 
             SushiList.RemoveAt(0);
 
@@ -419,6 +421,7 @@ public class GameController : MonoBehaviour {
     void get_hurt()
     {
         Life--;
+        LifeText.text = (("命：" + Life.ToString()));
         if (Life == 0)
         {
             Invoke("you_died", 1.0f);
@@ -440,4 +443,9 @@ public class GameController : MonoBehaviour {
     }
 
     //-------------------------------------Ninja-----------------------------------------------
+   public void reset_scene()
+    {
+        Application.LoadLevelAsync(0);
+    }
+
 }
