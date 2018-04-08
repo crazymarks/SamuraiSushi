@@ -91,6 +91,7 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Time.timeScale = 1;                   //when game start  recovery　the time scale
         Life = 3;
         create_people();
         create_fish();
