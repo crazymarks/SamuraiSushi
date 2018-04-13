@@ -77,12 +77,12 @@ public class GameController : MonoBehaviour {
     //about ninja and damage
 
     //about popular point
-    private float PopularPoint = 100;
-    private float SuccessPopular = 10;    //each success increase point
-    private float KillPopular = 30;      //kill a people -50 popular point
+    public float PopularPoint = 100;　　　//the popularpoint at game start
+    public float SuccessPopular = 10;    //each success increase point
+    public float KillPopular = 30;      //kill a people -50 popular point
     private int Combo = 0;
-    private int PopularState2 = 300;   
-    private int PopularState3 = 600;
+    public int PopularState2 = 300;     //段階２
+    public int PopularState3 = 600;     //段階３
     private bool GameOverFlag = false;
    //about popular point
 
