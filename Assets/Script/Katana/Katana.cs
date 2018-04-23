@@ -10,16 +10,14 @@ public class Katana : MonoBehaviour {
     
     private EdgeCollider2D EdgeCollider;
 
-    //each points of line and collider
+    //Lineとcolliderの点
     private List<Vector2> Keypoint = new List<Vector2>();
     private List<Vector3> Keypoint3D = new List<Vector3>();
-    //each points of line and collider
 
-    private int PointCounter = 0;//Destory Controller
+    private int PointCounter = 0;
 
     private bool CheckExist = false;
 
-	// Use this for initialization
 	void Start () {
         Cut = new GameObject("Line");
         //define line renderer    
@@ -35,7 +33,6 @@ public class Katana : MonoBehaviour {
 
     }
 	
-	// Update is called once per frame
 	void FixedUpdate () {
 		if(Input.touchCount>0)
         {
