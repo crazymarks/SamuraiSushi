@@ -25,7 +25,7 @@ public class Katana : MonoBehaviour {
         LineRenderer.material = KatanaM;
         LineRenderer.startWidth = 0.15f;
         LineRenderer.endWidth = 0.08f;
-        LineRenderer.numPositions = 0;
+        LineRenderer.positionCount = 0;
         //define line renderer
 
         Rigidbody2D Rigidbody = Cut.AddComponent<Rigidbody2D>();
@@ -62,7 +62,7 @@ public class Katana : MonoBehaviour {
             //set edgecollider point
             EdgeCollider.points = Keypoint.ToArray();
             //set linerenderer point
-            LineRenderer.numPositions = Keypoint3D.Count;
+            LineRenderer.positionCount = Keypoint3D.Count;
             LineRenderer.SetPositions(Keypoint3D.ToArray());
         }
 
@@ -89,7 +89,7 @@ public class Katana : MonoBehaviour {
         if (Input.touchCount <= 0)   //when mouse isn't keeping down
         {
             //remove line
-            LineRenderer.numPositions = 0;
+            LineRenderer.positionCount = 0;
 
             //remove edge collision
             Destroy(EdgeCollider);
