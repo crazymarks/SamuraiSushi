@@ -107,6 +107,7 @@
     <Compile Include="Assets\Script\Ninja\NinjaFly.cs" />
     <Compile Include="Assets\Script\Ninja\NinjaFlyAttack.cs" />
     <Compile Include="Assets\Script\Ninja\YouDied.cs" />
+    <Compile Include="Assets\Script\NinjaCreate.cs" />
     <Compile Include="Assets\Script\People\Man.cs" />
     <Compile Include="Assets\Script\People\PeopleBase.cs" />
   </ItemGroup>

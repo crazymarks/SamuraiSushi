@@ -67,13 +67,11 @@ public class GameController : MonoBehaviour {
     private float CheckTime = 3.0f;
     //ポイントと寿司喰う相関（end）
 
-    //忍者とダメージ相関(start)
+    //ダメージ相関(start)
     public Text LifeText;
     private int Life = 3;
-    public GameObject NinjaFly;
-    private float NinjaFlyCreateTime=0.0f;
     public GameObject YouDied;
-    //忍者とダメージ相関(end)
+    //ダメージ相関(end)
 
     //人気値相関
     public float PopularPoint = 100;　　　//ゲーム開始の人気値
@@ -92,7 +90,6 @@ public class GameController : MonoBehaviour {
         create_people();
         create_fish();
         CheckLoop();
-        Invoke("create_ninjafly", 5.0f);
         popular_decrease_with_time();
     }
 	
@@ -432,16 +429,6 @@ public class GameController : MonoBehaviour {
     {
         Vector3 pos = new Vector3(0, 0, 1);
         Instantiate(YouDied, pos, Quaternion.identity);
-    }
-    /// <summary>
-    /// 飛び忍者を生成
-    /// </summary>
-    void create_ninjafly()　
-    {
-        Vector3 pos = new Vector3(Random.Range(-7f,7f),Random.Range(2.0f,3.0f),23);
-        Instantiate(NinjaFly, pos, Quaternion.identity);
-        NinjaFlyCreateTime = Random.Range(4.0f, 7.0f);
-        Invoke("create_ninjafly", NinjaFlyCreateTime);
     }
 
     //-------------------------------------Ninja-----------------------------------------------
