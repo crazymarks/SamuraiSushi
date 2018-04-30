@@ -6,9 +6,7 @@ using UnityEngine;
 /// </summary>
 public abstract class PeopleBase : MonoBehaviour {
     protected int EnterDirection = 0;    // 0上から 1=左から 2=右から
-    public float MaxY = 5f;        // 画面の最大y値　生成用
-    public float MaxX = 12f;       //画面の最大x値
-    public float TopCreateVar = 4f; // 上から生成する範囲を指定する　
+
     protected float Speed = 0f;
     public float MaxSpeed = 10f;
     public float MinSpeed = 8f;
@@ -19,6 +17,7 @@ public abstract class PeopleBase : MonoBehaviour {
     protected float MiddleZoneY;
     protected float MiddleZoneWidth;
     protected float MiddleZoneHeight;
+    protected float MiddleZoneOffsetY;
 
     protected bool IsCustomer = false;      //お客さんかどうかを記録
     protected int CustomerNumber = -1;       //お客さんの数
@@ -35,6 +34,7 @@ public abstract class PeopleBase : MonoBehaviour {
 
         MiddleZoneWidth = MiddleZone.GetComponent<BoxCollider2D>().size.x;
         MiddleZoneHeight = MiddleZone.GetComponent<BoxCollider2D>().size.y;
+        MiddleZoneOffsetY = MiddleZone.GetComponent<BoxCollider2D>().offset.y;
         
         Vector3 Pos = MiddleZone.transform.position;
         MiddleZoneX = Pos.x;
@@ -57,7 +57,7 @@ public abstract class PeopleBase : MonoBehaviour {
         float y = 0f;
         x = Random.Range(MiddleZoneX - (MiddleZoneWidth /2),
             MiddleZoneX+(MiddleZoneWidth/2));           
-        y = MiddleZoneY + MiddleZoneHeight / 2;
+        y = MiddleZoneY + MiddleZoneHeight / 2 + MiddleZoneOffsetY;
         RandomPoint = new Vector2(x, y);
         EnterDirection = 0; //上から
         IsCustomer = BeCustomer;   // お客さんです！
@@ -69,8 +69,8 @@ public abstract class PeopleBase : MonoBehaviour {
         float x = 0f;
         float y = 0f;
         x = MiddleZoneX - MiddleZoneWidth / 2;
-        y = Random.Range(MiddleZoneY - MiddleZoneHeight / 2,
-            MiddleZoneX + MiddleZoneHeight / 2);           
+        y = Random.Range(MiddleZoneY - MiddleZoneHeight / 2 + MiddleZoneOffsetY,
+            MiddleZoneX + MiddleZoneHeight / 2 + MiddleZoneOffsetY);           
         RandomPoint = new Vector2(x, y);
         EnterDirection = 1; //左から
         IsCustomer = BeCustomer;   // お客さんです！
@@ -82,8 +82,8 @@ public abstract class PeopleBase : MonoBehaviour {
         float x = 0f;
         float y = 0f;
         x = MiddleZoneX + MiddleZoneWidth / 2;
-        y = Random.Range(MiddleZoneY - MiddleZoneHeight / 2,
-            MiddleZoneX + MiddleZoneHeight / 2);
+        y = Random.Range(MiddleZoneY - MiddleZoneHeight / 2 + MiddleZoneOffsetY,
+            MiddleZoneX + MiddleZoneHeight / 2 + MiddleZoneOffsetY);
         RandomPoint = new Vector2(x, y);
         EnterDirection = 2; //右から
         IsCustomer = BeCustomer;   //  お客さんです！
@@ -95,27 +95,27 @@ public abstract class PeopleBase : MonoBehaviour {
     {
         float x = 0f;
         float y = 0f;
-        x = Random.Range(MiddleZoneX - TopCreateVar,
-            MiddleZoneX + TopCreateVar);
-        y = MaxY;
+        x = Random.Range(MiddleZoneX - PeopleCreate.TopCreateVar,
+            MiddleZoneX + PeopleCreate.TopCreateVar);
+        y = PeopleCreate.MaxY;
         RandomPoint = new Vector2(x, y);
     }
     protected virtual void exit_to_left()
     {
         float x = 0f;
         float y = 0f;
-        x = -MaxX;
-        y = Random.Range(MiddleZoneY - MiddleZoneHeight / 2,
-            MiddleZoneX + MiddleZoneHeight / 2);
+        x = -(PeopleCreate.MaxX);
+        y = Random.Range(MiddleZoneY - MiddleZoneHeight / 2+MiddleZoneOffsetY,
+            MiddleZoneX + MiddleZoneHeight / 2 +MiddleZoneOffsetY);
         RandomPoint = new Vector2(x, y);
     }
     protected virtual void exit_to_right()
     {
         float x = 0f;
         float y = 0f;
-        x = MaxX;
-        y = Random.Range(MiddleZoneY - MiddleZoneHeight / 2,
-            MiddleZoneX + MiddleZoneHeight / 2);
+        x = PeopleCreate.MaxX;
+        y = Random.Range(MiddleZoneY - MiddleZoneHeight / 2 + MiddleZoneOffsetY,
+            MiddleZoneX + MiddleZoneHeight / 2 + MiddleZoneOffsetY);
         RandomPoint = new Vector2(x, y);
     }
     //-------------------------------画面外に移動----------------------------------------------

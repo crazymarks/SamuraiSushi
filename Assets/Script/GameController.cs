@@ -4,26 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
-    //生成位置相関
-    private Vector2 PeopleCreatePoint;
-    public float MaxY = 5f;        //スクリーンの最大Y値　人の生成で使う
-    public float MaxX = 12f;       //スクリーンの最大x値　人の生成で使う
-    public float TopCreateVar = 4f; //上の生成区の範囲指定用
-    public GameObject MiddleZone;
-    //生成位置相関
-
-    //町人相関
-    public GameObject Man;           //一般人型 
-
-    private GameObject People;          //生成する町人を管理するため
-    private int PeopleCount = 0;        //生成する町人の数、名前につける
-
-    private float PeopleCreateSpeed; //町人生成のスピード
-    private int PeopleKilling;       //殺した町人の数
-
-    private List<string> CustomerList = new List<string>();
-    private float PofCustomers = 0.8f;  //町人がお客さんになる確率
-    //町人相関
 
     //魚相関
     public GameObject Maguro;        //リスト中のコードは　1
@@ -47,10 +27,15 @@ public class GameController : MonoBehaviour {
     //ポイントと寿司喰う相関（start）
     public Text PopularPointText;
     public Text MoneyText;
+
+    static public List<string> CustomerList = new List<string>();//行列リスト
+    static public float PofCustomers = 0.8f;  //町人がお客さんになる確率
+
+    private int PeopleKilling;       //殺した町人の数
     public Text PeoplekillText; 
     private int Money = 0;            //この 変数　を　初期化を忘れないで！！！！！
     private bool CustomerFlag = true;   //trueの場合は次のお客さんが寿司を食べる　食べた後、一定時間内falseにする
-                                        //価格
+        //価格
     private int NormalPrice = 100;
     private int GoldPrice = 200;
     private int PoisonPrice = 100;
@@ -87,10 +72,10 @@ public class GameController : MonoBehaviour {
 	void Start () {
         Time.timeScale = 1;                   //ゲーム開始の時　timescaleを１に戻る（時間の流れを戻す）
         Life = 3;
-        create_people();
         create_fish();
         CheckLoop();
         popular_decrease_with_time();
+        Money = 0;
     }
 	
 	void Update ()
@@ -166,82 +151,6 @@ public class GameController : MonoBehaviour {
         //（未完成）魚種類の選択
     }
 
-    /// <summary>
-    /// 町人の生成(amount/type/point/etc.)
-    /// </summary>
-    void create_people()                                                //0=上から 　1=左から　 2=右から
-    {
-        //（未完成）町人選択の追加
-        //（未完成）町人選択の追加
-
-
-        int i = Random.Range(0, 3);
-        if (i == 0)      //上から　町人を生成
-        {
-            float x = Random.Range(MiddleZone.transform.position.x - TopCreateVar, 
-                MiddleZone.transform.position.x + TopCreateVar);
-            PeopleCreatePoint = new Vector2(x, 2.5f);
-            People = Instantiate(Man, PeopleCreatePoint, Quaternion.identity);
-            float j = Random.Range(0.0f, 1.0f); //お客さんになる確率と比べて、小さいだったら、お客さんになる
-            bool BeCustomer = false;
-            if (j < PofCustomers)               //お客さんになる
-            {
-                BeCustomer = true;
-                customers_listadd("People" + PeopleCount);   //この町人のnameをリストに追加
-            } 
-                People.SendMessage("enter_from_up",BeCustomer);
-            People.name = "People" + PeopleCount;
-            PeopleCount++;            
-        }
-        else if (i == 1)   //左から生成
-        {
-            float y = Random.Range(MiddleZone.transform.position.y-MiddleZone.GetComponent<BoxCollider2D>().size.y/2,
-                MiddleZone.transform.position.y+ MiddleZone.GetComponent<BoxCollider2D>().size.y / 2);
-            PeopleCreatePoint = new Vector2(-MaxX, y);
-            People = Instantiate(Man, PeopleCreatePoint, Quaternion.identity);
-            float j = Random.Range(0.0f, 1.0f); //お客さんになる確率と比べて、小さいだったら、お客さんになる
-            bool BeCustomer = false;
-            if (j < PofCustomers)               //お客さんになる
-            {
-                BeCustomer = true;
-                customers_listadd("People" + PeopleCount);    //この町人のnameをリストに追加
-            }
-            People.SendMessage("enter_from_left",BeCustomer);
-            People.name = "People" + PeopleCount;
-            PeopleCount++;
-        }
-        else if(i == 2)  //右から生成
-        {
-            float y = Random.Range(MiddleZone.transform.position.y - MiddleZone.GetComponent<BoxCollider2D>().size.y / 2,
-                MiddleZone.transform.position.y + MiddleZone.GetComponent<BoxCollider2D>().size.y / 2);
-            PeopleCreatePoint = new Vector2(MaxX, y);
-            People = Instantiate(Man, PeopleCreatePoint, Quaternion.identity);
-            float j = Random.Range(0.0f, 1.0f);//お客さんになる確率と比べて、小さいだったら、お客さんになる
-            bool BeCustomer = false;
-            if (j < PofCustomers)                //お客さんになる
-            {
-                BeCustomer = true;
-                customers_listadd("People" + PeopleCount);   //この町人のnameをリストに追加
-            }
-                People.SendMessage("enter_from_right",BeCustomer);
-            People.name = "People" + PeopleCount;
-            PeopleCount++;
-        }
-
-        PeopleCreateSpeed = 10000000F;//Random.Range(0.3f, 2f);       //生成スピードをランダムにする
-        Invoke("create_people", PeopleCreateSpeed);
-    }
-
-    /// <summary>
-    /// 待っているお客さんのリストを管理する
-    /// </summary>
-    /// <param name="ObjectName"></param>
-    void customers_listadd(string ObjectName)
-    {
-        CustomerList.Add(ObjectName);
-        People.SendMessage("customers_check2", (CustomerList.Count - 1));
-
-    }
     /// <summary>
     ///お客さんの数をチェック
     /// 最大値が人気値につれて変化する

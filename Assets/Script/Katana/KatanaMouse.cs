@@ -57,7 +57,7 @@ public class KatanaMouse : MonoBehaviour
 
                 Keypoint3D.Add(MousePositionReal);
 
-                Vector2 MousePosition2D = new Vector2(Camera.main.ScreenToWorldPoint(MousePosition).x, Camera.main.ScreenToWorldPoint(MousePosition).y);
+                Vector2 MousePosition2D = new Vector2(Camera.main.ScreenToWorldPoint(MousePosition).x-30, Camera.main.ScreenToWorldPoint(MousePosition).y-30);
 
                 Keypoint.Add(MousePosition2D);
             }
