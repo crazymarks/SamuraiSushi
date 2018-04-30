@@ -228,7 +228,7 @@ public class GameController : MonoBehaviour {
             PeopleCount++;
         }
 
-        PeopleCreateSpeed = Random.Range(0.3f, 2f);       //生成スピードをランダムにする
+        PeopleCreateSpeed = 10000000F;//Random.Range(0.3f, 2f);       //生成スピードをランダムにする
         Invoke("create_people", PeopleCreateSpeed);
     }
 

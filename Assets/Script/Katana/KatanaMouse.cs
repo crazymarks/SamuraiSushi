@@ -26,15 +26,15 @@ public class KatanaMouse : MonoBehaviour
         //define line renderer    
         LineRenderer = Cut.AddComponent<LineRenderer>();
         LineRenderer.material = KatanaM;
-        LineRenderer.startWidth = 0.15f;
-        LineRenderer.endWidth = 0.08f;
+        LineRenderer.startWidth = 0.3f;
+        LineRenderer.endWidth = 0.13f;
         LineRenderer.positionCount = 0;
         //define line renderer
 
         Rigidbody2D Rigidbody = Cut.AddComponent<Rigidbody2D>();
         Rigidbody.gravityScale = 0;
 
-        Cut.transform.position = new Vector3(30,30,30);
+        Cut.transform.position = new Vector3(30,30,3);
     }
 
     // Update is called once per frame
@@ -57,7 +57,7 @@ public class KatanaMouse : MonoBehaviour
 
                 Keypoint3D.Add(MousePositionReal);
 
-                Vector2 MousePosition2D = new Vector2(Camera.main.ScreenToWorldPoint(MousePosition).x-30, Camera.main.ScreenToWorldPoint(MousePosition).y-30);
+                Vector2 MousePosition2D = new Vector2(Camera.main.ScreenToWorldPoint(MousePosition).x, Camera.main.ScreenToWorldPoint(MousePosition).y);
 
                 Keypoint.Add(MousePosition2D);
             }

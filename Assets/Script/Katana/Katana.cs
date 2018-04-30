@@ -23,14 +23,14 @@ public class Katana : MonoBehaviour {
         //define line renderer    
         LineRenderer = Cut.AddComponent<LineRenderer>();
         LineRenderer.material = KatanaM;
-        LineRenderer.startWidth = 0.15f;
-        LineRenderer.endWidth = 0.08f;
+        LineRenderer.startWidth = 0.3f;
+        LineRenderer.endWidth = 0.13f;
         LineRenderer.positionCount = 0;
         //define line renderer
 
         Rigidbody2D Rigidbody = Cut.AddComponent<Rigidbody2D>();
         Rigidbody.gravityScale = 0;
-
+        Cut.transform.position = new Vector3(30, 30, 3);
     }
 	
 	void FixedUpdate () {
@@ -50,7 +50,7 @@ public class Katana : MonoBehaviour {
 
                 Keypoint3D.Add(TouchPositionReal);
 
-                Vector2 TouchPosition2D= new Vector2(Camera.main.ScreenToWorldPoint(TouchPosition).x, Camera.main.ScreenToWorldPoint(TouchPosition).y);
+                Vector2 TouchPosition2D= new Vector2(Camera.main.ScreenToWorldPoint(TouchPosition).x-30, Camera.main.ScreenToWorldPoint(TouchPosition).y-30);
 
                 Keypoint.Add(TouchPosition2D);
             }
