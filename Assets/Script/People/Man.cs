@@ -6,7 +6,7 @@ public class Man : PeopleBase {
     void after_eatsushi(int x)
     {
         IsCustomer = false;
-        if (x == 3)
+        if (x == 3)　　//毒寿司なら死ぬ
         {
             killed_by_poison();
         }else

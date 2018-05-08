@@ -5,14 +5,12 @@ using UnityEngine;
 public class YouDied : MonoBehaviour {
     private SpriteRenderer SR;
     private float Transparency=0.0f;
-	// Use this for initialization
 	void Start () {
         SR = GetComponent<SpriteRenderer>();
         SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, 0.0f);
         get_transparency();
 	}
-	
-	// Update is called once per frame
+	//「you　die」がだんだん透明化して、最後ゲームが止まる
 	void get_transparency() {
         if(Transparency<=2.0f)
         {
@@ -22,7 +20,7 @@ public class YouDied : MonoBehaviour {
         }
         else
         {
-            Time.timeScale = 0;
+            Time.timeScale = 0;  //ゲームを止める
         }
 	}
 }
