@@ -10,32 +10,34 @@ public class Katana : MonoBehaviour {
     
     private EdgeCollider2D EdgeCollider;
 
-    //each points of line and collider
+    //Lineとcolliderの点
     private List<Vector2> Keypoint = new List<Vector2>();
     private List<Vector3> Keypoint3D = new List<Vector3>();
-    //each points of line and collider
 
-    private int PointCounter = 0;//Destory Controller
+    private int PointCounter = 0;
 
     private bool CheckExist = false;
 
-	// Use this for initialization
 	void Start () {
         Cut = new GameObject("Line");
         //define line renderer    
         LineRenderer = Cut.AddComponent<LineRenderer>();
         LineRenderer.material = KatanaM;
+<<<<<<< HEAD
         LineRenderer.startWidth = 0.15f;
         LineRenderer.endWidth = 0.08f;
+=======
+        LineRenderer.startWidth = 0.3f;
+        LineRenderer.endWidth = 0.13f;
+>>>>>>> 267aceaa0723018b705f2ba29d7929d76a743eea
         LineRenderer.positionCount = 0;
         //define line renderer
 
         Rigidbody2D Rigidbody = Cut.AddComponent<Rigidbody2D>();
         Rigidbody.gravityScale = 0;
-
+        Cut.transform.position = new Vector3(30, 30, 3);
     }
 	
-	// Update is called once per frame
 	void FixedUpdate () {
 		if(Input.touchCount>0)
         {
@@ -53,7 +55,7 @@ public class Katana : MonoBehaviour {
 
                 Keypoint3D.Add(TouchPositionReal);
 
-                Vector2 TouchPosition2D= new Vector2(Camera.main.ScreenToWorldPoint(TouchPosition).x, Camera.main.ScreenToWorldPoint(TouchPosition).y);
+                Vector2 TouchPosition2D= new Vector2(Camera.main.ScreenToWorldPoint(TouchPosition).x-30, Camera.main.ScreenToWorldPoint(TouchPosition).y-30);
 
                 Keypoint.Add(TouchPosition2D);
             }

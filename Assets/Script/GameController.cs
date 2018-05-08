@@ -4,37 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
-    //people location
-    private Vector2 PeopleCreatePoint;
-    public float MaxY = 5f;        // screen`s max y  To define people`s create point 
-    public float MaxX = 12f;       //screen`s max x   
-    public float TopCreateVar = 4f; // define top create-zone
-    public GameObject MiddleZone;
-    //people location
 
-    //about people
-    public GameObject Man;           //一般人型 
-
-    private GameObject People;          //the name of every human to manage them
-    private int PeopleCount = 0;        //give every people a number to make a list
-
-    private float PeopleCreateSpeed; //the speed of people-creating
-    private int PeopleKilling;       //the amount of killed people
-
-    private List<string> CustomerList = new List<string>();
-    private float PofCustomers = 0.8f;  // the probability of be a customer  range from 0 to 1 
-    //about people
-
-    //about fish
-    public GameObject Maguro;        //list code 1
-    public GameObject Tako;          //list code 2
-    public GameObject Kani;          //list code 3
-    public GameObject Fugu;          //list code 4
+    //魚相関
+    public GameObject Maguro;        //リスト中のコードは　1
+    public GameObject Tako;          //リスト中のコードは　2
+    public GameObject Kani;          //リスト中のコードは　3  
+    public GameObject Fugu;          //リスト中のコードは　4
     public float CreateSpeed = 2.0f;
     public Vector3 FishPosition = new Vector3(0f, -3f, 6f);
-    //about fish
+    //魚相関
 
-    //about Sushi
+    //寿司相関
     private int SushinameCount = 0;
     public GameObject MaguroSushi;
     public GameObject TakoSushi;
@@ -42,65 +22,62 @@ public class GameController : MonoBehaviour {
     public GameObject FuguSushiPoison;
     public GameObject SaraNormal;
     private Vector3 SaraNormalPosition=new Vector3(8.0f,-4.0f,9.0f);
-    //about Sushi
+    //寿司相関
 
-
-    //about point and eating sushi
+    //ポイントと寿司喰う相関（start）
     public Text PopularPointText;
     public Text MoneyText;
+
+    static public List<string> CustomerList = new List<string>();//行列リスト
+    static public float PofCustomers = 0.8f;  //町人がお客さんになる確率
+
+    private int PeopleKilling;       //殺した町人の数
     public Text PeoplekillText; 
-    private int Money = 0;            //dont forget to intialize it! 
-    private bool CustomerFlag = true;   //used to invoke the time of people eat sushi
-        //price
+    private int Money = 0;            //この 変数　を　初期化を忘れないで！！！！！
+    private bool CustomerFlag = true;   //trueの場合は次のお客さんが寿司を食べる　食べた後、一定時間内falseにする
+        //価格
     private int NormalPrice = 100;
     private int GoldPrice = 200;
     private int PoisonPrice = 100;
-        //price
-    private List<int> SushiList = new List<int>(); //know the types of sushi
-    /*    1 ====================Maguro-normalprice
-          2 ====================Fugu--goldprice
-          3 ====================poison--normalprice                     */
+        //価格
+    private List<int> SushiList = new List<int>(); //寿司種類を表示
+    /*    1 ====================Maguro-普通価格
+          2 ====================Fugu--高い価格
+          3 ====================poison--普通価格 （毒）                */
     private GameObject Sushi;
     private GameObject SushiDelete;
     private int SushiDeleteCount = 0;
     private float CustomerWaitTime = 1.0f;
     private GameObject peopleEatingSushi;
     private float CheckTime = 3.0f;
-    //about point and eating sushi
+    //ポイントと寿司喰う相関（end）
 
-    //about ninja and damage
+    //ダメージ相関(start)
     public Text LifeText;
     private int Life = 3;
-    public GameObject NinjaFly;
-    private float NinjaFlyCreateTime=0.0f;
     public GameObject YouDied;
-    //about ninja and damage
+    //ダメージ相関(end)
 
-    //about popular point
-    public float PopularPoint = 100;　　　//the popularpoint at game start
-    public float SuccessPopular = 10;    //each success increase point
-    public float KillPopular = 30;      //kill a people -50 popular point
+    //人気値相関
+    public float PopularPoint = 100;　　　//ゲーム開始の人気値
+    public float SuccessPopular = 10;    //カット成功時　もらう人気値
+    public float KillPopular = 30;      //町人殺して　減った人気値
     private int Combo = 0;
     public int PopularState2 = 300;     //段階２
     public int PopularState3 = 600;     //段階３
     private bool GameOverFlag = false;
-   //about popular point
+   //人気値相関
 
 //------------------------------fuction--------------------------------------------------------------------
-
-
-	// Use this for initialization
 	void Start () {
-        Time.timeScale = 1;                   //when game start  recovery　the time scale
+        Time.timeScale = 1;                   //ゲーム開始の時　timescaleを１に戻る（時間の流れを戻す）
         Life = 3;
-        create_people();
         create_fish();
         CheckLoop();
-        Invoke("create_ninjafly", 5.0f);
         popular_decrease_with_time();
+        Money = 0;
     }
 	
-	// Update is called once per frame
 	void Update ()
     {
         PopularPointText.text = ("人気：" + PopularPoint.ToString());
@@ -112,7 +89,8 @@ public class GameController : MonoBehaviour {
         }
     }
     /// <summary>
-    ///  ever CHeckTime check eat sushi one time
+    /// 一定時間ごとに　寿司食べれるお客さんをチェック
+    /// あれば　寿司食べる事件が発生する
     /// </summary>
     void CheckLoop()
     {
@@ -124,7 +102,7 @@ public class GameController : MonoBehaviour {
     }
 
     /// <summary>
-    /// each second popular decrease by 1
+    /// 毎秒人気が減少する
     /// </summary>
     void popular_decrease_with_time()
     {
@@ -136,7 +114,7 @@ public class GameController : MonoBehaviour {
     {
         if(result == "success")
         {
-            PopularPoint = PopularPoint + (SuccessPopular + Combo * 0.2f * SuccessPopular);   //increase popular
+            PopularPoint = PopularPoint + (SuccessPopular + Combo * 0.2f * SuccessPopular);   //コンボによって、人気値の増し量が上がる
             Combo = Combo + 1;
         }
         else
@@ -146,14 +124,14 @@ public class GameController : MonoBehaviour {
     }
 
     /// <summary>
-    /// create fish (define amount/type/point/etc.)
+    /// 魚の生成(define amount/type/point/etc.)
     /// </summary>
     void create_fish()
     {
-        //fish amount choose (uncomplete)(related to popular)
-        //fish amount choose (uncomplete)(related to popular)
+        //（未完成）一回出す魚の数（人気値と関係ある）
+        //（未完成）一回出す魚の数（人気値と関係ある）
 
-        //fish type choose(uncomplete)
+        //（未完成）魚種類の選択
         float ProbabilityFish = 0;
         ProbabilityFish = Random.Range(0.0f, 1.0f);
         if(ProbabilityFish>=0f && ProbabilityFish < 0.6f)
@@ -169,89 +147,13 @@ public class GameController : MonoBehaviour {
         {
             Instantiate(Fugu, FishPosition, Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)));
             Invoke("create_fish", CreateSpeed);
-        }                        
-        //fisu type choose (uncompleter)
+        }
+        //（未完成）魚種類の選択
     }
 
     /// <summary>
-    ///  create people(amount/type/point/etc.)
-    /// </summary>
-    void create_people()                                                //0=up 1=left 2=right
-    {
-        //addpeople choose(uncomplete)
-        //addpeople choose(uncomplete)
-
-
-        int i = Random.Range(0, 3);
-        if (i == 0)      //create at up
-        {
-            float x = Random.Range(MiddleZone.transform.position.x - TopCreateVar, 
-                MiddleZone.transform.position.x + TopCreateVar);
-            PeopleCreatePoint = new Vector2(x, 2.5f);
-            People = Instantiate(Man, PeopleCreatePoint, Quaternion.identity);
-            float j = Random.Range(0.0f, 1.0f); //compare to p of being a customer
-            bool BeCustomer = false;
-            if (j < PofCustomers)               //be a customer
-            {
-                BeCustomer = true;
-                customers_listadd("People" + PeopleCount);   //add this name to customers list
-            } 
-                People.SendMessage("enter_from_up",BeCustomer);
-            People.name = "People" + PeopleCount;
-            PeopleCount++;            
-        }
-        else if (i == 1)   //create at left
-        {
-            float y = Random.Range(MiddleZone.transform.position.y-MiddleZone.GetComponent<BoxCollider2D>().size.y/2,
-                MiddleZone.transform.position.y+ MiddleZone.GetComponent<BoxCollider2D>().size.y / 2);
-            PeopleCreatePoint = new Vector2(-MaxX, y);
-            People = Instantiate(Man, PeopleCreatePoint, Quaternion.identity);
-            float j = Random.Range(0.0f, 1.0f); //compare to p of being a customer
-            bool BeCustomer = false;
-            if (j < PofCustomers)               //be a customer
-            {
-                BeCustomer = true;
-                customers_listadd("People" + PeopleCount);    //add this name to customers list
-            }
-            People.SendMessage("enter_from_left",BeCustomer);
-            People.name = "People" + PeopleCount;
-            PeopleCount++;
-        }
-        else if(i == 2)  //create at right
-        {
-            float y = Random.Range(MiddleZone.transform.position.y - MiddleZone.GetComponent<BoxCollider2D>().size.y / 2,
-                MiddleZone.transform.position.y + MiddleZone.GetComponent<BoxCollider2D>().size.y / 2);
-            PeopleCreatePoint = new Vector2(MaxX, y);
-            People = Instantiate(Man, PeopleCreatePoint, Quaternion.identity);
-            float j = Random.Range(0.0f, 1.0f); //compare to p of being a customer
-            bool BeCustomer = false;
-            if (j < PofCustomers)               //be a customer
-            {
-                BeCustomer = true;
-                customers_listadd("People" + PeopleCount);  //add this name to customers list
-            }
-                People.SendMessage("enter_from_right",BeCustomer);
-            People.name = "People" + PeopleCount;
-            PeopleCount++;
-        }
-
-        PeopleCreateSpeed = Random.Range(0.3f, 2f);       //speed of create speed 
-        Invoke("create_people", PeopleCreateSpeed);
-    }
-
-    /// <summary>
-    ///  to manage the list of waiting customer
-    /// </summary>
-    /// <param name="ObjectName"></param>
-    void customers_listadd(string ObjectName)
-    {
-        CustomerList.Add(ObjectName);
-        People.SendMessage("customers_check2", (CustomerList.Count - 1));
-
-    }
-    /// <summary>
-    /// to check the amount of customers now  
-    /// change with popular
+    ///お客さんの数をチェック
+    /// 最大値が人気値につれて変化する
     /// </summary>
     void customers_list_check()
     {
@@ -277,17 +179,17 @@ public class GameController : MonoBehaviour {
     void kill_people(string name)
     {
         PeopleKilling = PeopleKilling + 1;
-        PopularPoint = PopularPoint - KillPopular;     //each people -30 popularpoint
+        PopularPoint = PopularPoint - KillPopular;     //町人を殺して、人気値が減る
         CustomerList.Remove(name);
-        customers_manage(1);    //only change number
+        customers_manage(1);    
         PeoplekillText.text = ("殺人数:" + PeopleKilling.ToString());
     }
     /// <summary>
-    /// check after (eating sushi)(int i=0)/(kill people)(int i=1)
+    /// お客さんリストをチェック (寿司喰う後)(int i=0)/(人を殺した後)(int i=1)
     /// </summary>
     void customers_manage(int i)
     {
-        if (i == 1)      //people will leave if you kill people
+        if (i == 1)      //人を殺した後、お客さんが確率で離れる
         {
             int k = CustomerList.Count-1;
             for (int j = k; j >1; j--)
@@ -317,7 +219,7 @@ public class GameController : MonoBehaviour {
     }
 //------------------------------create sushi-------------------------------------------
     /// <summary>
-    /// add Maguro sushi to list (outside used)
+    /// 寿司リストにマグロ寿司を追加する
     /// </summary>
     /// <param name="position"></param>
     void create_magurosushi(Vector2 position)
@@ -326,11 +228,11 @@ public class GameController : MonoBehaviour {
         Sushi = Instantiate(MaguroSushi,SushiPosition,Quaternion.identity);
         Sushi.name = "Sushi" + SushinameCount;
         SushinameCount++;
-        SushiList.Add(1);         //add maguro(code 1)to sushi list
+        SushiList.Add(1);         //寿司リストにマグロ寿司(普通寿司 code 1)を追加する
     }
 
     /// <summary>
-    /// add Tako sushi to list (outside used)
+    /// 寿司リストにタコ寿司を追加する 
     /// </summary>
     /// <param name="position"></param>
     void create_takosushi(Vector2 position)
@@ -339,10 +241,10 @@ public class GameController : MonoBehaviour {
         Sushi = Instantiate(TakoSushi, SushiPosition, Quaternion.identity);
         Sushi.name = "Sushi" + SushinameCount;
         SushinameCount++;
-        SushiList.Add(1);         //add tako(code 1)to sushi list
+        SushiList.Add(1);         //寿司リストにタコ寿司(普通寿司code 1)を追加する
     }
     /// <summary>
-    /// add fugu sushi golden to list (outside used)
+    /// 寿司リストにフグ寿司を追加する
     /// </summary>
     /// <param name="position"></param>
     void create_fugusushigolden(Vector2 position)
@@ -351,10 +253,10 @@ public class GameController : MonoBehaviour {
         Sushi = Instantiate(FuguSushiGolden, SushiPosition, Quaternion.identity);
         Sushi.name = "Sushi" + SushinameCount;
         SushinameCount++;
-        SushiList.Add(2);         //add fugu golden(code 2)to sushi list
+        SushiList.Add(2);         //寿司リストにゴルドー(高い寿司code 2)を追加する
     }
     /// <summary>
-    /// add fugu sushi poison to list (outside used)
+    /// 寿司リストにフグ寿司を追加する
     /// </summary>
     /// <param name="position"></param>
     void create_fugusushipoison(Vector2 position)
@@ -363,30 +265,30 @@ public class GameController : MonoBehaviour {
         Sushi = Instantiate(FuguSushiPoison, SushiPosition, Quaternion.identity);
         Sushi.name = "Sushi" + SushinameCount;
         SushinameCount++;
-        SushiList.Add(3);         //add fugu poison(code 3)to sushi list
+        SushiList.Add(3);         //寿司リストに毒寿司（code 3）を追加する
     }
-    //------------------------------create sushi-------------------------------------------
+    //------------------------------寿司生成---------------------------------------------------------------
     /// <summary>
-    /// people eat sushi and get point 
+    ///町人が寿司を食べる、ポイントをもらう
     /// </summary>
     void eat_sushi()
     {
-        if(SushiList.Count>0 && CustomerList.Count > 0)     //customer exist and sushi exist
+        if(SushiList.Count>0 && CustomerList.Count > 0)     //最初のお客さんと最初の寿司が各リストから削除
         {
             int SushiType = SushiList[0];
-            //different point for different sushi
+            //違う寿司のポイントが違う
             switch (SushiList[0])
             {
-                case 1:                                     //maguro
+                case 1:                                     //普通寿司
                     Money = Money + NormalPrice;
                     SaraNormalPosition.y += 0.1f;
                     SaraNormalPosition.z -= 0.00001f;
                     Instantiate(SaraNormal, SaraNormalPosition, Quaternion.identity);
                     break;
-                case 2:
+                case 2:　　　　　　　　　　　　　　　　　　　//高い寿司
                     Money = Money + GoldPrice;
                     break;
-                case 3:
+                case 3:　　　　　　　　　　　　　　　　　　　//普通寿司
                     Money = Money + NormalPrice;
                     break;
             }
@@ -394,20 +296,23 @@ public class GameController : MonoBehaviour {
 
             SushiList.RemoveAt(0);
 
-            SushiDelete = GameObject.Find("Sushi" + SushiDeleteCount);  //find next sushi to delete
+            SushiDelete = GameObject.Find("Sushi" + SushiDeleteCount);  //次の寿司を探して、削除する
             Destroy(SushiDelete.gameObject);
             SushiDeleteCount++;
 
-            //delete customer
+            //寿司を食べたお客さんを削除する
             peopleEatingSushi = GameObject.Find(CustomerList[0]);
-            peopleEatingSushi.SendMessage("after_eatsushi",SushiType); //send type (poision--->die)
+            peopleEatingSushi.SendMessage("after_eatsushi",SushiType); //寿司のタイプのメッセージを寿司を食べた客にセンド　毒寿司なら死ぬ
             CustomerFlag = false;
-            Invoke("customer_flag_set", CustomerWaitTime);
+            Invoke("customer_flag_set", CustomerWaitTime);　　//一定時間後次のお客さんが先頭になる
         }
     }
+    /// <summary>
+    /// 一定時間で寿司が食べられるフラグをリセットする
+    /// </summary>
     void customer_flag_set()
     {
-        CustomerFlag = true;
+        CustomerFlag = true;　　　　　　　　　　
         if (CustomerList.Count>0)
         {
             CustomerList.RemoveAt(0);
@@ -417,7 +322,7 @@ public class GameController : MonoBehaviour {
 
     //-------------------------------------Ninja-----------------------------------------------
     /// <summary>
-    /// be attacked  by ninja or other samurai
+    /// 忍者かサムライに攻撃された　ライフが減る
     /// </summary>           
     void get_hurt()
     {
@@ -429,18 +334,10 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    void you_died()
+    void you_died()　　　//プレイヤーが殺された
     {
         Vector3 pos = new Vector3(0, 0, 1);
         Instantiate(YouDied, pos, Quaternion.identity);
-    }
-
-    void create_ninjafly()
-    {
-        Vector3 pos = new Vector3(Random.Range(-7f,7f),Random.Range(2.0f,3.0f),23);
-        Instantiate(NinjaFly, pos, Quaternion.identity);
-        NinjaFlyCreateTime = Random.Range(4.0f, 7.0f);
-        Invoke("create_ninjafly", NinjaFlyCreateTime);
     }
 
     //-------------------------------------Ninja-----------------------------------------------
