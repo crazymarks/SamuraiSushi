@@ -23,16 +23,9 @@ public class Katana : MonoBehaviour {
         //define line renderer    
         LineRenderer = Cut.AddComponent<LineRenderer>();
         LineRenderer.material = KatanaM;
-<<<<<<< HEAD
-        LineRenderer.startWidth = 0.15f;
-        LineRenderer.endWidth = 0.08f;
-<<<<<<< HEAD
-=======
-=======
+
         LineRenderer.startWidth = 0.3f;
         LineRenderer.endWidth = 0.13f;
->>>>>>> 267aceaa0723018b705f2ba29d7929d76a743eea
->>>>>>> master
         LineRenderer.positionCount = 0;
         //define line renderer
 
