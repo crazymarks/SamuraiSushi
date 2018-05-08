@@ -102,6 +102,8 @@
     <Compile Include="Assets\Script\Fish\common\Right.cs" />
     <Compile Include="Assets\Script\Fish\common\Up.cs" />
     <Compile Include="Assets\Script\GameController.cs" />
+    <Compile Include="Assets\Script\Generic\SceneManager.cs" />
+    <Compile Include="Assets\Script\Generic\SingletonMonoBehaviour.cs" />
     <Compile Include="Assets\Script\Katana\Katana.cs" />
     <Compile Include="Assets\Script\Katana\KatanaMouse.cs" />
     <Compile Include="Assets\Script\Ninja\NinjaFly.cs" />
