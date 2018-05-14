@@ -229,11 +229,12 @@ public abstract class PeopleBase : MonoBehaviour {
     //y値につれて、大きさが変化する
     protected virtual void scale_with_y()
     {
-            ScaleRate = (this.transform.position.y-1) * (-0.06f)  +0.15f;    //y=-0.06x-0.85
-            this.transform.localScale = new Vector3(ScaleRate, ScaleRate, 1);
+        ScaleRate = (this.transform.position.y - 1) * -0.15f;
+        this.transform.localScale = new Vector3(ScaleRate + 0.05f, ScaleRate, 1);
 
-            Vector3 Pos = this.transform.position;
-            Pos.z = 2f * Pos.y + 17f;
-            transform.position = Pos;
+        Vector3 Pos = this.transform.position;
+
+        Pos.z = Pos.y + 15f;
+        transform.position = Pos;
     }
 }

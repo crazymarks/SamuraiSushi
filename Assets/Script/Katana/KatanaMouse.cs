@@ -26,7 +26,6 @@ public class KatanaMouse : MonoBehaviour
         //define line renderer    
         LineRenderer = Cut.AddComponent<LineRenderer>();
         LineRenderer.material = KatanaM;
-
         LineRenderer.startWidth = 0.3f;
         LineRenderer.endWidth = 0.13f;
         LineRenderer.positionCount = 0;

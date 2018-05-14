@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class NinjaFly : MonoBehaviour {
     private float WaitTime=0.3f;
-    public GameObject GameController;
+    GameObject GameController;
     private float AttackTimeDelay = 0.0f;
     public GameObject AttackEffect;
+    bool firstAttack = false;
 	void Start () {
         GameController = GameObject.Find("GameController");
-        AttackTimeDelay = Random.Range(2.0f, 4.0f);
-        Invoke("attack", AttackTimeDelay);　　//一定時間後攻撃を発動
+        AttackTimeDelay = Random.Range(3.0f, 5.0f);
 	}
-	//攻撃発動
+    private void Update()
+    {
+        if (this.GetComponent<Floating>().isMoving==false&&firstAttack==false)
+        {
+            firstAttack = true;
+            Invoke("attack", AttackTimeDelay);
+        }
+    }
+    //攻撃発動
     void attack()
     {
         GameController.SendMessage("get_hurt");
