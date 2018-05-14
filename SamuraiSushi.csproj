@@ -106,6 +106,7 @@
     <Compile Include="Assets\Script\Generic\SingletonMonoBehaviour.cs" />
     <Compile Include="Assets\Script\Katana\Katana.cs" />
     <Compile Include="Assets\Script\Katana\KatanaMouse.cs" />
+    <Compile Include="Assets\Script\Ninja\Floating.cs" />
     <Compile Include="Assets\Script\Ninja\NinjaFly.cs" />
     <Compile Include="Assets\Script\Ninja\NinjaFlyAttack.cs" />
     <Compile Include="Assets\Script\Ninja\YouDied.cs" />

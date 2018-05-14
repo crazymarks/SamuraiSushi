@@ -49,7 +49,7 @@ public class PeopleCreate : MonoBehaviour {
         {
             float x = Random.Range(MiddleZone.transform.position.x - TopCreateVar,
                 MiddleZone.transform.position.x + TopCreateVar);
-            PeopleCreatePoint = new Vector2(x, 2.5f);
+            PeopleCreatePoint = new Vector2(x, 0.5f);
             People = Instantiate(Man, PeopleCreatePoint, Quaternion.identity);
             float j = Random.Range(0.0f, 1.0f); //お客さんになる確率と比べて、小さいだったら、お客さんになる
             bool BeCustomer = false;
@@ -64,8 +64,8 @@ public class PeopleCreate : MonoBehaviour {
         }
         else if (i == 1)   //左から生成
         {
-            float y = Random.Range(MiddleZone.transform.position.y - MiddleZone.GetComponent<BoxCollider2D>().size.y / 2+MiddleZone.GetComponent<BoxCollider2D>().offset.y,
-                MiddleZone.transform.position.y + MiddleZone.GetComponent<BoxCollider2D>().size.y / 2 + MiddleZone.GetComponent<BoxCollider2D>().offset.y);
+            float y = Random.Range(MiddleZone.transform.position.y - MiddleZone.GetComponent<BoxCollider2D>().size.y / 2 + MiddleZone.GetComponent<BoxCollider2D>().offset.y,
+                MiddleZone.transform.position.y + MiddleZone.GetComponent<BoxCollider2D>().size.y / -2 + MiddleZone.GetComponent<BoxCollider2D>().offset.y);
             PeopleCreatePoint = new Vector2(-MaxX, y);
             People = Instantiate(Man, PeopleCreatePoint, Quaternion.identity);
             float j = Random.Range(0.0f, 1.0f); //お客さんになる確率と比べて、小さいだったら、お客さんになる
