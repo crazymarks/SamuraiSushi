@@ -16,10 +16,10 @@ public class TakoSumi : MonoBehaviour {
     void get_transparency()
     {
         count++;
-        if (count > 50)
+        if (count > 40)
         {
             SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, Transparency);
-            Transparency -= 0.02f;
+            Transparency -= 0.01f;
         }
         
         Invoke("get_transparency", 0.05f);
