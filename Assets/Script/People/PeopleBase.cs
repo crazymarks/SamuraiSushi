@@ -8,8 +8,8 @@ public abstract class PeopleBase : MonoBehaviour {
     protected int EnterDirection = 0;    // 0上から 1=左から 2=右から
 
     protected float Speed = 0f;
-    public float MaxSpeed = 10f;
-    public float MinSpeed = 8f;
+    public float MaxSpeed = 5f;
+    public float MinSpeed = 2f;
 
     GameObject GameController;
     GameObject MiddleZone;
@@ -24,6 +24,8 @@ public abstract class PeopleBase : MonoBehaviour {
     protected Vector2 RandomPoint = new Vector2(0,0);
     
     protected float ScaleRate = 0.0f;
+
+    protected float limit_y;
 
     protected virtual void GetStart()
     {
@@ -44,6 +46,7 @@ public abstract class PeopleBase : MonoBehaviour {
 	protected virtual void FixedUpdate ()
     {
         float Step = Speed * Time.deltaTime;
+        limit_y = transform.localScale.y * -3f;
         transform.position = Vector2.MoveTowards(transform.position, RandomPoint, Step);
         scale_with_y();
 	}
@@ -70,7 +73,7 @@ public abstract class PeopleBase : MonoBehaviour {
         float y = 0f;
         x = MiddleZoneX - MiddleZoneWidth / 2;
         y = Random.Range(MiddleZoneY - MiddleZoneHeight / 2 + MiddleZoneOffsetY,
-            MiddleZoneX + MiddleZoneHeight / 2 + MiddleZoneOffsetY);           
+            limit_y);           
         RandomPoint = new Vector2(x, y);
         EnterDirection = 1; //左から
         IsCustomer = BeCustomer;   // お客さんです！
@@ -83,7 +86,7 @@ public abstract class PeopleBase : MonoBehaviour {
         float y = 0f;
         x = MiddleZoneX + MiddleZoneWidth / 2;
         y = Random.Range(MiddleZoneY - MiddleZoneHeight / 2 + MiddleZoneOffsetY,
-            MiddleZoneX + MiddleZoneHeight / 2 + MiddleZoneOffsetY);
+            limit_y);
         RandomPoint = new Vector2(x, y);
         EnterDirection = 2; //右から
         IsCustomer = BeCustomer;   //  お客さんです！
@@ -106,7 +109,7 @@ public abstract class PeopleBase : MonoBehaviour {
         float y = 0f;
         x = -(PeopleCreate.MaxX);
         y = Random.Range(MiddleZoneY - MiddleZoneHeight / 2+MiddleZoneOffsetY,
-            MiddleZoneX + MiddleZoneHeight / 2 +MiddleZoneOffsetY);
+            limit_y);
         RandomPoint = new Vector2(x, y);
     }
     protected virtual void exit_to_right()
@@ -115,7 +118,7 @@ public abstract class PeopleBase : MonoBehaviour {
         float y = 0f;
         x = PeopleCreate.MaxX;
         y = Random.Range(MiddleZoneY - MiddleZoneHeight / 2 + MiddleZoneOffsetY,
-            MiddleZoneX + MiddleZoneHeight / 2 + MiddleZoneOffsetY);
+            limit_y);
         RandomPoint = new Vector2(x, y);
     }
     //-------------------------------画面外に移動----------------------------------------------
