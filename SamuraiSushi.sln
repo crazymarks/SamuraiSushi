@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamuraiSushi.CSharp", "SamuraiSushi.CSharp.csproj", "{766AB5D0-E5CC-EB1D-572D-83432797B912}"
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamuraiSushi", "SamuraiSushi.csproj", "{E56B9F51-D85A-48F1-9C72-A3258B36DB0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{766AB5D0-E5CC-EB1D-572D-83432797B912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{766AB5D0-E5CC-EB1D-572D-83432797B912}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{766AB5D0-E5CC-EB1D-572D-83432797B912}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{766AB5D0-E5CC-EB1D-572D-83432797B912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E56B9F51-D85A-48F1-9C72-A3258B36DB0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E56B9F51-D85A-48F1-9C72-A3258B36DB0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E56B9F51-D85A-48F1-9C72-A3258B36DB0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E56B9F51-D85A-48F1-9C72-A3258B36DB0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
