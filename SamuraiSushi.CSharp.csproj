@@ -84,7 +84,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\PeopleCreate.cs" />
+    <Compile Include="Assets\Script\Control\GameController.cs" />
+    <Compile Include="Assets\Script\Control\NinjaCreate.cs" />
+    <Compile Include="Assets\Script\Control\PeopleCreate.cs" />
     <Compile Include="Assets\Script\Fish\Fugu\Fugu.cs" />
     <Compile Include="Assets\Script\Fish\Fugu\FuguNikuGolden.cs" />
     <Compile Include="Assets\Script\Fish\Fugu\FuguNikuPoison.cs" />
@@ -101,14 +103,16 @@
     <Compile Include="Assets\Script\Fish\common\Left.cs" />
     <Compile Include="Assets\Script\Fish\common\Right.cs" />
     <Compile Include="Assets\Script\Fish\common\Up.cs" />
-    <Compile Include="Assets\Script\GameController.cs" />
+    <Compile Include="Assets\Script\Generic\SceneManager.cs" />
+    <Compile Include="Assets\Script\Generic\SingletonMonoBehaviour.cs" />
     <Compile Include="Assets\Script\Katana\Katana.cs" />
     <Compile Include="Assets\Script\Katana\KatanaMouse.cs" />
+    <Compile Include="Assets\Script\Ninja\Floating.cs" />
     <Compile Include="Assets\Script\Ninja\NinjaFly.cs" />
     <Compile Include="Assets\Script\Ninja\NinjaFlyAttack.cs" />
     <Compile Include="Assets\Script\Ninja\YouDied.cs" />
-    <Compile Include="Assets\Script\NinjaCreate.cs" />
     <Compile Include="Assets\Script\People\Man.cs" />
+    <Compile Include="Assets\Script\People\ManCenter.cs" />
     <Compile Include="Assets\Script\People\PeopleBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
