@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PeopleCreate : MonoBehaviour {
+
     //生成位置相関
     private Vector2 PeopleCreatePoint;
     static public float MaxY = 0.5f;        //スクリーンの最大Y値　人の生成で使う
@@ -129,7 +130,7 @@ public class PeopleCreate : MonoBehaviour {
     void customers_listadd(string ObjectName)
     {
 
-        GameController.　CustomerList.Add(ObjectName);
-        People.SendMessage("customers_check2", (GameController.CustomerList.Count - 1));
+        this.gameObject.GetComponent<GameController>().CustomerList.Add(ObjectName);
+        People.SendMessage("customers_check2", (this.gameObject.GetComponent<GameController>().CustomerList.Count - 1));
     }
 }

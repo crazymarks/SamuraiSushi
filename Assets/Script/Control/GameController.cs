@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour {
     public Text PopularPointText;
     public Text MoneyText;
 
-    static public List<string> CustomerList = new List<string>();//行列リスト
+    public List<string> CustomerList = new List<string>();//行列リスト
     static public float PofCustomers = 0.8f;  //町人がお客さんになる確率
 
     private int PeopleKilling;       //殺した町人の数
@@ -81,6 +81,8 @@ public class GameController : MonoBehaviour {
         CheckLoop();
         popular_decrease_with_time();
         Money = 0;
+        CustomerList.Clear();
+        SushiList.Clear();
     }
 	
 	void Update ()
