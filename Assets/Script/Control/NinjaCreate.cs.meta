@@ -1,10 +1,15 @@
 fileFormatVersion: 2
 guid: 2400be7c2ca2f3d49b5b961664545a94
-timeCreated: 1524792909
+timeCreated: 1526605091
 licenseType: Pro
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - NinjaFly: {fileID: 1859707462130708, guid: 92461961dcbc29a47a3697de3e4e8289, type: 2}
+  - NinjaFlyDown: {fileID: 1498544155134532, guid: 73fcdd2e5715ea24fb128164cbf69a00,
+      type: 2}
+  - NinjaWall: {fileID: 1753411264124618, guid: 00d0151dda6c21d4a947f1ea50d21cb4,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
