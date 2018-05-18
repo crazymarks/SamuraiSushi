@@ -334,7 +334,7 @@ public class GameController : MonoBehaviour {
     /// <summary>
     /// 忍者かサムライに攻撃された　ライフが減る
     /// </summary>           
-    void get_hurt()
+    /*void get_hurt()
     {
         Life--;
         LifeText.text = (("命：" + Life.ToString()));
@@ -342,7 +342,7 @@ public class GameController : MonoBehaviour {
         {
             Invoke("you_died", 1.0f);
         }
-    }
+    }*/
 
     void you_died()　　　//プレイヤーが殺された
     {
