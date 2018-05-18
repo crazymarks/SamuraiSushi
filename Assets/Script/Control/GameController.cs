@@ -65,11 +65,13 @@ public class GameController : MonoBehaviour {
 
     //人気値相関
     public float PopularPoint = 100;　　　//ゲーム開始の人気値
+    public float maxPopularPoint = 1000; //人気値の上限
     public float SuccessPopular = 10;    //カット成功時　もらう人気値
     public float KillPopular = 30;      //町人殺して　減った人気値
     private int Combo = 0;
     public int PopularState2 = 300;     //段階２
     public int PopularState3 = 600;     //段階３
+    public Image popularGage;
     private bool GameOverFlag = false;
    //人気値相関
 
@@ -87,6 +89,7 @@ public class GameController : MonoBehaviour {
 	
 	void Update ()
     {
+        popularGage.fillAmount = PopularPoint / maxPopularPoint;
         PopularPointText.text = ("人気：" + PopularPoint.ToString());
         customers_list_check();
         if (PopularPoint <= 0&&GameOverFlag==false)
