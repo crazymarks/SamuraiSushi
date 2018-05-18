@@ -114,8 +114,11 @@ Assets/Script/Generic/SingletonMonoBehaviour.cs
 Assets/Script/Katana/Katana.cs
 Assets/Script/Katana/KatanaMouse.cs
 Assets/Script/Ninja/Floating.cs
+Assets/Script/Ninja/Floating2.cs
 Assets/Script/Ninja/NinjaFly.cs
 Assets/Script/Ninja/NinjaFlyAttack.cs
+Assets/Script/Ninja/NinjaFlyDown.cs
+Assets/Script/Ninja/NinjaWall.cs
 Assets/Script/Ninja/YouDied.cs
 Assets/Script/People/Man.cs
 Assets/Script/People/ManCenter.cs

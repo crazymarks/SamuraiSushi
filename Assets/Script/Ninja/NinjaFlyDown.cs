@@ -5,12 +5,14 @@ using UnityEngine;
 public class NinjaFlyDown : MonoBehaviour {
     private float WaitTime = 0.3f;
     GameObject GameController;
+    LifeCounter lifeCounter;
     private float AttackTimeDelay = 0.0f;
     public GameObject AttackEffect;
     bool firstAttack = false;
     void Start()
     {
         GameController = GameObject.Find("GameController");
+        lifeCounter = GameObject.Find("Lifes").GetComponent<LifeCounter>();
         AttackTimeDelay = Random.Range(3.0f, 5.0f);
     }
     private void Update()
@@ -24,7 +26,8 @@ public class NinjaFlyDown : MonoBehaviour {
     //攻撃発動
     void attack()
     {
-        GameController.SendMessage("get_hurt");
+        //GameController.SendMessage("get_hurt");
+        lifeCounter.Damage();
         AttackTimeDelay = Random.Range(2.0f, 4.0f);
         Vector3 pos = new Vector3(0, 0, 2);
         Instantiate(AttackEffect, pos, Quaternion.identity);
