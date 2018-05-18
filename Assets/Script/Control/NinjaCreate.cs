@@ -58,7 +58,6 @@ public class NinjaCreate : MonoBehaviour {
     void create_ninjaWall()
     {
         float a = Random.value;
-        Debug.Log(a);
         if (a < 0.5f)  //左の忍者生成
         {
             int leftNinjafly = Random.Range(0, 4);//左の忍者生成の所
