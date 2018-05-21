@@ -8,9 +8,9 @@ public class NinjaCreate : MonoBehaviour {
     public GameObject NinjaWall;
 
     [HideInInspector]
-    public float probabilityNinjaFly = 0.5f;  //飛び忍者の出現確率
+    public static float probabilityNinjaFly = 0.5f;  //飛び忍者の出現確率
     [HideInInspector]　
-    public float probabilityNinjaWall = 0.5f;　　//壁忍者の出現確率
+    public static float probabilityNinjaWall = 0.5f;　　//壁忍者の出現確率
 　
     // Use this for initialization
     void Start () {

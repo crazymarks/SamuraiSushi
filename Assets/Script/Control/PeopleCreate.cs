@@ -24,7 +24,7 @@ public class PeopleCreate : MonoBehaviour {
 
     //町人相関
     [HideInInspector]
-    public bool isPeopleCreate = true;  //テストのため、コントロールパネルで町人の出現を止める用   
+    public static bool isPeopleCreate = true;  //テストのため、コントロールパネルで町人の出現を止める用   
 
     // Use this for initialization
     void Start () {

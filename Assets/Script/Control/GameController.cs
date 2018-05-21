@@ -12,11 +12,11 @@ public class GameController : MonoBehaviour {
     public float CreateSpeed = 2.0f;
     public Vector3 FishPosition = new Vector3(0f, -3f, 6f);
     [HideInInspector]
-    public float probabilityMaguro=0.5f;  //マグロの出現確率
+    public static float probabilityMaguro=0.5f;  //マグロの出現確率
     [HideInInspector]
-    public float probabilityTako=0.4f;    //タコの出現確率
+    public static float probabilityTako=0.4f;    //タコの出現確率
     [HideInInspector]
-    public float probabilityFugu=0.1f;    //フグの出現確率
+    public static float probabilityFugu=0.1f;    //フグの出現確率
     //魚相関
 
     //寿司相関
