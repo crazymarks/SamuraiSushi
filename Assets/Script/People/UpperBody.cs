@@ -18,10 +18,10 @@ public class UpperBody : MonoBehaviour {
 
     private void Update()
     {
-        speed = speedCount * -0.04f + 1.75f;
-        if (speed < 0.25f)
+        speed = speedCount * -0.2f + 1.75f;
+        if (speed < 0.15f)
         {
-            speedCount = 12;
+            speedCount = 8;
         }
         else { speedCount++; }
         float Step = speed * Time.deltaTime;
