@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NinjaFlyDown : MonoBehaviour {
+    public GameObject ninjaFlyFrontUpperBody;
+    public GameObject ninjaFlyFrontlowerBody;
+
     private float WaitTime = 0.3f;
     GameObject GameController;
     LifeCounter lifeCounter;
@@ -44,6 +47,10 @@ public class NinjaFlyDown : MonoBehaviour {
     void die()
     {
         Destroy(gameObject);
+        GameObject tempObject1 = Instantiate(ninjaFlyFrontUpperBody, this.transform.position, Quaternion.identity);
+        tempObject1.transform.localScale = this.transform.lossyScale;
+        GameObject tempObject2 = Instantiate(ninjaFlyFrontlowerBody, this.transform.position, Quaternion.identity);
+        tempObject2.transform.localScale = this.transform.lossyScale;
     }
 }
 

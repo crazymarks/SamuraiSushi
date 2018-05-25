@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NinjaFly : MonoBehaviour {
+    public GameObject ninjaFlyFrontUpperBody;
+    public GameObject ninjaFlyFrontlowerBody;
+
     private float WaitTime=0.3f;
     GameObject GameController;
     LifeCounter lifeCounter;
     private float AttackTimeDelay = 0.0f;
     public GameObject AttackEffect;
     bool firstAttack = false;
+
 	void Start () {
         GameController = GameObject.Find("GameController");
         lifeCounter = GameObject.Find("Lifes").GetComponent<LifeCounter>();
@@ -43,5 +47,9 @@ public class NinjaFly : MonoBehaviour {
     void die()
     {
         Destroy(gameObject);
+        GameObject tempObject1 = Instantiate(ninjaFlyFrontUpperBody, this.transform.position, Quaternion.identity);
+        tempObject1.transform.localScale = this.transform.lossyScale;
+        GameObject tempObject2 = Instantiate(ninjaFlyFrontlowerBody, this.transform.position, Quaternion.identity);
+        tempObject2.transform.localScale = this.transform.lossyScale;
     }
 }

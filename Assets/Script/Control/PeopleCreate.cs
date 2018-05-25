@@ -16,7 +16,8 @@ public class PeopleCreate : MonoBehaviour {
     //生成位置相関
 
     //町人相関
-    public GameObject Man;           //一般人型 
+    public GameObject Man;           //一般人型ー男
+    public GameObject Woman;         //一般人型ー女
 
     private GameObject People=null;          //生成する町人を管理するため
     private int PeopleCount = 0;        //生成する町人の数、名前につける
@@ -44,7 +45,16 @@ public class PeopleCreate : MonoBehaviour {
     public void create_people()                                                //0=上から 　1=左から　 2=右から
     {
         //（未完成）町人選択の追加
-        //（未完成）町人選択の追加
+   /*     int peopleChoose = Random.Range(0,1);
+        switch (peopleChoose)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+        }
+     */
+       //（未完成）町人選択の追加
 
 
         int i = Random.Range(0, 3);
