@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
+    public AudioSource mainBGM;
+
     //魚相関
     public GameObject Maguro;        //リスト中のコードは　1
     public GameObject Tako;          //リスト中のコードは　2
@@ -85,6 +87,7 @@ public class GameController : MonoBehaviour {
         Money = 0;
         CustomerList.Clear();
         SushiList.Clear();
+        mainBGM.Play();
     }
 	
 	void Update ()
@@ -351,6 +354,7 @@ public class GameController : MonoBehaviour {
     {
         Vector3 pos = new Vector3(0, 0, 1);
         Instantiate(YouDied, pos, Quaternion.identity);
+        mainBGM.Stop();
     }
 
     //-------------------------------------Ninja-----------------------------------------------

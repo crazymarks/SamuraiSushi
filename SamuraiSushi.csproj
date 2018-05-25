@@ -107,7 +107,6 @@
     <Compile Include="Assets\Scripts\Fish\common\Up.cs" />
     <Compile Include="Assets\Scripts\Generic\SceneManager.cs" />
     <Compile Include="Assets\Scripts\Generic\SingletonMonoBehaviour.cs" />
-    <Compile Include="Assets\Scripts\Generic\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Katana\Katana.cs" />
     <Compile Include="Assets\Scripts\Katana\KatanaMouse.cs" />
     <Compile Include="Assets\Scripts\Ninja\Floating.cs" />
