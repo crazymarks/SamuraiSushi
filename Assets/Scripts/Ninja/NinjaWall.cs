@@ -31,7 +31,7 @@ public class NinjaWall : MonoBehaviour {
     {
         if (other.name == "Line")
         {
-            Invoke("die", WaitTime);
+            die();
         }
     }
     void die()

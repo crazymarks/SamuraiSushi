@@ -29,7 +29,6 @@ public class NinjaFlyDown : MonoBehaviour {
     //攻撃発動
     void attack()
     {
-        //GameController.SendMessage("get_hurt");
         lifeCounter.Damage();
         AttackTimeDelay = Random.Range(2.0f, 4.0f);
         Vector3 pos = new Vector3(0, 0, 2);
@@ -41,7 +40,7 @@ public class NinjaFlyDown : MonoBehaviour {
     {
         if (other.name == "Line")
         {
-            Invoke("die", WaitTime);
+            die();
         }
     }
     void die()
