@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour {
     private int PeopleKilling;       //殺した町人の数
     public Text PeoplekillText; 
     private int Money = 0;            //この 変数　を　初期化を忘れないで！！！！！
+    public int maxMoney = 7000;       //最大になったら　ゲームクリア？
     private bool CustomerFlag = true;   //trueの場合は次のお客さんが寿司を食べる　食べた後、一定時間内falseにする
         //価格
     private int NormalPrice = 100;
@@ -92,13 +93,17 @@ public class GameController : MonoBehaviour {
 	
 	void Update ()
     {
-        popularGage.fillAmount = PopularPoint / maxPopularPoint;
+        popularGage.fillAmount = (float)Money / maxMoney;  //金ゲージに変更
         PopularPointText.text = ("人気：" + PopularPoint.ToString());
         customers_list_check();
         if (PopularPoint <= 0&&GameOverFlag==false)
         {
             you_died();
             GameOverFlag = true;
+        }
+        if (Money == maxMoney)
+        {
+            you_died();
         }
     }
     /// <summary>
@@ -297,9 +302,6 @@ public class GameController : MonoBehaviour {
             {
                 case 1:                                     //普通寿司
                     Money = Money + NormalPrice;
-                    SaraNormalPosition.y += 0.1f;
-                    SaraNormalPosition.z -= 0.00001f;
-                    Instantiate(SaraNormal, SaraNormalPosition, Quaternion.identity);
                     break;
                 case 2:　　　　　　　　　　　　　　　　　　　//高い寿司
                     Money = Money + GoldPrice;

@@ -6,7 +6,7 @@ public class Man : PeopleBase {
     public GameObject ManFrontUpperBody;
     public GameObject ManFrontLowerBody;
 
-    void after_eatsushi(int x)
+    public void after_eatsushi(int x)
     {
         IsCustomer = false;
         if (x == 3)　　//毒寿司なら死ぬ

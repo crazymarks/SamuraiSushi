@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NinjaWall : MonoBehaviour {
+    public GameObject ninjaWallFrontUpperBody;
+    public GameObject ninjaWallFrontlowerBody;
+
     private float WaitTime = 0.3f;
     GameObject GameController;
     LifeCounter lifeCounter;
@@ -37,5 +40,9 @@ public class NinjaWall : MonoBehaviour {
     void die()
     {
         Destroy(gameObject);
+        GameObject tempObject1 = Instantiate(ninjaWallFrontUpperBody, this.transform.position, Quaternion.identity);
+        tempObject1.transform.localScale = this.transform.lossyScale;
+        GameObject tempObject2 = Instantiate(ninjaWallFrontlowerBody, this.transform.position, Quaternion.identity);
+        tempObject2.transform.localScale = this.transform.lossyScale;
     }
 }
