@@ -7,6 +7,7 @@ public class Tako : FishBase {
     private bool IsUp = false;
     private bool IsLeft = false;
     private bool IsDown = false;
+    private bool CutOut = false;
     //direction flag
 
     //cut check and sushi
@@ -41,23 +42,20 @@ public class Tako : FishBase {
             GameController.SendMessage("popular_fish_cut", "fail");
             Destroy(gameObject);
         }
-	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.name == "Line")
+        if (CutOut == true)
         {
             if (IsLeft == true)
             {
                 CutPos = this.transform.position;      //get rice and sushi and niku Location
                 Vector3 SumiPos = new Vector3(CutPos.x, CutPos.y, 1f);
-                if(IsUp==true)     //Head was CUtted
+                if (IsUp == true)     //Head was CUtted
                 {
                     Instantiate(TakoSumi, SumiPos, Quaternion.identity);
                     Destroy(this.gameObject);
                 }
 
-                if(IsDown==true)    //Feet was Cutted
+                if (IsDown == true)    //Feet was Cutted
                 {
                     for (int i = 0; i < 4; i++)
                     {
@@ -65,9 +63,10 @@ public class Tako : FishBase {
                         Feet = Instantiate(TakoFailFoot, CutPos, Quaternion.identity);
                         RigidbodyFeet = Feet.GetComponent<Rigidbody2D>();
                         RigidbodyFeet.AddForce(ForceFeet, ForceMode2D.Impulse);
-                        GameController.SendMessage("popular_fish_cut","fail");
+                        GameController.SendMessage("popular_fish_cut", "fail");
                     }
-                }else
+                }
+                else
                 {
                     RicePos = new Vector3(this.transform.position.x, TableY, 8);
 
@@ -79,6 +78,15 @@ public class Tako : FishBase {
                 }
                 Destroy(this.gameObject);
             }
+
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.name == "Line")
+        {
+            CutOut = true;
         }
     }
 

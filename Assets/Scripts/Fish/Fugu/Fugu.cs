@@ -6,6 +6,8 @@ public class Fugu : FishBase {
     //direction flag
     private bool IsUp = false;
     private bool IsDown = false;
+    private bool cutIn = false;
+    private bool cutOut = false;
     //direction flag
 
     //cut check and sushi
@@ -33,14 +35,12 @@ public class Fugu : FishBase {
         {
             GameController.SendMessage("popular_fish_cut", "fail");
             Destroy(gameObject);
-        }		
-	}
+        }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.name == "Line")
+        //切られた
+        if (cutIn == true && cutOut == true)
         {
-            if (IsUp == true)   //failed
+            if (IsUp == true)   //失敗
             {
                 RicePos = new Vector3(this.transform.position.x, TableY, 8);
                 CutPos = this.transform.position; //get rice and niku location
@@ -48,7 +48,7 @@ public class Fugu : FishBase {
                 Instantiate(Rice, RicePos, Quaternion.identity);
                 GameController.SendMessage("popular_fish_cut", "fail");
                 Destroy(this.gameObject);
-            }else if (IsDown == true)   //success
+            }else  if (IsDown == true)   //成功
             {
                 RicePos = new Vector3(this.transform.position.x, TableY, 8);
                 CutPos = this.transform.position; //get rice and niku location
@@ -57,9 +57,26 @@ public class Fugu : FishBase {
                 GameController.SendMessage("popular_fish_cut", "success");
                 Destroy(this.gameObject);
             }
+
+        }      
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.name == "Line")
+        {
+            cutIn = true;         
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name == "Line")
+        {
+            cutOut = true;
+        }
+    }
     //direction flag
     void set_up(bool state)
     {
