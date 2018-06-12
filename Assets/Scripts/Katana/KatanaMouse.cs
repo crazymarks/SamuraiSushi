@@ -23,6 +23,7 @@ public class KatanaMouse : MonoBehaviour
     void Start()
     {
         Cut = new GameObject("Line");
+        Input.multiTouchEnabled = false;
         //define line renderer    
         LineRenderer = Cut.AddComponent<LineRenderer>();
         LineRenderer.material = KatanaM;
@@ -44,6 +45,11 @@ public class KatanaMouse : MonoBehaviour
         {
             if (!IsEcexist)
             {
+                if (Cut.GetComponent<EdgeCollider2D>() != null)
+                {
+                    Destroy(Cut.GetComponent<EdgeCollider2D>());
+                }
+
                 EdgeCollider = Cut.AddComponent<EdgeCollider2D>();
 
                 IsEcexist = true;
@@ -104,6 +110,7 @@ public class KatanaMouse : MonoBehaviour
             Keypoint = new List<Vector2>();
             Keypoint3D = new List<Vector3>();
         }
+        
 
     }
 }

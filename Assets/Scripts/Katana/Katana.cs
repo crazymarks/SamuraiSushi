@@ -20,11 +20,12 @@ public class Katana : MonoBehaviour {
 
 	void Start () {
         Cut = new GameObject("Line");
+        Input.multiTouchEnabled = false;
         //define line renderer    
         LineRenderer = Cut.AddComponent<LineRenderer>();
         LineRenderer.material = KatanaM;
-        LineRenderer.startWidth = 0.3f;
-        LineRenderer.endWidth = 0.13f;
+        LineRenderer.startWidth = 0.3f; //0.3F
+        LineRenderer.endWidth = 0.13f; //0.13F
         LineRenderer.positionCount = 0;
         //define line renderer
 
@@ -38,6 +39,10 @@ public class Katana : MonoBehaviour {
         {
             if(Input.GetTouch(0).phase == TouchPhase.Began)
             {
+                if (Cut.GetComponent<EdgeCollider2D>() != null)
+                {
+                    Destroy(Cut.GetComponent<EdgeCollider2D>());
+                }
                 EdgeCollider = Cut.AddComponent<EdgeCollider2D>();
                 CheckExist = true;
             }

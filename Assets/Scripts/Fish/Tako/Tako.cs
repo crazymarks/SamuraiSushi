@@ -48,7 +48,7 @@ public class Tako : FishBase {
             if (IsLeft == true)
             {
                 CutPos = this.transform.position;      //get rice and sushi and niku Location
-                Vector3 SumiPos = new Vector3(CutPos.x, CutPos.y, 1f);
+                Vector3 SumiPos = new Vector3(CutPos.x, CutPos.y, 0.5f);
                 if (IsUp == true)     //Head was CUtted
                 {
                     Instantiate(TakoSumi, SumiPos, Quaternion.identity);

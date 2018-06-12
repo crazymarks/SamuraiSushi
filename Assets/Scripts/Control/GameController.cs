@@ -96,12 +96,12 @@ public class GameController : MonoBehaviour {
         popularGage.fillAmount = (float)Money / maxMoney;  //金ゲージに変更
         PopularPointText.text = ("人気：" + PopularPoint.ToString());
         customers_list_check();
-        if (PopularPoint <= 0&&GameOverFlag==false)
-        {
-            you_died();
-            GameOverFlag = true;
-        }
-        if (Money == maxMoney)
+       // if (PopularPoint <= 0&&GameOverFlag==false)  
+      //  {
+       //     you_died();
+      //      GameOverFlag = true;
+      //  }
+        if (Money >= maxMoney)   //金は一定に達成すると、ゲームクリア
         {
             you_died();
         }
