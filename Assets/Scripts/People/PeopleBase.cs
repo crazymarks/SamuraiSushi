@@ -6,6 +6,13 @@ using UnityEngine;
 /// </summary>
 public abstract class PeopleBase : MonoBehaviour {
     protected int EnterDirection = 0;    // 0上から 1=左から 2=右から
+     public enum MoveStatus  //町人の各移動状態　変数名は向き
+    {
+        Back=1,　　　　　　　
+      　Front=2,
+        Left=3,
+        Right=4
+    }
 
     protected float Speed = 0f;
     float MaxSpeed = 5f;
@@ -25,6 +32,8 @@ public abstract class PeopleBase : MonoBehaviour {
     
     protected float ScaleRate = 0.0f;
 
+    int SpriteState=0;
+
     protected virtual void GetStart()
     {
         random_speed();
@@ -39,6 +48,8 @@ public abstract class PeopleBase : MonoBehaviour {
         Vector3 Pos = MiddleZone.transform.position;
         MiddleZoneX = Pos.x;
         MiddleZoneY = Pos.y;
+
+        SpriteInitalize();      
 	}
 	
 	protected virtual void FixedUpdate ()
@@ -52,6 +63,7 @@ public abstract class PeopleBase : MonoBehaviour {
 //-------------------------------画面外から入る----------------------------------------------
     protected virtual void enter_from_up(bool BeCustomer)
     {
+        SpriteState = (int)MoveStatus.Front;
         GetStart();
         float x = 0f;
         float y = 0f;
@@ -65,6 +77,7 @@ public abstract class PeopleBase : MonoBehaviour {
 
     protected virtual void enter_from_left(bool BeCustomer)
     {
+        SpriteState = (int)MoveStatus.Right;
         GetStart();
         float x = 0f;
         float y = 0f;
@@ -78,6 +91,7 @@ public abstract class PeopleBase : MonoBehaviour {
 
     protected virtual void enter_from_right(bool BeCustomer)
     {
+        SpriteState = (int)MoveStatus.Left;
         GetStart();
         float x = 0f;
         float y = 0f;
@@ -131,25 +145,37 @@ public abstract class PeopleBase : MonoBehaviour {
             {
                 float NextDirection = Random.Range(0.0f, 1.0f);
                 if (NextDirection < 0.5f)
-                {       exit_to_right(); }
+                {       exit_to_right();
+                    SpriteState =(int) MoveStatus.Right;
+                }
                 else
-                {       exit_to_left();  }
+                {       exit_to_left();
+                    SpriteState = (int)MoveStatus.Left;
+                }
             }
             else if (EnterDirection == 1)         //左から来た
             {
                 float NextDirection = Random.Range(0.0f, 1.0f);
                 if (NextDirection < 0.5)
-                {    exit_to_right();    }
+                {    exit_to_right();
+                    SpriteState = (int)MoveStatus.Right;
+                }
                 else
-                {    exit_to_up();       }
+                {    exit_to_up();
+                    SpriteState = (int)MoveStatus.Back;
+                }
             }
             else                                 //右から来た
             {
                 float NextDirection = Random.Range(0f, 1f);
                 if (NextDirection < 0.5)
-                {    exit_to_left();     }
+                {    exit_to_left();
+                    SpriteState = (int)MoveStatus.Left;
+                }
                 else
-                {    exit_to_up();       }
+                {    exit_to_up();
+                    SpriteState = (int)MoveStatus.Back;
+                }
             }
         }
     }
@@ -181,8 +207,6 @@ public abstract class PeopleBase : MonoBehaviour {
     /// </summary>
     protected virtual void be_killed()
     {
-        //アニメーション（未完成）
-        //アニメーション（未完成）
         GameController.SendMessage("kill_people", this.name);
         Destroy(gameObject);
     }
@@ -195,8 +219,6 @@ public abstract class PeopleBase : MonoBehaviour {
     //毒殺された
     protected virtual void killed_by_poison()
     {
-        //アニメーション（未完成）
-        //アニメーション（未完成）
         GameController.SendMessage("kill_people", this.name);
         Destroy(gameObject);
     }
@@ -233,5 +255,24 @@ public abstract class PeopleBase : MonoBehaviour {
 
         Pos.z = Pos.y + 15f;
         transform.position = Pos;
+    }
+    /// <summary>
+    /// 最初の方向の画像に変わる
+    /// </summary>
+    protected virtual void  SpriteInitalize()
+    {
+
+    }
+    /// <summary>
+    /// 方向状態変化
+    /// </summary>
+    protected virtual void SpriteChange()
+    {
+
+    }
+
+    public int GetSpriteState()
+    {
+        return SpriteState;
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UpperBody : MonoBehaviour {
-
     private SpriteRenderer SR;
     private float transparency = 1.0f;
     int speedCount = 0;
@@ -14,6 +13,7 @@ public class UpperBody : MonoBehaviour {
     void Start () {
         targetPosition= this.transform.position + new Vector3(0.15f, 0.2f, 0f);
         SR = GetComponent<SpriteRenderer>();
+
     }
 
     private void Update()

@@ -27,4 +27,28 @@ public class Man : PeopleBase {
         tempObject2.transform.localScale = this.transform.lossyScale;
     }
 
+    protected override void SpriteInitalize()
+    {  
+        base.SpriteInitalize();
+        int state=GetSpriteState();
+        switch (state)
+        {
+            case (int)MoveStatus.Front:
+                this.GetComponent<SpriteRenderer>().sprite=;
+                return;
+
+        }
+
+    }
+
+    protected override void SpriteChange()
+    {
+        base.SpriteChange();
+        int state = GetSpriteState();
+        switch (state)
+        {
+            case (int)MoveStatus.Front:
+                return;
+        }
+    }
 }
