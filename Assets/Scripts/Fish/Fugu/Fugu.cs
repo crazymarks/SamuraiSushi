@@ -33,7 +33,7 @@ public class Fugu : FishBase {
 
         if (this.transform.position.y<-4)  //exit screen delete
         {
-            GameController.SendMessage("popular_fish_cut", "fail");
+            GameController.SendMessage("ComboCheck", "fail");
             Destroy(gameObject);
         }
 
@@ -46,7 +46,7 @@ public class Fugu : FishBase {
                 CutPos = this.transform.position; //get rice and niku location
                 Instantiate(FuguNikuPoison, CutPos, Quaternion.identity);
                 Instantiate(Rice, RicePos, Quaternion.identity);
-                GameController.SendMessage("popular_fish_cut", "success");
+                GameController.SendMessage("ComboCheck", "success");
                 Destroy(this.gameObject);
             }else  if (IsDown == true)   //成功
             {
@@ -54,7 +54,7 @@ public class Fugu : FishBase {
                 CutPos = this.transform.position; //get rice and niku location
                 Instantiate(FuguNikuGolden, CutPos, Quaternion.identity);
                 Instantiate(Rice, RicePos, Quaternion.identity);
-                GameController.SendMessage("popular_fish_cut", "success");
+                GameController.SendMessage("ComboCheck", "success");
                 Destroy(this.gameObject);
             }
 

@@ -32,7 +32,6 @@ public class GameController : MonoBehaviour {
     //寿司相関
 
     //ポイントと寿司喰う相関（start）
-    public Text PopularPointText;
     public Text MoneyText;
 
     public List<string> CustomerList = new List<string>();//行列リスト
@@ -66,18 +65,12 @@ public class GameController : MonoBehaviour {
     public GameObject YouDied;
     //ダメージ相関(end)
 
-    //人気値相関
-    public float PopularPoint = 100;　　　//ゲーム開始の人気値
-    public float maxPopularPoint = 1000; //人気値の上限
-    public float SuccessPopular = 10;    //カット成功時　もらう人気値
-    public float KillPopular = 30;      //町人殺して　減った人気値
+    //combo相関
     private int Combo = 0;
     public Text ComboText;
-    public int PopularState2 = 300;     //段階２
-    public int PopularState3 = 600;     //段階３
     public Image popularGage;
     private bool GameOverFlag = false;
-   //人気値相関
+   //combo相関
 
 //------------------------------fuction--------------------------------------------------------------------
 	void Start () {
@@ -85,7 +78,6 @@ public class GameController : MonoBehaviour {
         Life = 3;
         create_fish();
         CheckLoop();
-        popular_decrease_with_time();
         Money = 0;
         CustomerList.Clear();
         SushiList.Clear();
@@ -95,13 +87,8 @@ public class GameController : MonoBehaviour {
 	void Update ()
     {
         popularGage.fillAmount = (float)Money / maxMoney;  //金ゲージに変更
-        PopularPointText.text = ("人気：" + PopularPoint.ToString());
         customers_list_check();
-       // if (PopularPoint <= 0&&GameOverFlag==false)  
-      //  {
-       //     you_died();
-      //      GameOverFlag = true;
-      //  }
+
         if (Money >= maxMoney)   //金は一定に達成すると、ゲームクリア
         {
             GameClear();
@@ -120,28 +107,22 @@ public class GameController : MonoBehaviour {
         Invoke("CheckLoop",CheckTime);
     }
 
-    /// <summary>
-    /// 毎秒人気が減少する
-    /// </summary>
-    void popular_decrease_with_time()
-    {
-        PopularPoint = PopularPoint - 1;
-        Invoke("popular_decrease_with_time", 1f);
-    }
 
-    void popular_fish_cut(string result)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="result"></param>
+    void ComboCheck(string result)
     {
         if(result == "success")
         {
-            PopularPoint = PopularPoint + (SuccessPopular + Combo * 0.2f * SuccessPopular);   //コンボによって、人気値の増し量が上がる
             Combo = Combo + 1;
         }
         else
         {
             Combo = 0;
         }
-        ComboText.text = ("Combo:" + Combo.ToString());
-        
+        ComboText.text = ("Combo:" + Combo.ToString());       
     }
 
     /// <summary>
@@ -203,7 +184,6 @@ public class GameController : MonoBehaviour {
     void kill_people(string name)
     {
         PeopleKilling = PeopleKilling + 1;
-        PopularPoint = PopularPoint - KillPopular;     //町人を殺して、人気値が減る
         CustomerList.Remove(name);
         customers_manage(1);    
         PeoplekillText.text = ("殺人数:" + PeopleKilling.ToString());

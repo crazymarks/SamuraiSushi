@@ -39,7 +39,7 @@ public class Tako : FishBase {
     void FixedUpdate () {
         if (this.transform.position.y < -4)    //exit screen delete
         {
-            GameController.SendMessage("popular_fish_cut", "fail");
+            GameController.SendMessage("ComboCheck", "fail");
             Destroy(gameObject);
         }
 
@@ -63,7 +63,7 @@ public class Tako : FishBase {
                         Feet = Instantiate(TakoFailFoot, CutPos, Quaternion.identity);
                         RigidbodyFeet = Feet.GetComponent<Rigidbody2D>();
                         RigidbodyFeet.AddForce(ForceFeet, ForceMode2D.Impulse);
-                        GameController.SendMessage("popular_fish_cut", "fail");
+                        GameController.SendMessage("ComboCheck", "fail");
                     }
                 }
                 else
@@ -74,7 +74,7 @@ public class Tako : FishBase {
                     Instantiate(Rice, RicePos, Quaternion.identity);
                     //add rice appear animation (uncompeleted)
                     //add rice appear animation (uncompeleted)
-                    GameController.SendMessage("popular_fish_cut", "success");
+                    GameController.SendMessage("ComboCheck", "success");
                 }
                 Destroy(this.gameObject);
             }

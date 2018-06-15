@@ -45,7 +45,7 @@ public class Maguro :FishBase {
                 //add rice apper animation (uncompeleted)
 
                 // add related to popular and point
-                GameController.SendMessage("popular_fish_cut","success");
+                GameController.SendMessage("ComboCheck", "success");
                 // add related to popular and point
             }
             else                                               //fail to cut fish                 
@@ -53,14 +53,14 @@ public class Maguro :FishBase {
                 Instantiate(MaguroFailedHead, CutPos, Quaternion.identity);
                 Instantiate(MaguroFailedTail, CutPos, Quaternion.identity);
                 //add related to popular and point (uncompeleted)
-                GameController.SendMessage("popular_fish_cut", "fail");
+                GameController.SendMessage("ComboCheck", "fail");
                 //add related to popular and point (uncompeleted)
             }
             Destroy(gameObject);
         }
         if (this.transform.position.y < -4)   // exit screen delete    y can be changed
         {
-            GameController.SendMessage("popular_fish_cut", "fail");
+            GameController.SendMessage("ComboCheck", "fail");
             Destroy(gameObject);
         }
     }
