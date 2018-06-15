@@ -103,7 +103,7 @@ public class GameController : MonoBehaviour {
       //  }
         if (Money >= maxMoney)   //金は一定に達成すると、ゲームクリア
         {
-            you_died();
+            GameClear();
         }
     }
     /// <summary>
@@ -338,29 +338,37 @@ public class GameController : MonoBehaviour {
         customers_manage(0);
     }
 
-    //-------------------------------------Ninja-----------------------------------------------
-    /// <summary>
-    /// 忍者かサムライに攻撃された　ライフが減る
-    /// </summary>           
-    /*void get_hurt()
-    {
-        Life--;
-        LifeText.text = (("命：" + Life.ToString()));
-        if (Life == 0)
-        {
-            Invoke("you_died", 1.0f);
-        }
-    }*/
+    //-------------------------------------ゲームオーバー-----------------------------------------------
 
-    void you_died()　　　//プレイヤーが殺された
+     public void GameOver1()　　　//プレイヤーが殺されたによるエンディング
+    {
+        Time.timeScale = 0.1f;
+        Invoke("GameOverDelay", 0.2f);
+        mainBGM.Stop();
+
+    }
+
+    void GameOverDelay()   //「閉店」の画面が少し遅延して出す
+    {
+        Vector3 pos = new Vector3(0, 0, 1);
+        Instantiate(YouDied, pos, Quaternion.identity);
+    }
+
+    void GameOver2()     //町人を殺しすぎて、人間性がなくなった
+    {
+
+    }
+
+    //-------------------------------------ゲームオーバー-----------------------------------------------
+
+        void GameClear()          //一定寿司が町人に食べさせると、ゲームクリア
     {
         Vector3 pos = new Vector3(0, 0, 1);
         Instantiate(YouDied, pos, Quaternion.identity);
         mainBGM.Stop();
     }
 
-    //-------------------------------------Ninja-----------------------------------------------
-   public void reset_scene()
+    public void reset_scene()
     {
         Application.LoadLevelAsync(0);
     }

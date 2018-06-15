@@ -13,10 +13,11 @@ public class YouDied : MonoBehaviour {
 	//「you　die」がだんだん透明化して、最後ゲームが止まる
 	void get_transparency() {
         if(Transparency<=2.0f)
-        {
+        {            
             SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, Transparency);
-            Transparency += 0.05f;
-            Invoke("get_transparency", 0.05f);
+            Transparency += 0.025f;
+            
+            Invoke("get_transparency", 0.01f);
         }
         else
         {

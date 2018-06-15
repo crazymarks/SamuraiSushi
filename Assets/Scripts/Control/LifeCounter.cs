@@ -22,14 +22,8 @@ public class LifeCounter : MonoBehaviour {
         lifes[lifeCount].SetActive(false);
         if(lifeCount == 0)
         {
-            GameOver();
+            GameObject.Find("GameController").GetComponent<GameController>().GameOver1(); 
         }
-    }
-
-    void GameOver()
-    {
-        Vector3 pos = new Vector3(0, 0, 1);
-        Instantiate(youDied, pos, Quaternion.identity);
     }
 
 }
