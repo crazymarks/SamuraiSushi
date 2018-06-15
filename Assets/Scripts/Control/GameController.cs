@@ -72,6 +72,7 @@ public class GameController : MonoBehaviour {
     public float SuccessPopular = 10;    //カット成功時　もらう人気値
     public float KillPopular = 30;      //町人殺して　減った人気値
     private int Combo = 0;
+    public Text ComboText;
     public int PopularState2 = 300;     //段階２
     public int PopularState3 = 600;     //段階３
     public Image popularGage;
@@ -139,6 +140,8 @@ public class GameController : MonoBehaviour {
         {
             Combo = 0;
         }
+        ComboText.text = ("Combo:" + Combo.ToString());
+        
     }
 
     /// <summary>

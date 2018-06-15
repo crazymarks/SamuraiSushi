@@ -46,7 +46,7 @@ public class Fugu : FishBase {
                 CutPos = this.transform.position; //get rice and niku location
                 Instantiate(FuguNikuPoison, CutPos, Quaternion.identity);
                 Instantiate(Rice, RicePos, Quaternion.identity);
-                GameController.SendMessage("popular_fish_cut", "fail");
+                GameController.SendMessage("popular_fish_cut", "success");
                 Destroy(this.gameObject);
             }else  if (IsDown == true)   //成功
             {
