@@ -34,7 +34,7 @@ public class PeopleCreate : MonoBehaviour {
     // Use this for initialization
     void Start () {
         MiddleZone = GameObject.Find("MiddleZone");
-        create_people();
+        Invoke("create_people",firstCreateTime);
     }
 	
     void Update()
