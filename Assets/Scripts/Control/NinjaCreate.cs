@@ -7,19 +7,45 @@ public class NinjaCreate : MonoBehaviour {
     public GameObject NinjaFlyDown;
     public GameObject NinjaWall;
 
-    [HideInInspector]
+    [SerializeField, HeaderAttribute("最初の忍者の生成時間")]
+    public float firstCreateTime = 1f;  //最初の生成時間
+    [SerializeField, HeaderAttribute("次の生成時間は以下の二つ値の間にランダム決定")]
+    public float minCreateTime = 0.5f;   //生成時間最大値
+    public float maxCreateTime = 2f;   //生成時間最小値
+
+    [SerializeField, HeaderAttribute("忍者の出現確率だが、自分で百分比を計算 例：跳びは F/(W+F)")]
+    public float probabilityNinjaFlyTest = 0.5f;  //飛び忍者の出現確率 テスト用
+    public float probabilityNinjaWallTest = 0.5f;　　//壁忍者の出現確率　テスト用
+
     public static float probabilityNinjaFly = 0.5f;  //飛び忍者の出現確率
-    [HideInInspector]　
     public static float probabilityNinjaWall = 0.5f;　　//壁忍者の出現確率
 　
     // Use this for initialization
     void Start () {
-       float ninjaCreate = Random.Range(0f, probabilityNinjaFly+probabilityNinjaWall);
+        Invoke("NinjaChoose",firstCreateTime);
+    }
+    /// <summary>
+    /// テスト用　正式版消す
+    /// </summary>
+    void Update()
+    {
+        //テスト用　正式版消す
+    　　 probabilityNinjaFly = probabilityNinjaFlyTest;  //飛び忍者の出現確率
+    　　 probabilityNinjaWall = probabilityNinjaWallTest;  //壁忍者の出現確率
+　　　　　//テスト用　正式版消す
+}
+        /// <summary>
+        /// 忍者の種類を選択
+        /// </summary>
+        void NinjaChoose()
+    {
+        float ninjaCreate = Random.Range(0f, probabilityNinjaFly + probabilityNinjaWall);
 
-        if (ninjaCreate>0f&&ninjaCreate<probabilityNinjaFly)
+        if (ninjaCreate > 0f && ninjaCreate < probabilityNinjaFly)
         {
             create_ninjafly();
-        }else if (ninjaCreate < (probabilityNinjaFly + probabilityNinjaWall))
+        }
+        else if (ninjaCreate < (probabilityNinjaFly + probabilityNinjaWall))
         {
             create_ninjaWall();
         }
@@ -45,8 +71,8 @@ public class NinjaCreate : MonoBehaviour {
             Instantiate(NinjaFlyDown, pos, Quaternion.identity);
         }
 
-        float NinjaFlyCreateTime = Random.Range(4.0f, 7.0f);
-        Invoke("Start", NinjaFlyCreateTime);
+        float NinjaFlyCreateTime = Random.Range(minCreateTime, maxCreateTime);
+        Invoke("NinjaChoose", NinjaFlyCreateTime);
     }
 
 
@@ -109,13 +135,13 @@ public class NinjaCreate : MonoBehaviour {
 
         }
 
-        float NinjaFlyCreateTime = Random.Range(4.0f, 7.0f);
-        Invoke("Start", NinjaFlyCreateTime);
+        float NinjaFlyCreateTime = Random.Range(minCreateTime, maxCreateTime);
+        Invoke("NinjaChoose", NinjaFlyCreateTime);
     }
     void create_ninjanull()  //テスト用、確率は全部０から戻す時、ちゃんと動くようにメソッド
     {
-        float NinjaFlyCreateTime = Random.Range(4.0f, 7.0f);
-        Invoke("Start", NinjaFlyCreateTime);
+        float NinjaFlyCreateTime = Random.Range(minCreateTime, maxCreateTime);
+        Invoke("NinjaChoose", NinjaFlyCreateTime);
     }
 
 }

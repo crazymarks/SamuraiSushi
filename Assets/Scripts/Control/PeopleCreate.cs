@@ -22,7 +22,11 @@ public class PeopleCreate : MonoBehaviour {
     private GameObject People=null;          //生成する町人を管理するため
     private int PeopleCount = 0;        //生成する町人の数、名前につける
     private float PeopleCreateSpeed=0; //町人生成のスピード
-
+    [SerializeField, HeaderAttribute("最初の町人の生成時間")]
+    public float firstCreateTime = 1f;  //最初の生成時間
+    [SerializeField, HeaderAttribute("次の生成時間は以下の二つ値の間にランダム決定")]
+    public float minCreateTime = 0.5f;   //生成時間最大値
+    public float maxCreateTime = 2f;　　　//生成時間最小値
     //町人相関
     [HideInInspector]
     public static bool isPeopleCreate = true;  //テストのため、コントロールパネルで町人の出現を止める用   
@@ -110,7 +114,7 @@ public class PeopleCreate : MonoBehaviour {
             PeopleCount++;
         }
 
-        PeopleCreateSpeed = Random.Range(0.3f, 2f);       //生成スピードをランダムにする
+        PeopleCreateSpeed = Random.Range(minCreateTime, maxCreateTime);       //生成スピードをランダムにする
         if(isPeopleCreate==true) {
             Invoke("create_people", PeopleCreateSpeed);
         }

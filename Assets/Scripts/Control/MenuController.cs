@@ -12,8 +12,15 @@ public class MenuController : MonoBehaviour {
     public Toggle peopleToggle;
     public Toggle ninjaWallToggle;
     public Toggle ninjaFlyToggle;
+    
+    //データが変えるように、変数で変えたデータを記録します
+    float probabilityMaguro1 = 0f;
+    float probabilityTako1 = 0f;
+    float probabilityFugu1 = 0f;
+    float probabilityNinjaWall1 = 0f;
+    float probabilityNinjaFly1 = 0f;
 
-	void Start () {
+    void Start () {
         menuObject.SetActive(false);
         maguroToggle.GetComponent<Toggle>();
         takoToggle.GetComponent<Toggle>();
@@ -21,6 +28,11 @@ public class MenuController : MonoBehaviour {
         peopleToggle.GetComponent<Toggle>();
         ninjaWallToggle.GetComponent<Toggle>();
         ninjaFlyToggle.GetComponent<Toggle>();
+        probabilityMaguro1 = GameController.probabilityMaguro;
+        probabilityTako1 = GameController.probabilityTako;
+        probabilityFugu1 = GameController.probabilityFugu;
+        probabilityNinjaWall1 = NinjaCreate.probabilityNinjaWall;
+        probabilityNinjaFly1 = NinjaCreate.probabilityNinjaFly;
     }
 	
 

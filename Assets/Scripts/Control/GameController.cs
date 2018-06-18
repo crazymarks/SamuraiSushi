@@ -11,14 +11,22 @@ public class GameController : MonoBehaviour {
     public GameObject Maguro;        //リスト中のコードは　1
     public GameObject Tako;          //リスト中のコードは　2
     public GameObject Fugu;          //リスト中のコードは　3
-    public float CreateSpeed = 2.0f;
     public Vector3 FishPosition = new Vector3(0f, -3f, 6f);
-    [HideInInspector]
+    [SerializeField, HeaderAttribute("最初の魚の生成時間")]
+    public float firstFishCreateTime = 1f;  //最初の生成時間
+    [SerializeField, HeaderAttribute("魚の生成間隔")]
+    public float CreateSpeed = 2.0f;   
+    [SerializeField, HeaderAttribute("魚の出現確率だが、自分で百分比を計算 例：Maguroは M/(M+T+F)")]
+    public  float probabilityMaguroTest = 0.5f;  //マグロの出現確率 テスト用
+    public  float probabilityTakoTest = 0.4f;    //タコの出現確率　テスト用
+    public  float probabilityFuguTest = 0.1f;    //フグの出現確率　テスト用
+
     public static float probabilityMaguro=0.5f;  //マグロの出現確率
-    [HideInInspector]
     public static float probabilityTako=0.4f;    //タコの出現確率
-    [HideInInspector]
     public static float probabilityFugu=0.1f;    //フグの出現確率
+    [SerializeField, HeaderAttribute("クリアに必要な魚の数")]
+    public int maxFishAmount = 40;  //クリアに必要な切った魚の尾数
+    private int cuttedFishAmount = 0;  //切った魚の数
     //魚相関
 
     //寿司相関
@@ -34,13 +42,17 @@ public class GameController : MonoBehaviour {
     //ポイントと寿司喰う相関（start）
     public Text MoneyText;
 
+    [HideInInspector]
     public List<string> CustomerList = new List<string>();//行列リスト
     static public float PofCustomers = 0.8f;  //町人がお客さんになる確率
 
     private int PeopleKilling;       //殺した町人の数
-    public Text PeoplekillText; 
+    public Text PeoplekillText;
+
+    [SerializeField, HeaderAttribute("人間性最大値、一人-1")]
+    public int humanity=20;     //人間性
+
     private int Money = 0;            //この 変数　を　初期化を忘れないで！！！！！
-    public int maxMoney = 7000;       //最大になったら　ゲームクリア？
     private bool CustomerFlag = true;   //trueの場合は次のお客さんが寿司を食べる　食べた後、一定時間内falseにする
         //価格
     private int NormalPrice = 100;
@@ -76,9 +88,10 @@ public class GameController : MonoBehaviour {
 	void Start () {
         Time.timeScale = 1;                   //ゲーム開始の時　timescaleを１に戻る（時間の流れを戻す）
         Life = 3;
-        create_fish();
+       Invoke("create_fish",firstFishCreateTime);  //魚が一定時間後生成
         CheckLoop();
         Money = 0;
+        cuttedFishAmount = 0;
         CustomerList.Clear();
         SushiList.Clear();
         mainBGM.Play();
@@ -86,12 +99,21 @@ public class GameController : MonoBehaviour {
 	
 	void Update ()
     {
-        popularGage.fillAmount = (float)Money / maxMoney;  //金ゲージに変更
+        //テスト用　正式版消す
+        probabilityMaguro = probabilityMaguroTest;  
+        probabilityTako = probabilityTakoTest;    
+        probabilityFugu = probabilityFuguTest;
+        //テスト用　正式版消す
         customers_list_check();
 
-        if (Money >= maxMoney)   //金は一定に達成すると、ゲームクリア
+        popularGage.fillAmount = (float)cuttedFishAmount / maxFishAmount;  //切った魚の数に変更      
+        if (cuttedFishAmount >= maxFishAmount)   //金は一定に達成すると、ゲームクリア
         {
             GameClear();
+        }
+        if (humanity < 0)    //人間性がなくなったら、ゲームオーバー
+        {
+            GameOver2();
         }
     }
     /// <summary>
@@ -130,9 +152,6 @@ public class GameController : MonoBehaviour {
     /// </summary>
     void create_fish()
     {
-        //（未完成）一回出す魚の数（人気値と関係ある）
-        //（未完成）一回出す魚の数（人気値と関係ある）
-
         //（未完成）魚種類の選択
         float fishChoose = Random.Range(0.0f, probabilityMaguro+probabilityTako+probabilityFugu) ;
         if(fishChoose < probabilityMaguro)
@@ -187,6 +206,7 @@ public class GameController : MonoBehaviour {
         CustomerList.Remove(name);
         customers_manage(1);    
         PeoplekillText.text = ("殺人数:" + PeopleKilling.ToString());
+        humanity = humanity - 1;  //殺人で人間性がなくなる
     }
     /// <summary>
     /// お客さんリストをチェック (寿司喰う後)(int i=0)/(人を殺した後)(int i=1)
@@ -233,6 +253,7 @@ public class GameController : MonoBehaviour {
         Sushi.name = "Sushi" + SushinameCount;
         SushinameCount++;
         SushiList.Add(1);         //寿司リストにマグロ寿司(普通寿司 code 1)を追加する
+        cuttedFishAmount += 1;   //切った魚の尾数＋１
     }
 
     /// <summary>
@@ -246,6 +267,7 @@ public class GameController : MonoBehaviour {
         Sushi.name = "Sushi" + SushinameCount;
         SushinameCount++;
         SushiList.Add(1);         //寿司リストにタコ寿司(普通寿司code 1)を追加する
+        cuttedFishAmount += 1;   //切った魚の尾数＋１
     }
     /// <summary>
     /// 寿司リストにフグ寿司を追加する
@@ -258,6 +280,7 @@ public class GameController : MonoBehaviour {
         Sushi.name = "Sushi" + SushinameCount;
         SushinameCount++;
         SushiList.Add(2);         //寿司リストにゴルドー(高い寿司code 2)を追加する
+        cuttedFishAmount += 1;   //切った魚の尾数＋１
     }
     /// <summary>
     /// 寿司リストにフグ寿司を追加する
@@ -270,6 +293,7 @@ public class GameController : MonoBehaviour {
         Sushi.name = "Sushi" + SushinameCount;
         SushinameCount++;
         SushiList.Add(3);         //寿司リストに毒寿司（code 3）を追加する
+        cuttedFishAmount += 1;   //切った魚の尾数＋１
     }
     //------------------------------寿司生成---------------------------------------------------------------
     /// <summary>
@@ -337,9 +361,11 @@ public class GameController : MonoBehaviour {
         Instantiate(YouDied, pos, Quaternion.identity);
     }
 
-    void GameOver2()     //町人を殺しすぎて、人間性がなくなった
+    void GameOver2()     //町人を殺しすぎて、人間性がなくなったゲームオーバー
     {
-
+        Time.timeScale = 0.1f;
+        Invoke("GameOverDelay", 0.2f);
+        mainBGM.Stop();
     }
 
     //-------------------------------------ゲームオーバー-----------------------------------------------
