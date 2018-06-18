@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour {
     [HideInInspector]
     public List<string> CustomerList = new List<string>();//行列リスト
     static public float PofCustomers = 0.8f;  //町人がお客さんになる確率
+    public float PofCustomersTest = 0.6f;//町人がお客さんになる確率 テスト用
 
     private int PeopleKilling;       //殺した町人の数
     public Text PeoplekillText;
@@ -103,6 +104,7 @@ public class GameController : MonoBehaviour {
         probabilityMaguro = probabilityMaguroTest;  
         probabilityTako = probabilityTakoTest;    
         probabilityFugu = probabilityFuguTest;
+        PofCustomers = PofCustomersTest;  //お客さんになる確率
         //テスト用　正式版消す
         customers_list_check();
 
