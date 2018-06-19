@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
     public AudioSource mainBGM;
+	
+	//タイマー相関
+	Timer timer = new Timer();
 
     //魚相関
     public GameObject Maguro;        //リスト中のコードは　1
@@ -100,6 +103,9 @@ public class GameController : MonoBehaviour {
 	
 	void Update ()
     {
+		//タイマー更新
+		timer.Update();
+		
         //テスト用　正式版消す
         probabilityMaguro = probabilityMaguroTest;  
         probabilityTako = probabilityTakoTest;    
