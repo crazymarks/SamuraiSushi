@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\Control\MenuController.cs" />
     <Compile Include="Assets\Scripts\Control\NinjaCreate.cs" />
     <Compile Include="Assets\Scripts\Control\PeopleCreate.cs" />
+    <Compile Include="Assets\Scripts\Control\Timer.cs" />
     <Compile Include="Assets\Scripts\Fish\Fugu\Fugu.cs" />
     <Compile Include="Assets\Scripts\Fish\Fugu\FuguNikuGolden.cs" />
     <Compile Include="Assets\Scripts\Fish\Fugu\FuguNikuPoison.cs" />
