@@ -47,6 +47,7 @@ public class Maguro :FishBase {
                 // add related to popular and point
                 GameController.SendMessage("ComboCheck", "success");
                 // add related to popular and point
+                GameObject.Find("SEPlayer").GetComponent<PlaySE>().FishSuccess();    //SE再生
             }
             else                                               //fail to cut fish                 
             {
@@ -55,6 +56,7 @@ public class Maguro :FishBase {
                 //add related to popular and point (uncompeleted)
                 GameController.SendMessage("ComboCheck", "fail");
                 //add related to popular and point (uncompeleted)
+                GameObject.Find("SEPlayer").GetComponent<PlaySE>().FishFail();    //SE再生
             }
             Destroy(gameObject);
         }
