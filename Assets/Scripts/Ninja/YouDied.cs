@@ -2,26 +2,71 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YouDied : MonoBehaviour {
+public class YouDied : MonoBehaviour
+{
     private SpriteRenderer SR;
-    private float Transparency=0.0f;
-	void Start () {
-        SR = GetComponent<SpriteRenderer>();
-        SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, 0.0f);
-        get_transparency();
-	}
-	//「you　die」がだんだん透明化して、最後ゲームが止まる
-	void get_transparency() {
-        if(Transparency<=2.0f)
-        {            
-            SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, Transparency);
-            Transparency += 0.025f;
-            
-            Invoke("get_transparency", 0.01f);
+    private float Transparency = 0.0f;
+    //1
+    private float step1;
+    private float step2;
+    private float step3;
+    float speed = 60;
+    float speed2 = 20;
+    float speed3 = 30;
+    public GameObject DoorRight;
+    public GameObject DoorLeft;
+    int GuanMen = 0;
+    //2
+    void Start()
+
+    {
+
+        step1 = speed * Time.deltaTime;
+        step2 = speed2 * Time.deltaTime;
+        step3 = speed3 * Time.deltaTime;
+        DoorLeft = Instantiate(DoorLeft, new Vector3(-12.0f, 0.0f, 0.5f), Quaternion.identity);
+        DoorRight = Instantiate(DoorRight, new Vector3(12.0f, 0.0f, 0.5f), Quaternion.identity);
+    }
+    //「you　die」がだんだん透明化して、最後ゲームが止まる
+    void Update()
+    {
+        if (GuanMen == 0)
+            if ((DoorLeft.transform.position.x <= -4 || DoorRight.transform.position.x >= 4))
+            {
+                DoorLeft.transform.localPosition = Vector3.MoveTowards(DoorLeft.transform.localPosition, new Vector3(-4.0f, 0.0f, 0.5f), step1);
+                DoorRight.transform.localPosition = Vector3.MoveTowards(DoorRight.transform.localPosition, new Vector3(4.0f, 0.0f, 0.5f), step1);
+                if (DoorLeft.transform.position.x >= -4 || DoorRight.transform.position.x <= 4)
+                {
+                    GuanMen = 1;
+                }
+            }
+
+        if (GuanMen == 1)
+
+        {
+            DoorLeft.transform.localPosition = Vector3.MoveTowards(DoorLeft.transform.localPosition, new Vector3(-6.0f, 0.0f, 0.5f), step2);
+            DoorRight.transform.localPosition = Vector3.MoveTowards(DoorRight.transform.localPosition, new Vector3(6.0f, 0.0f, 0.5f), step2);
+            if (DoorLeft.transform.position.x <= -5 || DoorRight.transform.position.x >= 5)
+            {
+                GuanMen = 2;
+            }
         }
-        else
+        else if (GuanMen == 2)
+        {
+            DoorLeft.transform.localPosition = Vector3.MoveTowards(DoorLeft.transform.localPosition, new Vector3(-4.0f, 0.0f, 0.5f), step3);
+            DoorRight.transform.localPosition = Vector3.MoveTowards(DoorRight.transform.localPosition, new Vector3(4.0f, 0.0f, 0.5f), step3);
+
+            if (DoorLeft.transform.position.x >= -4 || DoorRight.transform.position.x <= 4)
+            {
+                GuanMen = 3;
+            }
+        }
+        else if (GuanMen == 3)
         {
             Time.timeScale = 0;  //ゲームを止める
         }
-	}
+
+    }
+
 }
+
