@@ -8,11 +8,47 @@ public class UpperBody : MonoBehaviour {
     int speedCount = 0;
     float speed = 0.4f;
     Vector3 targetPosition;
-
+    [HideInInspector]
+    public int state;
+    public Sprite frontUpper;
+    public Sprite backUpper;
+    public Sprite sideUpper;
+    Quaternion rotation = Quaternion.identity;
+    public enum MoveStatus  //町人の各移動状態　変数名は向き
+    {
+        Back = 1,
+        Front = 2,
+        Left = 3,
+        Right = 4
+    }
     // Use this for initialization
     void Start () {
         targetPosition= this.transform.position + new Vector3(0.15f, 0.2f, 0f);
         SR = GetComponent<SpriteRenderer>();
+        
+        switch (state)
+        {
+            case (int)MoveStatus.Front:
+                this.GetComponent<SpriteRenderer>().sprite = frontUpper;   //正面に切り替え
+                rotation.eulerAngles = new Vector3(0, 0, 0);
+                this.transform.rotation = rotation;
+                return;
+            case (int)MoveStatus.Back:
+                this.GetComponent<SpriteRenderer>().sprite = backUpper;   //背面に切り替え
+                rotation.eulerAngles = new Vector3(0, 0, 0);
+                this.transform.rotation = rotation;
+                return;
+            case (int)MoveStatus.Left:
+                this.GetComponent<SpriteRenderer>().sprite = sideUpper;   //左向きに切り替え
+                rotation.eulerAngles = new Vector3(0, 180, 0);
+                this.transform.rotation = rotation;
+                return;
+            case (int)MoveStatus.Right:
+                this.GetComponent<SpriteRenderer>().sprite = sideUpper;   //右向きに切り替え
+                rotation.eulerAngles = new Vector3(0, 0, 0);
+                this.transform.rotation = rotation;
+                return;
+        }
 
     }
 

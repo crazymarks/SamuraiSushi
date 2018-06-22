@@ -53,17 +53,22 @@ public abstract class PeopleBase : MonoBehaviour {
 	}
 	
 	protected virtual void FixedUpdate ()
-    {
+    {       
         float Step = Speed * Time.deltaTime;
         transform.position = Vector2.MoveTowards(transform.position, RandomPoint, Step);
         scale_with_y();
+        if (IsCustomer == true&&new Vector2( transform.position.x, transform.position.y) ==RandomPoint)
+        {
+            SpriteState = (int)MoveStatus.Front; //向き
+            SpriteChange();
+        }
 	}
-
 
 //-------------------------------画面外から入る----------------------------------------------
     protected virtual void enter_from_up(bool BeCustomer)
     {
-        SpriteState = (int)MoveStatus.Front;
+        SpriteState = (int)MoveStatus.Front; //向き
+        SpriteInitalize();
         GetStart();
         float x = 0f;
         float y = 0f;
@@ -77,7 +82,8 @@ public abstract class PeopleBase : MonoBehaviour {
 
     protected virtual void enter_from_left(bool BeCustomer)
     {
-        SpriteState = (int)MoveStatus.Right;
+        SpriteState = (int)MoveStatus.Right;//向き
+        SpriteInitalize();
         GetStart();
         float x = 0f;
         float y = 0f;
@@ -91,7 +97,8 @@ public abstract class PeopleBase : MonoBehaviour {
 
     protected virtual void enter_from_right(bool BeCustomer)
     {
-        SpriteState = (int)MoveStatus.Left;
+        SpriteState = (int)MoveStatus.Left;//向き
+        SpriteInitalize();
         GetStart();
         float x = 0f;
         float y = 0f;
@@ -139,42 +146,56 @@ public abstract class PeopleBase : MonoBehaviour {
         if (IsCustomer)
         {
             customers_move(CustomerNumber);
-        }else
+
+        }
+        else
         {
             if (EnterDirection == 0)                //上から来た
             {
                 float NextDirection = Random.Range(0.0f, 1.0f);
                 if (NextDirection < 0.5f)
-                {       exit_to_right();
-                    SpriteState =(int) MoveStatus.Right;
+                {
+                    exit_to_right();
+                    SpriteState =(int) MoveStatus.Right;//向き
+                    SpriteChange();
                 }
                 else
-                {       exit_to_left();
-                    SpriteState = (int)MoveStatus.Left;
+                {
+                    exit_to_left();
+                    SpriteState = (int)MoveStatus.Left;//向き
+                    SpriteChange();
                 }
             }
             else if (EnterDirection == 1)         //左から来た
             {
                 float NextDirection = Random.Range(0.0f, 1.0f);
                 if (NextDirection < 0.5)
-                {    exit_to_right();
-                    SpriteState = (int)MoveStatus.Right;
+                {
+                    exit_to_right();
+                    SpriteState = (int)MoveStatus.Right;//向き
+                    SpriteChange();
                 }
                 else
-                {    exit_to_up();
-                    SpriteState = (int)MoveStatus.Back;
+                {
+                    exit_to_up();
+                    SpriteState = (int)MoveStatus.Back;//向き
+                    SpriteChange();
                 }
             }
             else                                 //右から来た
             {
                 float NextDirection = Random.Range(0f, 1f);
                 if (NextDirection < 0.5)
-                {    exit_to_left();
-                    SpriteState = (int)MoveStatus.Left;
+                {
+                    exit_to_left();
+                    SpriteState = (int)MoveStatus.Left;//向き
+                    SpriteChange();
                 }
                 else
-                {    exit_to_up();
-                    SpriteState = (int)MoveStatus.Back;
+                {
+                    exit_to_up();
+                    SpriteState = (int)MoveStatus.Back;//向き
+                    SpriteChange();
                 }
             }
         }
@@ -195,6 +216,8 @@ public abstract class PeopleBase : MonoBehaviour {
     {
         IsCustomer = false;
         state_change();
+
+
     }
     protected virtual void customers_check2(int number)
     {

@@ -5,6 +5,10 @@ using UnityEngine;
 public class Man : PeopleBase {
     public GameObject ManFrontUpperBody;
     public GameObject ManFrontLowerBody;
+    public Sprite front;
+    public Sprite back;
+    public Sprite side;
+    Quaternion rotation = Quaternion.identity;
 
     public void after_eatsushi(int x)
     {
@@ -23,9 +27,13 @@ public class Man : PeopleBase {
         base.be_killed();
         GameObject tempObject1= Instantiate(ManFrontUpperBody,this.transform.position,Quaternion.identity);
         tempObject1.transform.localScale = this.transform.lossyScale;
+        tempObject1.GetComponent<UpperBody>().state = GetSpriteState();
         GameObject tempObject2= Instantiate(ManFrontLowerBody,this.transform.position,Quaternion.identity);
         tempObject2.transform.localScale = this.transform.lossyScale;
+        tempObject1.GetComponent<LowerBody>().state = GetSpriteState();
     }
+
+
 
     protected override void SpriteInitalize()
     {  
@@ -34,9 +42,25 @@ public class Man : PeopleBase {
         switch (state)
         {
             case (int)MoveStatus.Front:
-                this.GetComponent<SpriteRenderer>().sprite=;
+                this.GetComponent<SpriteRenderer>().sprite=front;   //正面に切り替え
+                rotation.eulerAngles = new Vector3(0, 0, 0);
+                this.transform.rotation = rotation;
                 return;
-
+            case (int)MoveStatus.Back:
+                this.GetComponent<SpriteRenderer>().sprite =back;   //背面に切り替え
+                rotation.eulerAngles = new Vector3(0, 0, 0);
+                this.transform.rotation = rotation;
+                return;
+            case (int)MoveStatus.Left:
+                this.GetComponent<SpriteRenderer>().sprite = side;   //左向きに切り替え
+                rotation.eulerAngles =new Vector3( 0,180,0);
+                this.transform.rotation = rotation;
+                return;
+            case (int)MoveStatus.Right:
+                this.GetComponent<SpriteRenderer>().sprite = side;   //右向きに切り替え
+                rotation.eulerAngles = new Vector3(0, 0, 0);
+                this.transform.rotation = rotation;
+                return;
         }
 
     }
@@ -48,6 +72,22 @@ public class Man : PeopleBase {
         switch (state)
         {
             case (int)MoveStatus.Front:
+                this.GetComponent<SpriteRenderer>().sprite = front;   //正面に切り替え
+                rotation.eulerAngles = new Vector3(0,0,0);
+                this.transform.rotation = rotation;
+                return;
+            case (int)MoveStatus.Back:
+                this.GetComponent<SpriteRenderer>().sprite = back;   //背面に切り替え
+                rotation.eulerAngles = new Vector3(0, 0, 0);
+                return;
+            case (int)MoveStatus.Left:
+                this.GetComponent<SpriteRenderer>().sprite = side;   //左向きに切り替え
+                rotation.eulerAngles = new Vector3(0,180,0);
+                this.transform.rotation = rotation;
+                return;
+            case (int)MoveStatus.Right:
+                this.GetComponent<SpriteRenderer>().sprite = side;   //右向きに切り替え
+                rotation.eulerAngles = new Vector3(0, 0, 0);
                 return;
         }
     }
