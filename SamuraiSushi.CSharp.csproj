@@ -84,13 +84,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\People\LowerBody.cs" />
-    <Compile Include="Assets\Script\People\UpperBody.cs" />
     <Compile Include="Assets\Scripts\Control\GameController.cs" />
     <Compile Include="Assets\Scripts\Control\LifeCounter.cs" />
     <Compile Include="Assets\Scripts\Control\MenuController.cs" />
     <Compile Include="Assets\Scripts\Control\NinjaCreate.cs" />
     <Compile Include="Assets\Scripts\Control\PeopleCreate.cs" />
+    <Compile Include="Assets\Scripts\Control\PlaySE.cs" />
     <Compile Include="Assets\Scripts\Control\Timer.cs" />
     <Compile Include="Assets\Scripts\Fish\Fugu\Fugu.cs" />
     <Compile Include="Assets\Scripts\Fish\Fugu\FuguNikuGolden.cs" />
@@ -119,9 +118,12 @@
     <Compile Include="Assets\Scripts\Ninja\NinjaFlyDown.cs" />
     <Compile Include="Assets\Scripts\Ninja\NinjaWall.cs" />
     <Compile Include="Assets\Scripts\Ninja\YouDied.cs" />
+    <Compile Include="Assets\Scripts\People\LowerBody.cs" />
     <Compile Include="Assets\Scripts\People\Man.cs" />
     <Compile Include="Assets\Scripts\People\ManCenter.cs" />
     <Compile Include="Assets\Scripts\People\PeopleBase.cs" />
+    <Compile Include="Assets\Scripts\People\UpperBody.cs" />
+    <Compile Include="Assets\Scripts\People\Woman.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
