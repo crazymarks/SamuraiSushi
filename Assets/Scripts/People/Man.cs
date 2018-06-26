@@ -30,7 +30,7 @@ public class Man : PeopleBase {
         tempObject1.GetComponent<UpperBody>().state = GetSpriteState();
         GameObject tempObject2= Instantiate(ManFrontLowerBody,this.transform.position,Quaternion.identity);
         tempObject2.transform.localScale = this.transform.lossyScale;
-        tempObject1.GetComponent<LowerBody>().state = GetSpriteState();
+        tempObject2.GetComponent<LowerBody>().state = GetSpriteState();
     }
 
 
