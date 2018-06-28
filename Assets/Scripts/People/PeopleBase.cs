@@ -22,8 +22,8 @@ public abstract class PeopleBase : MonoBehaviour {
     //縦最低   1
 
     protected float Speed = 0f;
-    float MaxSpeed = 1f;
-    float MinSpeed;
+    float MaxSpeed = 9f;
+    float MinSpeed = 2;
 
     GameObject GameController;
     GameObject MiddleZone;
@@ -43,7 +43,6 @@ public abstract class PeopleBase : MonoBehaviour {
 
     protected virtual void GetStart()
     {
-        MinSpeed = MaxSpeed;
         random_speed();
         scale_with_y();
         GameController = GameObject.Find("GameController");
