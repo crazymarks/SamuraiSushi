@@ -79,13 +79,13 @@ public class GameController : MonoBehaviour {
     public Text LifeText;
     private int Life = 3;
     public GameObject YouDied;
+    private bool GameoverFlag = false;
     //ダメージ相関(end)
 
     //combo相関
     private int Combo = 0;
     public Text ComboText;
     public Image popularGage;
-    private bool GameOverFlag = false;
    //combo相関
 
 //------------------------------fuction--------------------------------------------------------------------
@@ -114,13 +114,16 @@ public class GameController : MonoBehaviour {
         //テスト用　正式版消す
         customers_list_check();
 
+        
         popularGage.fillAmount = (float)cuttedFishAmount / maxFishAmount;  //切った魚の数に変更      
-        if (cuttedFishAmount >= maxFishAmount)   //金は一定に達成すると、ゲームクリア
+        if (cuttedFishAmount >= maxFishAmount && GameoverFlag == false)   //金は一定に達成すると、ゲームクリア
         {
+            GameoverFlag = true;
             GameClear();
         }
-        if (humanity < 0)    //人間性がなくなったら、ゲームオーバー
+        if (humanity < 0 && GameoverFlag == false)    //人間性がなくなったら、ゲームオーバー
         {
+            GameoverFlag = true;
             GameOver2();
         }
     }
