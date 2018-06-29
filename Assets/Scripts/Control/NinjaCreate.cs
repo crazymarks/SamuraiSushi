@@ -92,22 +92,20 @@ public class NinjaCreate : MonoBehaviour {
 
                 case 0:
 
-                    Instantiate(NinjaWall, new Vector3(-6.6f, -1.3f, 15), Quaternion.identity);//左
-                    break;
+                    Instantiate(NinjaWall, new Vector3(-4.5f, -2.5f, 15), Quaternion.identity);//左
+                    break;//-4.5--2.5
                 case 1:
 
-                    Instantiate(NinjaWall, new Vector3(-4.95f, -0.6f, 15), Quaternion.identity);//上
-                    break;
+                    Instantiate(NinjaWall, new Vector3(-4.7f, 0f, 15), Quaternion.identity);//上
+                    break;//-4.7-0
                 case 2:
 
-                    Instantiate(NinjaWall, new Vector3(-4.9f, 1.6f, 15), Quaternion.identity);//中
-                    break;
+                    Instantiate(NinjaWall, new Vector3(-2.6f, -0.2f, 15), Quaternion.identity);//中
+                    break;//-2.6--0.2
                 case 3:
-                    Instantiate(NinjaWall, new Vector3(-2.1f, -0.4f, 15), Quaternion.identity);//右
-                    break;
-
-
-
+                    Instantiate(NinjaWall, new Vector3(-1.3f, -1.2f, 15), Quaternion.identity);//右
+                    break;//-1.3--1.2
+                    
             }
         }
         else　　　　　　　　　　　　　　//右の忍者生成
@@ -118,19 +116,19 @@ public class NinjaCreate : MonoBehaviour {
 
                 case 1:
 
-                    Instantiate(NinjaWall, new Vector3(3.1f, 0.3f, 15), Quaternion.identity);//左下
-                    break;
+                    Instantiate(NinjaWall, new Vector3(6f, -2.8f, 15), Quaternion.identity);//左下
+                    break;//6--2.8
                 case 2:
 
-                    Instantiate(NinjaWall, new Vector3(6.05f, -1.14f, 15), Quaternion.identity);//右下
-                    break;
+                    Instantiate(NinjaWall, new Vector3(5.3f, 0.1f, 15), Quaternion.identity);//右下
+                    break;//5.3-0.1
                 case 3:
 
-                    Instantiate(NinjaWall, new Vector3(4.54f, 1.6f, 15), Quaternion.identity);//左上
-                    break;
+                    Instantiate(NinjaWall, new Vector3(3.2f, -1.9f, 15), Quaternion.identity);//左上
+                    break;//3.2--1.9
                 case 0:
-                    Instantiate(NinjaWall, new Vector3(7.14f, 1.64f, 15), Quaternion.identity);//右上
-                    break;
+                    Instantiate(NinjaWall, new Vector3(1.2f, -1.2f, 15), Quaternion.identity);//右上
+                    break;//1.2--1.2
             }
 
         }
