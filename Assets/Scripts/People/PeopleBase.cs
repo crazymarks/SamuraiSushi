@@ -34,6 +34,10 @@ public abstract class PeopleBase : MonoBehaviour {
 
     int SpriteState=0;
 
+    Quaternion rotation = Quaternion.identity;     //回転のアニメーション用
+    bool isRotate = false;     //回転の状態
+    float rotateY = 0f;      //回転のy値
+
     protected virtual void GetStart()
     {
         random_speed();
@@ -53,10 +57,18 @@ public abstract class PeopleBase : MonoBehaviour {
 	}
 	
 	protected virtual void FixedUpdate ()
-    {       
-        float Step = Speed * Time.deltaTime;
-        transform.position = Vector2.MoveTowards(transform.position, RandomPoint, Step);
-        scale_with_y();
+    {
+
+        if (isRotate)
+        {
+            RotationAnime();
+        }
+        else
+        {
+            float Step = Speed * Time.deltaTime;
+            transform.position = Vector2.MoveTowards(transform.position, RandomPoint, Step);
+            scale_with_y();
+        }
         if (IsCustomer == true&&new Vector2( transform.position.x, transform.position.y) ==RandomPoint)
         {
             SpriteState = (int)MoveStatus.Front; //向き
@@ -157,13 +169,13 @@ public abstract class PeopleBase : MonoBehaviour {
                 {
                     exit_to_right();
                     SpriteState =(int) MoveStatus.Right;//向き
-                    SpriteChange();
+                    isRotate = true;//回転させる
                 }
                 else
                 {
                     exit_to_left();
                     SpriteState = (int)MoveStatus.Left;//向き
-                    SpriteChange();
+                    isRotate = true;//回転させる
                 }
             }
             else if (EnterDirection == 1)         //左から来た
@@ -172,14 +184,17 @@ public abstract class PeopleBase : MonoBehaviour {
                 if (NextDirection < 0.5)
                 {
                     exit_to_right();
-                    SpriteState = (int)MoveStatus.Right;//向き
-                    SpriteChange();
+                    if (SpriteState != (int)MoveStatus.Right)
+                    {
+                        SpriteState = (int)MoveStatus.Right;//向き
+                        isRotate = true;//回転させる
+                    }
                 }
                 else
                 {
                     exit_to_up();
                     SpriteState = (int)MoveStatus.Back;//向き
-                    SpriteChange();
+                    isRotate = true;//回転させる
                 }
             }
             else                                 //右から来た
@@ -188,14 +203,17 @@ public abstract class PeopleBase : MonoBehaviour {
                 if (NextDirection < 0.5)
                 {
                     exit_to_left();
-                    SpriteState = (int)MoveStatus.Left;//向き
-                    SpriteChange();
+                    if (SpriteState != (int)MoveStatus.Left)
+                    {
+                        SpriteState = (int)MoveStatus.Left;//向き
+                        isRotate = true;//回転させる
+                    }
                 }
                 else
                 {
                     exit_to_up();
                     SpriteState = (int)MoveStatus.Back;//向き
-                    SpriteChange();
+                    isRotate = true;//回転させる
                 }
             }
         }
@@ -297,5 +315,41 @@ public abstract class PeopleBase : MonoBehaviour {
     public int GetSpriteState()
     {
         return SpriteState;
+    }
+/// <summary>
+/// 回転のアニメーション
+/// </summary>
+    protected virtual void RotationAnime()
+    {
+        if (rotateY <80)
+        {
+            //90°回転させる
+            rotateY += 3;
+            rotation.eulerAngles = new Vector3(0, this.transform.rotation.eulerAngles.y + 3, 0);
+            this.transform.rotation = rotation;
+        }else if (rotateY<160)
+        {
+            SpriteChange();//問題はここ
+            if (SpriteState!=(int)MoveStatus.Left)
+            {
+                rotateY += 3;
+                rotation.eulerAngles = new Vector3(0, this.transform.rotation.eulerAngles.y - 3, 0);
+                this.transform.rotation = rotation;
+            }
+            else
+            {
+                 rotateY += 3;
+                rotation.eulerAngles = new Vector3(0, this.transform.rotation.eulerAngles.y + 3, 0);
+
+                this.transform.rotation = rotation;
+            }
+
+        }
+        else
+        {
+               rotateY = 0;
+               isRotate = false;
+        }
+
     }
 }
