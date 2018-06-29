@@ -12,6 +12,8 @@ public class NinjaWall : MonoBehaviour {
     private float AttackTimeDelay = 0.0f;
     public GameObject AttackEffect;
 
+    private float ScaleRate;
+
     void Start()
     {
         GameController = GameObject.Find("GameController");
@@ -44,5 +46,20 @@ public class NinjaWall : MonoBehaviour {
         tempObject1.transform.localScale = this.transform.lossyScale;
         GameObject tempObject2 = Instantiate(ninjaWallFrontlowerBody, this.transform.position, Quaternion.identity);
         tempObject2.transform.localScale = this.transform.lossyScale;
+    }
+    
+    /// <summary>
+    /// y値につれて、大きさが変化する
+    /// </summary>
+    protected virtual void scale_with_y()
+    {
+        
+        ScaleRate = (this.transform.position.y - 1) * -0.15f;
+        this.transform.localScale = new Vector3(ScaleRate + 0.05f, ScaleRate, 1);
+
+        Vector3 Pos = this.transform.position;
+
+        Pos.z = Pos.y + 15f;
+        transform.position = Pos;
     }
 }
