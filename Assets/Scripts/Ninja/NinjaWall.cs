@@ -24,9 +24,12 @@ public class NinjaWall : MonoBehaviour {
     void attack()
     {
         lifeCounter.Damage();
-        AttackTimeDelay = Random.Range(2.0f, 4.0f);
-        Vector3 pos = new Vector3(0, 0, 2);
+        Vector3 pos = new Vector3(this.transform.position.x, this.transform.position.y, 2);
         Instantiate(AttackEffect, pos, Quaternion.identity);
+       
+        Debug.Log(pos + "NinjaWall");
+        AttackTimeDelay = Random.Range(4.0f, 4.0f);
+
         Invoke("attack", AttackTimeDelay);
     }
     //切られた

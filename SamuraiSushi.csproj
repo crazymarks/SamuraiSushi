@@ -85,8 +85,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\People\LowerBody.cs" />
-    <Compile Include="Assets\Script\People\UpperBody.cs" />
     <Compile Include="Assets\Scripts\Control\GameController.cs" />
     <Compile Include="Assets\Scripts\Control\LifeCounter.cs" />
     <Compile Include="Assets\Scripts\Control\MenuController.cs" />
@@ -121,9 +119,11 @@
     <Compile Include="Assets\Scripts\Ninja\NinjaFlyDown.cs" />
     <Compile Include="Assets\Scripts\Ninja\NinjaWall.cs" />
     <Compile Include="Assets\Scripts\Ninja\YouDied.cs" />
+    <Compile Include="Assets\Scripts\People\LowerBody.cs" />
     <Compile Include="Assets\Scripts\People\Man.cs" />
     <Compile Include="Assets\Scripts\People\ManCenter.cs" />
     <Compile Include="Assets\Scripts\People\PeopleBase.cs" />
+    <Compile Include="Assets\Scripts\People\UpperBody.cs" />
     <Compile Include="Assets\Scripts\People\Woman.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

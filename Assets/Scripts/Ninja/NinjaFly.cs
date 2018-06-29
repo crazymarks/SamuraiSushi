@@ -29,11 +29,15 @@ public class NinjaFly : MonoBehaviour {
     void attack()
     {
         lifeCounter.Damage();
+        Vector3 pos = new Vector3(this.transform.position.x, this.transform.position.y, 2);
+        Debug.Log(pos+ "NinjaFly");
         AttackTimeDelay = Random.Range(2.0f, 4.0f);
-        Vector3 pos = new Vector3(0, 0, 2);
+        
+       
         Instantiate(AttackEffect,pos,Quaternion.identity);
         Invoke("attack", AttackTimeDelay);
     }
+
     //切られた
     void OnTriggerEnter2D(Collider2D other)
     {

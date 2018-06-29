@@ -15,7 +15,7 @@ public class YouDied : MonoBehaviour
     float speed3 = 30;
     public GameObject DoorRight;
     public GameObject DoorLeft;
-    int GuanMen = 0;
+    int DoorState = 0;
     //2
     void Start()
 
@@ -30,38 +30,38 @@ public class YouDied : MonoBehaviour
     //「you　die」がだんだん透明化して、最後ゲームが止まる
     void Update()
     {
-        if (GuanMen == 0)
+        if (DoorState == 0)
             if ((DoorLeft.transform.position.x <= -4 || DoorRight.transform.position.x >= 4))
             {
                 DoorLeft.transform.localPosition = Vector3.MoveTowards(DoorLeft.transform.localPosition, new Vector3(-4.0f, 0.0f, 0.5f), step1);
                 DoorRight.transform.localPosition = Vector3.MoveTowards(DoorRight.transform.localPosition, new Vector3(4.0f, 0.0f, 0.5f), step1);
                 if (DoorLeft.transform.position.x >= -4 || DoorRight.transform.position.x <= 4)
                 {
-                    GuanMen = 1;
+                    DoorState = 1;
                 }
             }
 
-        if (GuanMen == 1)
+        if (DoorState == 1)
 
         {
             DoorLeft.transform.localPosition = Vector3.MoveTowards(DoorLeft.transform.localPosition, new Vector3(-6.0f, 0.0f, 0.5f), step2);
             DoorRight.transform.localPosition = Vector3.MoveTowards(DoorRight.transform.localPosition, new Vector3(6.0f, 0.0f, 0.5f), step2);
             if (DoorLeft.transform.position.x <= -5 || DoorRight.transform.position.x >= 5)
             {
-                GuanMen = 2;
+                DoorState = 2;
             }
         }
-        else if (GuanMen == 2)
+        else if (DoorState == 2)
         {
             DoorLeft.transform.localPosition = Vector3.MoveTowards(DoorLeft.transform.localPosition, new Vector3(-4.0f, 0.0f, 0.5f), step3);
             DoorRight.transform.localPosition = Vector3.MoveTowards(DoorRight.transform.localPosition, new Vector3(4.0f, 0.0f, 0.5f), step3);
 
             if (DoorLeft.transform.position.x >= -4 || DoorRight.transform.position.x <= 4)
             {
-                GuanMen = 3;
+                DoorState = 3;
             }
         }
-        else if (GuanMen == 3)
+        else if (DoorState == 3)
         {
             Time.timeScale = 0;  //ゲームを止める
         }
