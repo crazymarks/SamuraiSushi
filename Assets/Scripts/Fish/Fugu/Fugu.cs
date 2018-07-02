@@ -48,7 +48,9 @@ public class Fugu : FishBase {
                 Instantiate(Rice, RicePos, Quaternion.identity);
                 GameController.SendMessage("ComboCheck", "success");
                 Destroy(this.gameObject);
-            }else  if (IsDown == true)   //成功
+                GameObject.Find("SEPlayer").GetComponent<PlaySE>().FishSuccess();    //SE再生
+            }
+            else  if (IsDown == true)   //成功
             {
                 RicePos = new Vector3(this.transform.position.x, TableY, 8);
                 CutPos = this.transform.position; //get rice and niku location
@@ -56,6 +58,7 @@ public class Fugu : FishBase {
                 Instantiate(Rice, RicePos, Quaternion.identity);
                 GameController.SendMessage("ComboCheck", "success");
                 Destroy(this.gameObject);
+                GameObject.Find("SEPlayer").GetComponent<PlaySE>().FishSuccess();    //SE再生
             }
 
         }      

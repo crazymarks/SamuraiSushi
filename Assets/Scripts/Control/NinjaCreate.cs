@@ -86,28 +86,25 @@ public class NinjaCreate : MonoBehaviour {
         float a = Random.value;
         if (a < 0.5f)  //左の忍者生成
         {
-            int leftNinjafly = Random.Range(0, 4);//左の忍者生成の所
+            int leftNinjafly = Random.Range(3, 4);//左の忍者生成の所
             switch (leftNinjafly)
             {
 
                 case 0:
-
-                    Instantiate(NinjaWall, new Vector3(-6.6f, -1.3f, 15), Quaternion.identity);//左
+                    CreatNinja(new Vector3(-4.5f, -2.3f, 15));//左
                     break;
                 case 1:
 
-                    Instantiate(NinjaWall, new Vector3(-4.95f, -0.6f, 15), Quaternion.identity);//上
+                    CreatNinja(new Vector3(-4.7f, 0f, 15));//上
                     break;
                 case 2:
 
-                    Instantiate(NinjaWall, new Vector3(-4.9f, 1.6f, 15), Quaternion.identity);//中
+                    CreatNinja(new Vector3(-2.6f, -0.2f, 15));//中
                     break;
                 case 3:
-                    Instantiate(NinjaWall, new Vector3(-2.1f, -0.4f, 15), Quaternion.identity);//右
+                    CreatNinja(new Vector3(-1.3f, -0.5f, 15));//右
                     break;
-
-
-
+                    
             }
         }
         else　　　　　　　　　　　　　　//右の忍者生成
@@ -118,18 +115,18 @@ public class NinjaCreate : MonoBehaviour {
 
                 case 1:
 
-                    Instantiate(NinjaWall, new Vector3(3.1f, 0.3f, 15), Quaternion.identity);//左下
+                    CreatNinja(new Vector3(6f, -2.8f, 15));//左下
                     break;
                 case 2:
 
-                    Instantiate(NinjaWall, new Vector3(6.05f, -1.14f, 15), Quaternion.identity);//右下
+                    CreatNinja(new Vector3(5.3f, 0.1f, 15));//右下
                     break;
                 case 3:
 
-                    Instantiate(NinjaWall, new Vector3(4.54f, 1.6f, 15), Quaternion.identity);//左上
+                    CreatNinja(new Vector3(3.2f, -1.3f, 15));//左上
                     break;
                 case 0:
-                    Instantiate(NinjaWall, new Vector3(7.14f, 1.64f, 15), Quaternion.identity);//右上
+                    CreatNinja(new Vector3(1.2f, -0.7f, 15));//右上
                     break;
             }
 
@@ -143,5 +140,11 @@ public class NinjaCreate : MonoBehaviour {
         float NinjaFlyCreateTime = Random.Range(minCreateTime, maxCreateTime);
         Invoke("NinjaChoose", NinjaFlyCreateTime);
     }
-
+    void CreatNinja(Vector3 _pos)   //壁忍者を生成し、大きさをｘに応じ変化させる
+    {
+        float ScaleRate;
+        GameObject NinjaScale = Instantiate(NinjaWall, new Vector3(-4.5f, -2.3f, 15), Quaternion.identity);
+        ScaleRate = Mathf.Abs(NinjaScale.transform.position.x) * 0.06f + 0.14f;
+        this.transform.localScale = new Vector3(ScaleRate, ScaleRate, 1);
+    }
 }

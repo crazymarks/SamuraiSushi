@@ -53,6 +53,7 @@ public class Tako : FishBase {
                 {
                     Instantiate(TakoSumi, SumiPos, Quaternion.identity);
                     Destroy(this.gameObject);
+                    GameObject.Find("SEPlayer").GetComponent<PlaySE>().FishSuccess();    //SE再生
                 }
 
                 if (IsDown == true)    //Feet was Cutted
@@ -64,6 +65,7 @@ public class Tako : FishBase {
                         RigidbodyFeet = Feet.GetComponent<Rigidbody2D>();
                         RigidbodyFeet.AddForce(ForceFeet, ForceMode2D.Impulse);
                         GameController.SendMessage("ComboCheck", "fail");
+                        GameObject.Find("SEPlayer").GetComponent<PlaySE>().FishFail();    //SE再生
                     }
                 }
                 else
@@ -75,6 +77,7 @@ public class Tako : FishBase {
                     //add rice appear animation (uncompeleted)
                     //add rice appear animation (uncompeleted)
                     GameController.SendMessage("ComboCheck", "success");
+                    GameObject.Find("SEPlayer").GetComponent<PlaySE>().FishSuccess();    //SE再生
                 }
                 Destroy(this.gameObject);
             }
