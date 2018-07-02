@@ -84,6 +84,8 @@ public class GameController : MonoBehaviour {
 
     //combo相関
     private int Combo = 0;
+    bool isHeal = true;
+    public GameObject lifeCounter;
     public Text ComboText;
     public Image popularGage;
    //combo相関
@@ -99,6 +101,7 @@ public class GameController : MonoBehaviour {
         CustomerList.Clear();
         SushiList.Clear();
         mainBGM.Play();
+        lifeCounter = GameObject.Find("Lifes") ;
     }
 	
 	void Update ()
@@ -125,6 +128,16 @@ public class GameController : MonoBehaviour {
         {
             GameoverFlag = true;
             GameOver2();
+        }
+
+        if(Combo != 0 && Combo % 5 == 0 && isHeal)
+        {
+            lifeCounter.GetComponent<LifeCounter>().ComboHeal();   
+            isHeal = false;
+        }
+        else if(Combo % 5 != 0)
+        {
+            isHeal = true;
         }
     }
     /// <summary>

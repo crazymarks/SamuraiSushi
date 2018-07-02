@@ -88,13 +88,12 @@
 -define:UNITY_TEAM_LICENSE
 -define:ENABLE_VSTU
 -define:UNITY_HAS_GOOGLEVR
-Assets/Script/People/LowerBody.cs
-Assets/Script/People/UpperBody.cs
 Assets/Scripts/Control/GameController.cs
 Assets/Scripts/Control/LifeCounter.cs
 Assets/Scripts/Control/MenuController.cs
 Assets/Scripts/Control/NinjaCreate.cs
 Assets/Scripts/Control/PeopleCreate.cs
+Assets/Scripts/Control/PlaySE.cs
 Assets/Scripts/Control/Timer.cs
 Assets/Scripts/Fish/Fugu/Fugu.cs
 Assets/Scripts/Fish/Fugu/FuguNikuGolden.cs
@@ -123,9 +122,12 @@ Assets/Scripts/Ninja/NinjaFlyAttack.cs
 Assets/Scripts/Ninja/NinjaFlyDown.cs
 Assets/Scripts/Ninja/NinjaWall.cs
 Assets/Scripts/Ninja/YouDied.cs
+Assets/Scripts/People/LowerBody.cs
 Assets/Scripts/People/Man.cs
 Assets/Scripts/People/ManCenter.cs
 Assets/Scripts/People/PeopleBase.cs
+Assets/Scripts/People/UpperBody.cs
+Assets/Scripts/People/Woman.cs
 -r:C:\Users\enooh\Desktop\Editor\Data\Mono\lib\mono\unity\System.Runtime.Serialization.dll
 -r:C:\Users\enooh\Desktop\Editor\Data\Mono\lib\mono\unity\System.Xml.Linq.dll
 -r:C:\Users\enooh\Desktop\Editor\Data\Mono\lib\mono\unity\UnityScript.dll
