@@ -54,17 +54,15 @@ public class PlaySE : MonoBehaviour
     public void KillPeople()
     //村人を切った
     {
-        N = Random.Range(1, 2);
-        if (N == 1)
-        {
-            SEmaintain.PlayOneShot(Kill01);
-        }
-        if (N == 2)
-        {
-            SEmaintain.PlayOneShot(Kill02);
-        }
-       
+       SEmaintain.PlayOneShot(Kill01);            
     }
+
+    public void KillNinja()
+    //村人を切った
+    {
+        SEmaintain.PlayOneShot(Kill02);
+    }
+  
     public void KillPeoplePoison()
         {
         //毒

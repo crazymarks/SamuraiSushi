@@ -237,6 +237,7 @@ public abstract class PeopleBase : MonoBehaviour {
     /// </summary>
     protected virtual void be_killed()
     {
+        GameObject.Find("SEPlayer").GetComponent<PlaySE>().KillPeople();    //SE再生
         GameController.SendMessage("kill_people", this.name);
         Destroy(gameObject);
     }
@@ -249,6 +250,7 @@ public abstract class PeopleBase : MonoBehaviour {
     //毒殺された
     protected virtual void killed_by_poison()
     {
+        GameObject.Find("SEPlayer").GetComponent<PlaySE>().KillPeoplePoison();    //SE再生
         GameController.SendMessage("kill_people", this.name);
         Destroy(gameObject);
     }

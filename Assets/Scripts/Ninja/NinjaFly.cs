@@ -43,6 +43,7 @@ public class NinjaFly : MonoBehaviour {
     {
         if (other.name == "Line")
         {
+            GameObject.Find("SEPlayer").GetComponent<PlaySE>().KillNinja();
             die();
         }
     }

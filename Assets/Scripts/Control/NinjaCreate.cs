@@ -86,7 +86,7 @@ public class NinjaCreate : MonoBehaviour {
         float a = Random.value;
         if (a < 0.5f)  //左の忍者生成
         {
-            int leftNinjafly = Random.Range(3, 4);//左の忍者生成の所
+            int leftNinjafly = Random.Range(0, 4);//左の忍者生成の所
             switch (leftNinjafly)
             {
 
@@ -114,7 +114,6 @@ public class NinjaCreate : MonoBehaviour {
             {
 
                 case 1:
-
                     CreatNinja(new Vector3(6f, -2.8f, 15));//左下
                     break;
                 case 2:
