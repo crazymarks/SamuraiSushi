@@ -18,6 +18,7 @@ public class PeopleCreate : MonoBehaviour {
     //町人相関
     public GameObject Man;           //一般人型ー男
     public GameObject Woman;         //一般人型ー女
+    private GameObject tempPeople;   //性別選択用
 
     private GameObject People=null;          //生成する町人を管理するため
     private int PeopleCount = 0;        //生成する町人の数、名前につける
@@ -48,26 +49,24 @@ public class PeopleCreate : MonoBehaviour {
     /// </summary>
     public void create_people()                                                //0=上から 　1=左から　 2=右から
     {
-        //（未完成）町人選択の追加
-   /*     int peopleChoose = Random.Range(0,1);
+        //町人選択の追加
+        int peopleChoose = Random.Range(0,2);
         switch (peopleChoose)
         {
             case 0:
+                tempPeople = Man;
                 break;
             case 1:
+                tempPeople = Woman;
                 break;
         }
-     */
-       //（未完成）町人選択の追加
-
-
         int i = Random.Range(0, 3);
         if (i == 0)      //上から　町人を生成
         {
             float x = Random.Range(MiddleZone.transform.position.x - TopCreateVar,
                 MiddleZone.transform.position.x + TopCreateVar);
             PeopleCreatePoint = new Vector2(x, 0.5f);
-            People = Instantiate(Man, PeopleCreatePoint, Quaternion.identity);
+            People = Instantiate(tempPeople, PeopleCreatePoint, Quaternion.identity);
             float j = Random.Range(0.0f, 1.0f); //お客さんになる確率と比べて、小さいだったら、お客さんになる
             bool BeCustomer = false;
             if (j < GameController.PofCustomers)               //お客さんになる
@@ -84,7 +83,7 @@ public class PeopleCreate : MonoBehaviour {
             float y = Random.Range(MiddleZone.transform.position.y - MiddleZone.GetComponent<BoxCollider2D>().size.y / 2 + MiddleZone.GetComponent<BoxCollider2D>().offset.y,
                 MiddleZone.transform.position.y + MiddleZone.GetComponent<BoxCollider2D>().size.y / -2 + MiddleZone.GetComponent<BoxCollider2D>().offset.y);
             PeopleCreatePoint = new Vector2(-MaxX, y);
-            People = Instantiate(Man, PeopleCreatePoint, Quaternion.identity);
+            People = Instantiate(tempPeople, PeopleCreatePoint, Quaternion.identity);
             float j = Random.Range(0.0f, 1.0f); //お客さんになる確率と比べて、小さいだったら、お客さんになる
             bool BeCustomer = false;
             if (j < GameController.PofCustomers)               //お客さんになる
@@ -101,7 +100,7 @@ public class PeopleCreate : MonoBehaviour {
             float y = Random.Range(MiddleZone.transform.position.y - MiddleZone.GetComponent<BoxCollider2D>().size.y / 2 + MiddleZone.GetComponent<BoxCollider2D>().offset.y,
                 MiddleZone.transform.position.y + MiddleZone.GetComponent<BoxCollider2D>().size.y / 2+ MiddleZone.GetComponent<BoxCollider2D>().offset.y );
             PeopleCreatePoint = new Vector2(MaxX, y);
-            People = Instantiate(Man, PeopleCreatePoint, Quaternion.identity);
+            People = Instantiate(tempPeople, PeopleCreatePoint, Quaternion.identity);
             float j = Random.Range(0.0f, 1.0f);//お客さんになる確率と比べて、小さいだったら、お客さんになる
             bool BeCustomer = false;
             if (j < GameController.PofCustomers)                //お客さんになる

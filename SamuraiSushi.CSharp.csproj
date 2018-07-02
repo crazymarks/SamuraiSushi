@@ -124,6 +124,7 @@
     <Compile Include="Assets\Scripts\People\PeopleBase.cs" />
     <Compile Include="Assets\Scripts\People\UpperBody.cs" />
     <Compile Include="Assets\Scripts\People\Woman.cs" />
+    <Compile Include="Assets\Scripts\People\WomanCenter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

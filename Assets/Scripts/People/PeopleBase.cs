@@ -13,17 +13,15 @@ public abstract class PeopleBase : MonoBehaviour {
         Left=3,
         Right=4
     }
-
     //横最大   18
     //横普通   4
     //横最低   2
     //縦最大   9
     //縦普通   3
     //縦最低   1
-
-    protected float Speed = 0f;
-    float MaxSpeed = 9f;
-    float MinSpeed = 2;
+    protected float speed = 0f;
+    protected float horrizontalSpeed =0f;
+    protected float verticalSpeed = 0f;
 
     GameObject GameController;
     GameObject MiddleZone;
@@ -41,6 +39,10 @@ public abstract class PeopleBase : MonoBehaviour {
 
     int SpriteState=0;
 
+    Quaternion rotation = Quaternion.identity;     //回転のアニメーション用
+    bool isRotate = false;     //回転の状態
+    float rotateY = 0f; //回転のy値
+//----------------------------------------------------------------------------------------------------
     protected virtual void GetStart()
     {
         random_speed();
@@ -60,10 +62,28 @@ public abstract class PeopleBase : MonoBehaviour {
 	}
 	
 	protected virtual void FixedUpdate ()
-    {       
-        float Step = Speed * Time.deltaTime;
-        transform.position = Vector2.MoveTowards(transform.position, RandomPoint, Step);
-        scale_with_y();
+    {
+        if (isRotate)
+        {
+            RotationAnime();
+        }
+        else
+        {
+            switch (SpriteState)
+            {
+                case (int)MoveStatus.Left:
+                case (int)MoveStatus.Right:
+                    speed = horrizontalSpeed;
+                    break;
+                case (int)MoveStatus.Back:
+                case (int)MoveStatus.Front:
+                    speed = verticalSpeed;
+                    break;
+            }
+            float Step = speed * Time.deltaTime;
+            transform.position = Vector2.MoveTowards(transform.position, RandomPoint, Step);
+            scale_with_y();
+        }       
         if (IsCustomer == true&&new Vector2( transform.position.x, transform.position.y) ==RandomPoint)
         {
             SpriteState = (int)MoveStatus.Front; //向き
@@ -164,13 +184,13 @@ public abstract class PeopleBase : MonoBehaviour {
                 {
                     exit_to_right();
                     SpriteState =(int) MoveStatus.Right;//向き
-                    SpriteChange();
+                    isRotate = true;//回転させる
                 }
                 else
                 {
                     exit_to_left();
                     SpriteState = (int)MoveStatus.Left;//向き
-                    SpriteChange();
+                    isRotate = true;//回転させる
                 }
             }
             else if (EnterDirection == 1)         //左から来た
@@ -186,7 +206,7 @@ public abstract class PeopleBase : MonoBehaviour {
                 {
                     exit_to_up();
                     SpriteState = (int)MoveStatus.Back;//向き
-                    SpriteChange();
+                    isRotate = true;//回転させる
                 }
             }
             else                                 //右から来た
@@ -202,7 +222,7 @@ public abstract class PeopleBase : MonoBehaviour {
                 {
                     exit_to_up();
                     SpriteState = (int)MoveStatus.Back;//向き
-                    SpriteChange();
+                    isRotate = true;//回転させる
                 }
             }
         }
@@ -221,15 +241,20 @@ public abstract class PeopleBase : MonoBehaviour {
     /// </summary>
     protected virtual void customers_check1()
     {
-        IsCustomer = false;
-        state_change();
-
+        if (IsCustomer == true)
+        {
+            IsCustomer = false;
+            state_change();
+        }
 
     }
     protected virtual void customers_check2(int number)
     {
         CustomerNumber = number;
-        state_change();
+        if (IsCustomer == true)
+        {
+            state_change();
+        }
     }
     /// <summary>
     /// 殺されたアニメーション
@@ -272,10 +297,36 @@ public abstract class PeopleBase : MonoBehaviour {
             get_out();
         }
     }
-    //移動スピードをランダムにする
+
+    /// <summary>
+    ///  移動スピードをランダムにする
+    ///横最大   18
+    ///横普通   4
+    ///横最低   2
+    ///縦最大   9
+    ///縦普通   3
+    ///縦最低   1
+    /// </summary>
     protected virtual void random_speed()
     {
-        Speed = Random.Range(MinSpeed, MaxSpeed);
+        int x=Random.Range(0, 4);
+        switch (x)
+        {
+            case 0:  //fast
+                verticalSpeed = 9f;
+                horrizontalSpeed = 18f;
+                break;
+            case 1:     //normal
+            case 2:
+                verticalSpeed = 3f;
+                horrizontalSpeed = 4f;
+                break;
+            case 3:  //slow
+                verticalSpeed = 1f;
+                horrizontalSpeed = 2f;
+                break;
+        }
+
     }
     //y値につれて、大きさが変化する
     protected virtual void scale_with_y()
@@ -306,5 +357,38 @@ public abstract class PeopleBase : MonoBehaviour {
     public int GetSpriteState()
     {
         return SpriteState;
+    }
+
+    /// <summary>
+    /// 回転のアニメーション
+    /// </summary>
+    protected virtual void RotationAnime()
+    {
+        if (rotateY < 80)
+        {
+            //90°回転させる
+            rotateY += 3;
+            rotation.eulerAngles = new Vector3(0, this.transform.rotation.eulerAngles.y + 3, 0);
+            this.transform.rotation = rotation;
+        }
+        else if (rotateY < 85)
+        {
+            SpriteChange();
+            rotateY += 3;
+            rotation.eulerAngles = new Vector3(0, this.transform.rotation.eulerAngles.y - 3, 0);
+            this.transform.rotation = rotation;
+
+        }
+        else if (rotateY < 160)
+        {
+            rotateY += 3;
+            rotation.eulerAngles = new Vector3(0, this.transform.rotation.eulerAngles.y - 3, 0);
+            this.transform.rotation = rotation;
+        }
+        else
+        {
+            rotateY = 0;
+            isRotate = false;
+        }
     }
 }

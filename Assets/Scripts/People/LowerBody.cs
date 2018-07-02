@@ -12,8 +12,8 @@ public class LowerBody : MonoBehaviour {
     public int state;
     public Sprite frontLower;
     public Sprite backLower;
-    public Sprite sideLower;
-    Quaternion rotation = Quaternion.identity;
+    public Sprite sideLower;//左向き
+    public Sprite sideLower2;//右向き
 
     // Use this for initialization
     public enum MoveStatus  //町人の各移動状態　変数名は向き
@@ -31,23 +31,15 @@ public class LowerBody : MonoBehaviour {
         {
             case (int)MoveStatus.Front:
                 this.GetComponent<SpriteRenderer>().sprite = frontLower;   //正面に切り替え
-                rotation.eulerAngles = new Vector3(0, 0, 0);
-                this.transform.rotation = rotation;
                 return;
             case (int)MoveStatus.Back:
                 this.GetComponent<SpriteRenderer>().sprite = backLower;   //背面に切り替え
-                rotation.eulerAngles = new Vector3(0, 0, 0);
-                this.transform.rotation = rotation;
                 return;
             case (int)MoveStatus.Left:
                 this.GetComponent<SpriteRenderer>().sprite = sideLower;   //左向きに切り替え
-                rotation.eulerAngles = new Vector3(0, 180, 0);
-                this.transform.rotation = rotation;
                 return;
             case (int)MoveStatus.Right:
-                this.GetComponent<SpriteRenderer>().sprite = sideLower;   //右向きに切り替え
-                rotation.eulerAngles = new Vector3(0, 0, 0);
-                this.transform.rotation = rotation;
+                this.GetComponent<SpriteRenderer>().sprite = sideLower2;   //右向きに切り替え
                 return;
         }
     }
