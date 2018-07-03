@@ -151,10 +151,4 @@ public class PeopleCreate : MonoBehaviour {
         this.gameObject.GetComponent<GameController>().CustomerList.Add(ObjectName);
         People.SendMessage("customers_check2", (this.gameObject.GetComponent<GameController>().CustomerList.Count - 1));
     }
-
-    void defualtSpeed()
-    {
-        float x = Random.Range(0f, 1f);
-
-    }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class YouDied : MonoBehaviour
 {
     private SpriteRenderer SR;
-    private float Transparency = 0.0f;
+    
     //1
     private float step1;
     private float step2;
