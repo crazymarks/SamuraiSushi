@@ -142,7 +142,7 @@ public class NinjaCreate : MonoBehaviour {
     void CreatNinja(Vector3 _pos)   //壁忍者を生成し、大きさをｘに応じ変化させる
     {
         float ScaleRate;
-        GameObject NinjaScale = Instantiate(NinjaWall, new Vector3(-4.5f, -2.3f, 15), Quaternion.identity);
+        GameObject NinjaScale = Instantiate(NinjaWall, _pos, Quaternion.identity);
         ScaleRate = Mathf.Abs(NinjaScale.transform.position.x) * 0.06f + 0.14f;
         this.transform.localScale = new Vector3(ScaleRate, ScaleRate, 1);
     }
