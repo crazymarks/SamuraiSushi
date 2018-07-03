@@ -33,6 +33,11 @@ public class Man : PeopleBase {
         tempObject2.GetComponent<LowerBody>().state = GetSpriteState();
     }
 
+    protected override void killed_by_poison()
+    {
+        GameObject.Find("SEPlayer").GetComponent<PlaySE>().KillManPoison();    //SE再生
+        base.killed_by_poison();
+    }
 
 
     protected override void SpriteInitalize()

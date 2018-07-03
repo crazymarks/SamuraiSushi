@@ -13,6 +13,7 @@ public class PlaySE : MonoBehaviour
     public AudioClip Kill01;
     public AudioClip Kill02;
     public AudioClip Poison01;
+    public AudioClip Poison02;
 
     int N;
     void Start()
@@ -62,10 +63,15 @@ public class PlaySE : MonoBehaviour
     {
         SEmaintain.PlayOneShot(Kill02);
     }
-  
-    public void KillPeoplePoison()
-        {
+
+    public void KillManPoison()
+    {
         //毒
-            SEmaintain.PlayOneShot(Poison01);
-        }
+        SEmaintain.PlayOneShot(Poison01);
+    }
+    public void KillWomanPoison()
+    {
+        //毒
+        SEmaintain.PlayOneShot(Poison02);
+    }
 }
