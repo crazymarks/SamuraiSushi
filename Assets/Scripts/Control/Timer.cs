@@ -133,7 +133,7 @@ public class Timer {
             {
                 NinjaChangeFlag = 4;
                 Debug.Log("忍者データ変更4");//デバッグ用
-                GameObject.Find("GameController").GetComponent<NinjaCreate>().minCreateTime = 0.25f;//忍者出現間隔変更、下同
+                GameObject.Find("GameController").GetComponent<NinjaCreate>().minCreateTime = 0.5f;//忍者出現間隔変更、下同
                 GameObject.Find("GameController").GetComponent<NinjaCreate>().maxCreateTime = 0.5f;
 
                 GameObject.Find("GameController").GetComponent<NinjaCreate>().probabilityNinjaFlyTest = 0.4f;//忍者出現率変更、下同
