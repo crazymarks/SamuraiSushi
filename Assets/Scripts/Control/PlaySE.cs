@@ -14,6 +14,9 @@ public class PlaySE : MonoBehaviour
     public AudioClip Kill02;
     public AudioClip Poison01;
     public AudioClip Poison02;
+    public AudioClip EndByWin;
+    public AudioClip EndByNinjya;
+    public AudioClip EndByKiller;
 
     int N;
     void Start()
@@ -73,5 +76,18 @@ public class PlaySE : MonoBehaviour
     {
         //毒
         SEmaintain.PlayOneShot(Poison02);
+    }
+
+    public void WinEnd()
+    {
+        SEmaintain.PlayOneShot(EndByWin);
+    }
+    public void NinjyaWinEnd()
+    {
+        SEmaintain.PlayOneShot(EndByNinjya);
+    }
+        public void KillerWinEnd()
+    {
+        SEmaintain.PlayOneShot(EndByKiller);
     }
 }

@@ -14,7 +14,7 @@ public class Timer {
 	public float NinjaChangeTime1 = 40.0f;	//忍者データ変化時間１、以下同
 	public float NinjaChangeTime2 = 60.0f;  //２
     public float NinjaChangeTime3 = 90.0f;  //３
-    public float NinjaChangeTime4 = 120.0f;	//４
+    public float NinjaChangeTime4 = 150.0f;	//４
     public int NinjaChangeFlag = 0;		//忍者のデータ変化回数
 	
 	//時間を図る変数を用意

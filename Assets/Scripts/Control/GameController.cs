@@ -78,7 +78,9 @@ public class GameController : MonoBehaviour {
     //ダメージ相関(start)
     public Text LifeText;
     private int Life = 3;
-    public GameObject YouDied;
+    public GameObject Win;
+    public GameObject KillerEnding;
+    public GameObject NinjyaEnding;
     private bool GameoverFlag = false;
     //ダメージ相関(end)
 
@@ -374,31 +376,35 @@ public class GameController : MonoBehaviour {
      public void GameOver1()　　　//プレイヤーが殺されたによるエンディング
     {
         Time.timeScale = 0.1f;
-        Invoke("GameOverDelay", 0.2f);
+        Invoke("GameOverNinjya", 0.2f);
         mainBGM.Stop();
-
+        GameObject.Find("SEPlayer").GetComponent<PlaySE>().NinjyaWinEnd();
     }
-
-    void GameOverDelay()   //「閉店」の画面が少し遅延して出す
+    void GameOverNinjya()   //「閉店」の画面が少し遅延して出す
     {
-        Vector3 pos = new Vector3(0, 0, 1);
-        Instantiate(YouDied, pos, Quaternion.identity);
+        Instantiate(NinjyaEnding, new Vector3(0, 0, 1), Quaternion.identity);
     }
 
     void GameOver2()     //町人を殺しすぎて、人間性がなくなったゲームオーバー
     {
         Time.timeScale = 0.1f;
-        Invoke("GameOverDelay", 0.2f);
+        Invoke("GameOverKiller", 0.2f);
         mainBGM.Stop();
+        GameObject.Find("SEPlayer").GetComponent<PlaySE>().KillerWinEnd();
+    }
+    void GameOverKiller()   //「閉店」の画面が少し遅延して出す
+    {
+        Instantiate(KillerEnding, new Vector3(0, 0, 1), Quaternion.identity);
     }
 
     //-------------------------------------ゲームオーバー-----------------------------------------------
 
-        void GameClear()          //一定寿司が町人に食べさせると、ゲームクリア
+    void GameClear()          //一定寿司が町人に食べさせると、ゲームクリア
     {
         Vector3 pos = new Vector3(0, 0, 1);
-        Instantiate(YouDied, pos, Quaternion.identity);
+        Instantiate(Win, pos, Quaternion.identity);
         mainBGM.Stop();
+        GameObject.Find("SEPlayer").GetComponent<PlaySE>().WinEnd();
     }
 
     public void reset_scene()
