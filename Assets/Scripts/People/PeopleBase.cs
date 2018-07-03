@@ -42,7 +42,9 @@ public abstract class PeopleBase : MonoBehaviour {
     Quaternion rotation = Quaternion.identity;     //回転のアニメーション用
     bool isRotate = false;     //回転の状態
     float rotateY = 0f; //回転のy値
-//----------------------------------------------------------------------------------------------------
+
+
+    //----------------------------------------------------------------------------------------------------
     protected virtual void GetStart()
     {
         random_speed();
@@ -307,26 +309,25 @@ public abstract class PeopleBase : MonoBehaviour {
     ///縦普通   3
     ///縦最低   1
     /// </summary>
-    protected virtual void random_speed()
+    public virtual void random_speed()
     {
-        int x=Random.Range(0, 4);
-        switch (x)
-        {
-            case 0:  //fast
-                verticalSpeed = 9f;
-                horrizontalSpeed = 18f;
-                break;
-            case 1:     //normal
-            case 2:
-                verticalSpeed = 3f;
-                horrizontalSpeed = 4f;
-                break;
-            case 3:  //slow
-                verticalSpeed = 1f;
-                horrizontalSpeed = 2f;
-                break;
-        }
+        float x = Random.Range(0f, 1f);
 
+        if (x < GameObject.Find("GameController").GetComponent<PeopleCreate>().SlowSpeedProb)//もしｘが最小速度の確率より小さいならば、速度を最小に設置
+        {
+            verticalSpeed = 1f;
+            horrizontalSpeed = 2f;
+        }
+        else if (x > GameObject.Find("GameController").GetComponent<PeopleCreate>().FastSpeedProb)//もしｘが最大速度の確率より大きいならば、速度を最大に設置
+        {
+            verticalSpeed = 9f;
+            horrizontalSpeed = 18f;
+        }
+        else　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　//でなければ、普通のスビートに設置
+        {
+            verticalSpeed = 3f;
+            horrizontalSpeed = 4f;
+        }
     }
     //y値につれて、大きさが変化する
     protected virtual void scale_with_y()

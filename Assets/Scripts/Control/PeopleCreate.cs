@@ -27,7 +27,12 @@ public class PeopleCreate : MonoBehaviour {
     public float firstCreateTime = 1f;  //最初の生成時間
     [SerializeField, HeaderAttribute("次の生成時間は以下の二つ値の間にランダム決定")]
     public float minCreateTime = 0.5f;   //生成時間最大値
-    public float maxCreateTime = 2f;　　　//生成時間最小値
+    public float maxCreateTime = 2f;   //生成時間最小値
+
+    public float SlowSpeedProb = 0.4f;//人が遅い速度になる確率(この数値より小さい場合)、デフォルト値
+    public float FastSpeedProb = 0.9f;//人が早い速度になる確率(この数値より大きい場合)、デフォルト値
+    //速度の調整はTimer.Scriptで時間ごとで調整しています
+
     //町人相関
     [HideInInspector]
     public static bool isPeopleCreate = true;  //テストのため、コントロールパネルで町人の出現を止める用   
@@ -145,5 +150,11 @@ public class PeopleCreate : MonoBehaviour {
 
         this.gameObject.GetComponent<GameController>().CustomerList.Add(ObjectName);
         People.SendMessage("customers_check2", (this.gameObject.GetComponent<GameController>().CustomerList.Count - 1));
+    }
+
+    void defualtSpeed()
+    {
+        float x = Random.Range(0f, 1f);
+
     }
 }
