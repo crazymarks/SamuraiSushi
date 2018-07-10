@@ -31,8 +31,9 @@ public class SceneManager : SingletonMonoBehaviour<SceneManager> {
             DontDestroyOnLoad(gameObject);
         }
     }
-    
+
     //シーンを新規作成したら、ここに定数を追加しよう
+    public const string TitleScene = "TitleScene";
     public const string MainGame = "MainGame";
 
     /// <summary>

@@ -124,6 +124,8 @@
     <Compile Include="Assets\Scripts\People\PeopleBase.cs" />
     <Compile Include="Assets\Scripts\People\UpperBody.cs" />
     <Compile Include="Assets\Scripts\People\Woman.cs" />
+    <Compile Include="Assets\Scripts\People\WomanCenter.cs" />
+    <Compile Include="Assets\Scripts\Scenes\TitleScene.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
