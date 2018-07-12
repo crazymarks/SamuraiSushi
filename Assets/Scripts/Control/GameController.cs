@@ -54,7 +54,9 @@ public class GameController : MonoBehaviour {
     public Text PeoplekillText;
 
     [SerializeField, HeaderAttribute("人間性最大値、一人-1")]
-    public int humanity=20;     //人間性
+    public int maxHumanity = 20;     //人間性
+    private int currentHumanity;
+    public Image humanityGage;
 
     private int Money = 0;            //この 変数　を　初期化を忘れないで！！！！！
     private bool CustomerFlag = true;   //trueの場合は次のお客さんが寿司を食べる　食べた後、一定時間内falseにする
@@ -100,6 +102,7 @@ public class GameController : MonoBehaviour {
         CheckLoop();
         Money = 0;
         cuttedFishAmount = 0;
+        currentHumanity = maxHumanity;
         CustomerList.Clear();
         SushiList.Clear();
         mainBGM.Play();
@@ -119,14 +122,13 @@ public class GameController : MonoBehaviour {
         //テスト用　正式版消す
         customers_list_check();
 
-        
         popularGage.fillAmount = (float)cuttedFishAmount / maxFishAmount;  //切った魚の数に変更      
         if (cuttedFishAmount >= maxFishAmount && GameoverFlag == false)   //金は一定に達成すると、ゲームクリア
         {
             GameoverFlag = true;
             GameClear();
         }
-        if (humanity < 0 && GameoverFlag == false)    //人間性がなくなったら、ゲームオーバー
+        if (currentHumanity <= 0 && GameoverFlag == false)    //人間性がなくなったら、ゲームオーバー
         {
             GameoverFlag = true;
             GameOver2();
@@ -232,7 +234,8 @@ public class GameController : MonoBehaviour {
         CustomerList.Remove(name);
         customers_manage(1);    
         PeoplekillText.text = ("殺人数:" + PeopleKilling.ToString());
-        humanity = humanity - 1;  //殺人で人間性がなくなる
+        currentHumanity -= 1;  //殺人で人間性がなくなる   
+        humanityGage.fillAmount -= 1f / maxHumanity;
     }
     /// <summary>
     /// お客さんリストをチェック (寿司喰う後)(int i=0)/(人を殺した後)(int i=1)
