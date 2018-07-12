@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
     public AudioSource mainBGM;
+
+    public GameObject disabledUI;　//ゲームオーバー時にUIを非表示にするためのObject
 	
 	//タイマー相関
 	Timer timer = new Timer();
@@ -386,6 +388,7 @@ public class GameController : MonoBehaviour {
     void GameOverNinjya()   //「閉店」の画面が少し遅延して出す
     {
         Instantiate(NinjyaEnding, new Vector3(0, 0, 1), Quaternion.identity);
+        disabledUI.SetActive(false);
     }
 
     void GameOver2()     //町人を殺しすぎて、人間性がなくなったゲームオーバー
@@ -398,6 +401,7 @@ public class GameController : MonoBehaviour {
     void GameOverKiller()   //「閉店」の画面が少し遅延して出す
     {
         Instantiate(KillerEnding, new Vector3(0, 0, 1), Quaternion.identity);
+        disabledUI.SetActive(false);
     }
 
     //-------------------------------------ゲームオーバー-----------------------------------------------
