@@ -5,11 +5,13 @@ using UnityEngine;
 public class NinjaFly : MonoBehaviour {
     public GameObject ninjaFlyFrontUpperBody;
     public GameObject ninjaFlyFrontlowerBody;
+    public GameObject Frame;//frame周
 
     GameObject GameController;
     LifeCounter lifeCounter;
     private float AttackTimeDelay = 0.0f;
     public GameObject AttackEffect;
+    private GameObject deleteFrame;//Destroy frame 周
     bool firstAttack = false;
 
 	void Start () {
@@ -21,10 +23,33 @@ public class NinjaFly : MonoBehaviour {
     {
         if (this.GetComponent<Floating>().isMoving==false&&firstAttack==false)
         {
-            firstAttack = true;
-            Invoke("attack", AttackTimeDelay);
+            //---------
+
+            Frame1();
+            
+            //-----------
+            
         }
+       
     }
+
+    //--------------------------------------
+    //-------------------
+    //忍者を見つけるやすくするサポート
+    void Frame1()
+    {
+        Vector3 pos = new Vector3(this.transform.position.x, this.transform.position.y, 2);
+        
+        deleteFrame = Instantiate(Frame, pos, Quaternion.identity);
+        //frame 出来たら攻撃が始める
+        firstAttack = true;
+        Invoke("attack", AttackTimeDelay);
+    }
+    private void OnDestroy()//サポート終了
+    {
+        Destroy(deleteFrame);
+    }
+    //----------------------------
     //攻撃発動
     void attack()
     {
