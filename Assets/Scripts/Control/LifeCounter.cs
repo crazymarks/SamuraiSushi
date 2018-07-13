@@ -28,7 +28,7 @@ public class LifeCounter : MonoBehaviour {
 
     public void ComboHeal()
     {
-        if (lifeCount <= 2)
+        if (lifeCount <= 4)
         {
             lifeCount++;
             lifes[lifeCount - 1].SetActive(true);
