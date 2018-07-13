@@ -11,6 +11,7 @@ public class TakoSumi : MonoBehaviour {
 	void Start () {
         SR = GetComponent<SpriteRenderer>();
         get_transparency();
+        transform.position = new Vector3(this.transform.position.x, this.transform.position.y, 1);//レイヤー修正
     }
 
     void get_transparency()
