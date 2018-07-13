@@ -1,15 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TitleScene : MonoBehaviour {
 
     public GameObject flashText;
+    public GameObject loadingBG;
+    public Image loadingBar;
     private float nextTime;
     private float interval = 0.5f;
 
+    private AsyncOperation async;
+
     void Start()
     {
+        loadingBG.SetActive(false);
         nextTime = Time.time;
     }
 
@@ -30,8 +37,20 @@ public class TitleScene : MonoBehaviour {
         }
 
         if (Input.GetMouseButtonDown(0))
-        {
-            SceneManager.Instance.LoadScene(SceneManager.MainGame);
+        {           
+            StartCoroutine("Loading");
+            loadingBG.SetActive(true);
         }
 	}
+
+    private IEnumerator Loading()
+    {
+        async = SceneManager.LoadSceneAsync("MainGame");
+        while (!async.isDone)
+        {
+            loadingBar.fillAmount = async.progress;            
+            yield return new WaitForSeconds(0);
+        }
+        yield return async;
+    }
 }
