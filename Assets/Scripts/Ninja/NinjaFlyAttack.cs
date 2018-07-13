@@ -6,8 +6,9 @@ public class NinjaFlyAttack : MonoBehaviour {
     private float Speed = 500.0f;
     private float ScaleRate1 = 0.5f;
     private float ScaleRate2 = 0.1f;
+    LifeCounter lifeCounter;
 
-    
+
 
     int n ;
     float i;
@@ -15,6 +16,7 @@ public class NinjaFlyAttack : MonoBehaviour {
     float speed = 50;
     private float ScaleRate3 = 0.1f;
     void Start () {
+        lifeCounter = GameObject.Find("Lifes").GetComponent<LifeCounter>();
         step1 = speed * Time.deltaTime;
         Invoke("go_die",1.0f);
         
@@ -54,6 +56,7 @@ public class NinjaFlyAttack : MonoBehaviour {
     void go_die()
     {
         Destroy(this.gameObject);
-      
+        lifeCounter.Damage();
+
     }
 }

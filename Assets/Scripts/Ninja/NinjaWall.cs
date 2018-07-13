@@ -8,7 +8,7 @@ public class NinjaWall : MonoBehaviour {
 
     private float WaitTime = 0.3f;
     GameObject GameController;
-    LifeCounter lifeCounter;
+   
     private float AttackTimeDelay = 0.0f;
     public GameObject AttackEffect;
 
@@ -17,7 +17,7 @@ public class NinjaWall : MonoBehaviour {
     void Start()
     {
         GameController = GameObject.Find("GameController");
-        lifeCounter = GameObject.Find("Lifes").GetComponent<LifeCounter>();
+        
         AttackTimeDelay = Random.Range(3.0f, 5.0f);
         Invoke("attack", AttackTimeDelay);
     }
@@ -29,7 +29,7 @@ public class NinjaWall : MonoBehaviour {
     //攻撃発動
     void attack()
     {
-        lifeCounter.Damage();
+       
         Vector3 pos = new Vector3(this.transform.position.x, this.transform.position.y, 2);
         Instantiate(AttackEffect, pos, Quaternion.identity);
        
