@@ -237,7 +237,7 @@ public class GameController : MonoBehaviour {
         customers_manage(1);    
         PeoplekillText.text = ("殺人数:" + PeopleKilling.ToString());
         currentHumanity -= 1;  //殺人で人間性がなくなる   
-        humanityGage.fillAmount -= 1f / maxHumanity;
+        humanityGage.fillAmount += 1f / maxHumanity;
     }
     /// <summary>
     /// お客さんリストをチェック (寿司喰う後)(int i=0)/(人を殺した後)(int i=1)
