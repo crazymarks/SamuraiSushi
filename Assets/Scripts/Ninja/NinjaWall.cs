@@ -16,7 +16,7 @@ public class NinjaWall : MonoBehaviour {
 
     private float ScaleRate;    //大きさ変化
   
-    int zhale = 1;
+    int FrameFlag = 1;//サイズを確認ための変数
     void Start()
     {
         GameController = GameObject.Find("GameController");
@@ -27,17 +27,16 @@ public class NinjaWall : MonoBehaviour {
     }
     private void Update()
     {
+        //transform.lossyScale.xが0のときを回避ため
         scale_with_x();
-        if(this.transform.lossyScale.x <= 0 || zhale <= 1)
+        if(this.transform.lossyScale.x <= 0 || FrameFlag <= 1)
             {
             Frame1();//忍者を見つけるやすくするサポート
-            zhale = 2;
+            FrameFlag = 2;
 
         }
        
-    }
-    //-------------------
-   
+    }  
     //攻撃発動
     void attack()
     {
