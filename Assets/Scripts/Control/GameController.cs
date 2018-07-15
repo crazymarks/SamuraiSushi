@@ -360,25 +360,39 @@ public class GameController : MonoBehaviour {
             peopleEatingSushi = GameObject.Find(CustomerList[0]);
             peopleEatingSushi.SendMessage("after_eatsushi",SushiType); //寿司のタイプのメッセージを寿司を食べた客にセンド　毒寿司なら死ぬ
             CustomerFlag = false;
-            Invoke("customer_flag_set", CustomerWaitTime);　　//一定時間後次のお客さんが先頭になる
+            Invoke("customer_delete", CustomerWaitTime);　　//一定時間後次のお客さんが先頭になる
         }
     }
     /// <summary>
-    /// 一定時間で寿司が食べられるフラグをリセットする
+    /// 一定時間で寿司が食べられる先頭のお客さんが離す
     /// </summary>
-    void customer_flag_set()
-    {
-        CustomerFlag = true;　　　　　　　　　　
+    void customer_delete()
+    {　　　　　　　　　
         if (CustomerList.Count>0)
         {
             CustomerList.RemoveAt(0);
         }
         customers_manage(0);
     }
+    /// <summary>
+    /// 先頭のお客が位置に到着したら、寿司を食べる
+    /// 誰かが殺されたら、離れた時フラグをオフにする
+    /// </summary>
+    public void customerflag_set(bool state)
+    {
+        if (state)
+        {
+            CustomerFlag = true;
+        }
+        else
+        {
+            CustomerFlag = false;
+        }
 
+    }
     //-------------------------------------ゲームオーバー-----------------------------------------------
 
-     public void GameOver1()　　　//プレイヤーが殺されたによるエンディング
+    public void GameOver1()　　　//プレイヤーが殺されたによるエンディング
     {
         Time.timeScale = 0.1f;
         Invoke("GameOverNinjya", 0.2f);

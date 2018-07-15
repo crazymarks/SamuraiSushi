@@ -88,6 +88,10 @@ public abstract class PeopleBase : MonoBehaviour {
         }       
         if (IsCustomer == true&&new Vector2( transform.position.x, transform.position.y) ==RandomPoint)
         {
+            if (CustomerNumber == 0)
+            {
+                GameController.GetComponent<GameController>().customerflag_set(true);
+            }
             SpriteState = (int)MoveStatus.Front; //向き
             SpriteChange();
         }
@@ -245,6 +249,10 @@ public abstract class PeopleBase : MonoBehaviour {
     {
         if (IsCustomer == true)
         {
+            if (CustomerNumber == 0)
+            {
+                GameController.GetComponent<GameController>().customerflag_set(false);
+            }
             IsCustomer = false;
             state_change();
         }

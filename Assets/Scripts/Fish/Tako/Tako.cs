@@ -49,13 +49,6 @@ public class Tako : FishBase {
             {
                 CutPos = this.transform.position;      //get rice and sushi and niku Location
                 Vector3 SumiPos = new Vector3(CutPos.x, CutPos.y, 0.5f);
-                if (IsUp == true)     //Head was CUtted
-                {
-                    Instantiate(TakoSumi, SumiPos, Quaternion.identity);
-                    Destroy(this.gameObject);
-                    GameObject.Find("SEPlayer").GetComponent<PlaySE>().FishSuccess();    //SE再生
-                }
-
                 if (IsDown == true)    //Feet was Cutted
                 {
                     for (int i = 0; i < 4; i++)
@@ -70,6 +63,10 @@ public class Tako : FishBase {
                 }
                 else
                 {
+                    if (IsUp == true)     //Head was CUtted
+                    {
+                        Instantiate(TakoSumi, SumiPos, Quaternion.identity);                      
+                    }
                     RicePos = new Vector3(this.transform.position.x, TableY, 8);
 
                     Instantiate(TakoNiku, CutPos, Quaternion.identity);
