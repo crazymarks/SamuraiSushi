@@ -61,7 +61,7 @@ public class GameController : MonoBehaviour {
     public Image humanityGage;
 
     private int Money = 0;            //この 変数　を　初期化を忘れないで！！！！！
-    private bool CustomerFlag = true;   //trueの場合は次のお客さんが寿司を食べる　食べた後、一定時間内falseにする
+    private bool CustomerFlag = false;   //trueの場合は次のお客さんが寿司を食べる　食べた後、一定時間内falseにする
         //価格
     private int NormalPrice = 100;
     private int GoldPrice = 200;
