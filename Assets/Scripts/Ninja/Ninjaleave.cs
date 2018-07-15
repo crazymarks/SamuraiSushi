@@ -17,7 +17,7 @@ public class Ninjaleave : MonoBehaviour
         targetPosition = this.transform.position + new Vector3(0f, 1f, 0f);
         SR = GetComponent<SpriteRenderer>();
     }
-        private void Update()
+    private void Update()
     {
         speed = speedCount * -0.2f + 1.75f;
         if (speed < 0.15f)
