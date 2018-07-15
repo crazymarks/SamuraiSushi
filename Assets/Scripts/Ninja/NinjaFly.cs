@@ -5,62 +5,48 @@ using UnityEngine;
 public class NinjaFly : MonoBehaviour {
     public GameObject ninjaFlyFrontUpperBody;
     public GameObject ninjaFlyFrontlowerBody;
-    public GameObject Frame;//frame周
+    public GameObject ninjaleave;
+    public GameObject Frame;
+    private GameObject deleteFrame;  //生成するフレーム削除ため
 
-    GameObject GameController;
-    
+    GameObject GameController;    
     private float AttackTimeDelay = 0.0f;
     public GameObject AttackEffect;
-    private GameObject deleteFrame;//Destroy frame 周
     bool firstAttack = false;
+    private bool leaveFlag=false;
 
-	void Start () {
+	void Start ()
+    {
         GameController = GameObject.Find("GameController");
-        
-        AttackTimeDelay = Random.Range(3.0f, 5.0f);
 	}
     private void Update()
     {
         if (this.GetComponent<Floating>().isMoving==false&&firstAttack==false)
         {
-            //---------
-
-            Frame1();
-            
-            //-----------
-            
+            firstAttack = true;
+            Invoke("Frame1", 2f);
         }
-       
+        if (leaveFlag == true)
+        {
+            this.GetComponent<Floating>().enabled = false;
+            float step = 3f * Time.deltaTime;
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, gameObject.transform.position+new Vector3(0f,10f,0f), step);
+            if (this.transform.position.y > 8f)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+        
     }
 
-    //--------------------------------------
-    //-------------------
-    //忍者を見つけるやすくするサポート
-    void Frame1()
-    {
-        Vector3 pos = new Vector3(this.transform.position.x, this.transform.position.y, 2);
-        
-        deleteFrame = Instantiate(Frame, pos, Quaternion.identity);
-        //frame 出来たら攻撃が始める
-        firstAttack = true;
-        Invoke("attack", AttackTimeDelay);
-    }
-    private void OnDestroy()//サポート終了
-    {
-        Destroy(deleteFrame);
-    }
-    //----------------------------
     //攻撃発動
     void attack()
     {
-        
+        OnDestroy(); //フレームを消す
         Vector3 pos = new Vector3(this.transform.position.x, this.transform.position.y, 2);
-        Debug.Log(pos+ "NinjaFly");
-        AttackTimeDelay = Random.Range(2.0f, 4.0f);
-        
-       
-        Instantiate(AttackEffect,pos,Quaternion.identity);
-        Invoke("attack", AttackTimeDelay);
+        Instantiate(AttackEffect, pos, Quaternion.identity);
+
+        Invoke("leave2", 1.5f);
     }
 
     //切られた
@@ -79,5 +65,28 @@ public class NinjaFly : MonoBehaviour {
         tempObject1.transform.localScale = this.transform.lossyScale;
         GameObject tempObject2 = Instantiate(ninjaFlyFrontlowerBody, this.transform.position, Quaternion.identity);
         tempObject2.transform.localScale = this.transform.lossyScale;
+    }
+    void leave2()
+    {
+        leaveFlag = true;
+    }
+
+    //忍者を見つけるやすくするサポート
+    void Frame1()
+    {
+        Vector3 pos = new Vector3(this.transform.position.x, this.transform.position.y, 2);
+
+        deleteFrame = Instantiate(Frame, pos, Quaternion.identity);
+        //frame 出来たら攻撃が始める
+        AttackTimeDelay = Random.Range(2.0f, 3.0f);
+        Invoke("attack", AttackTimeDelay);
+    }
+
+    private void OnDestroy()//殺されたらフレームを消す
+    {
+        if (deleteFrame != null)
+        {
+            Destroy(deleteFrame);
+        }
     }
 }

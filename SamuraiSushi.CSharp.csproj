@@ -116,7 +116,10 @@
     <Compile Include="Assets\Scripts\Ninja\NinjaFly.cs" />
     <Compile Include="Assets\Scripts\Ninja\NinjaFlyAttack.cs" />
     <Compile Include="Assets\Scripts\Ninja\NinjaFlyDown.cs" />
+    <Compile Include="Assets\Scripts\Ninja\NinjaFrame.cs" />
     <Compile Include="Assets\Scripts\Ninja\NinjaWall.cs" />
+    <Compile Include="Assets\Scripts\Ninja\NinjaWallFrame.cs" />
+    <Compile Include="Assets\Scripts\Ninja\Ninjaleave.cs" />
     <Compile Include="Assets\Scripts\Ninja\YouDied.cs" />
     <Compile Include="Assets\Scripts\People\LowerBody.cs" />
     <Compile Include="Assets\Scripts\People\Man.cs" />
@@ -125,6 +128,7 @@
     <Compile Include="Assets\Scripts\People\UpperBody.cs" />
     <Compile Include="Assets\Scripts\People\Woman.cs" />
     <Compile Include="Assets\Scripts\People\WomanCenter.cs" />
+    <Compile Include="Assets\Scripts\Scenes\TitleScene.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
