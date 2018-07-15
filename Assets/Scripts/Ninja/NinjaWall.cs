@@ -5,10 +5,11 @@ using UnityEngine;
 public class NinjaWall : MonoBehaviour {
     public GameObject ninjaWallFrontUpperBody;
     public GameObject ninjaWallFrontlowerBody;
+    public GameObject Ninjaleave;
 
     private float WaitTime = 0.3f;
     GameObject GameController;
-    LifeCounter lifeCounter;
+   
     private float AttackTimeDelay = 0.0f;
     public GameObject AttackEffect;
 
@@ -17,7 +18,7 @@ public class NinjaWall : MonoBehaviour {
     void Start()
     {
         GameController = GameObject.Find("GameController");
-        lifeCounter = GameObject.Find("Lifes").GetComponent<LifeCounter>();
+        
         AttackTimeDelay = Random.Range(3.0f, 5.0f);
         Invoke("attack", AttackTimeDelay);
     }
@@ -29,14 +30,14 @@ public class NinjaWall : MonoBehaviour {
     //攻撃発動
     void attack()
     {
-        lifeCounter.Damage();
+       
         Vector3 pos = new Vector3(this.transform.position.x, this.transform.position.y, 2);
         Instantiate(AttackEffect, pos, Quaternion.identity);
        
         Debug.Log(pos + "NinjaWall");
         AttackTimeDelay = Random.Range(4.0f, 4.0f);
 
-        Invoke("attack", AttackTimeDelay);
+        Invoke("leave", 1.5f);
     }
     //切られた
     void OnTriggerEnter2D(Collider2D other)
@@ -55,7 +56,13 @@ public class NinjaWall : MonoBehaviour {
         GameObject tempObject2 = Instantiate(ninjaWallFrontlowerBody, this.transform.position, Quaternion.identity);
         tempObject2.transform.localScale = this.transform.lossyScale;
     }
-    
+    void leave()
+    {
+        Destroy(gameObject);
+        GameObject tempObject1 = Instantiate(Ninjaleave, this.transform.position, Quaternion.identity);
+        tempObject1.transform.localScale = this.transform.lossyScale;
+
+    }
     /// <summary>
     /// y値につれて、大きさが変化する
     /// </summary>

@@ -7,14 +7,14 @@ public class NinjaFly : MonoBehaviour {
     public GameObject ninjaFlyFrontlowerBody;
 
     GameObject GameController;
-    LifeCounter lifeCounter;
+    
     private float AttackTimeDelay = 0.0f;
     public GameObject AttackEffect;
     bool firstAttack = false;
 
 	void Start () {
         GameController = GameObject.Find("GameController");
-        lifeCounter = GameObject.Find("Lifes").GetComponent<LifeCounter>();
+        
         AttackTimeDelay = Random.Range(3.0f, 5.0f);
 	}
     private void Update()
@@ -28,7 +28,7 @@ public class NinjaFly : MonoBehaviour {
     //攻撃発動
     void attack()
     {
-        lifeCounter.Damage();
+        
         Vector3 pos = new Vector3(this.transform.position.x, this.transform.position.y, 2);
         Debug.Log(pos+ "NinjaFly");
         AttackTimeDelay = Random.Range(2.0f, 4.0f);
