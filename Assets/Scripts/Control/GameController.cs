@@ -226,13 +226,13 @@ public class GameController : MonoBehaviour {
     /// <param name="name"></param>
     void people_get_out(string name)
     {
-        CustomerList.Remove(name);
         customers_manage(1);
     }
 
     void kill_people(string name)
     {
         PeopleKilling = PeopleKilling + 1;
+
         CustomerList.Remove(name);
         customers_manage(1);    
         PeoplekillText.text = ("殺人数:" + PeopleKilling.ToString());
@@ -247,7 +247,7 @@ public class GameController : MonoBehaviour {
         if (i == 1)      //人を殺した後、お客さんが確率で離れる
         {
             int k = CustomerList.Count-1;
-            for (int j = k; j >1; j--)
+             for (int j = k; j >1; j--)
             {
                 float l=Random.Range(0.0f, 1.0f);
                 if (l < 0.05f)
@@ -257,6 +257,7 @@ public class GameController : MonoBehaviour {
                     CustomerList.RemoveAt(j);
                 }
             }
+            
             for (int j = 0; j < CustomerList.Count; j++)
             {
                 GameObject CustomersTemp = GameObject.Find(CustomerList[j]);
@@ -357,10 +358,11 @@ public class GameController : MonoBehaviour {
             SushiDeleteCount++;
             eatedSushi += 1;
 
-    //寿司を食べたお客さんを削除する
-    peopleEatingSushi = GameObject.Find(CustomerList[0]);
+            //寿司を食べたお客さんを削除する
+            peopleEatingSushi = GameObject.Find(CustomerList[0]);
+            CustomerList.RemoveAt(0);
             peopleEatingSushi.SendMessage("after_eatsushi",SushiType); //寿司のタイプのメッセージを寿司を食べた客にセンド　毒寿司なら死ぬ
-            CustomerFlag = false;
+            CustomerFlag = false;          
             Invoke("customer_delete", CustomerWaitTime);　　//一定時間後次のお客さんが先頭になる
         }
     }
@@ -369,10 +371,6 @@ public class GameController : MonoBehaviour {
     /// </summary>
     void customer_delete()
     {　　　　　　　　　
-        if (CustomerList.Count>0)
-        {
-            CustomerList.RemoveAt(0);
-        }
         customers_manage(0);
     }
     /// <summary>
