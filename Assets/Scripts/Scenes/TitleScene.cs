@@ -50,7 +50,7 @@ public class TitleScene : MonoBehaviour {
         while (!async.isDone)
         {
             loadingBar.fillAmount = async.progress;
-            loadingProgress.text = (async.progress * 100).ToString() + "%";
+            loadingProgress.text = (async.progress * 100).ToString("F0") + "%";
             yield return new WaitForSeconds(0);
         }
         yield return async;
