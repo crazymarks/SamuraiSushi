@@ -67,7 +67,7 @@ public class NinjaCreate : MonoBehaviour {
         }
         else　　　　　　　　　　　　　　//上から下に飛ぶ忍者
         {
-            Vector3 pos = new Vector3(Random.Range(-7.0f, 7.0f), Random.Range(6.0f, 7.0f), 19);
+            Vector3 pos = new Vector3(Random.Range(-6.0f, 6.0f), Random.Range(6.0f, 7.0f), 19);
             Instantiate(NinjaFlyDown, pos, Quaternion.identity);
         }
 

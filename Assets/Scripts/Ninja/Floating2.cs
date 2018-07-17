@@ -14,7 +14,7 @@ public class Floating2 : MonoBehaviour
     // Use this for initialization  
     void Start()
     {
-        targetPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - Random.Range(3, 4), gameObject.transform.position.z);      //ランダムに目標点を生成
+        targetPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - Random.Range(4, 5), gameObject.transform.position.z);      //ランダムに目標点を生成
     }
 
     void Move()
