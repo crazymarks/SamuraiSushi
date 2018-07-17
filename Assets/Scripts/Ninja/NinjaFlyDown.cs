@@ -5,6 +5,7 @@ using UnityEngine;
 public class NinjaFlyDown : MonoBehaviour {
     public GameObject ninjaFlyFrontUpperBody;
     public GameObject ninjaFlyFrontlowerBody;
+    public GameObject Ninjaflyleave;
 
     private float WaitTime = 0.3f;
     GameObject GameController;
@@ -35,7 +36,7 @@ public class NinjaFlyDown : MonoBehaviour {
         Instantiate(AttackEffect, pos, Quaternion.identity);
 
         AttackTimeDelay = Random.Range(2.0f, 4.0f);
-        Invoke("attack", AttackTimeDelay);
+        Invoke("leave", 1.5f);
     }
     //切られた
     void OnTriggerEnter2D(Collider2D other)
@@ -53,6 +54,14 @@ public class NinjaFlyDown : MonoBehaviour {
         tempObject1.transform.localScale = this.transform.lossyScale;
         GameObject tempObject2 = Instantiate(ninjaFlyFrontlowerBody, this.transform.position, Quaternion.identity);
         tempObject2.transform.localScale = this.transform.lossyScale;
+    }
+    void leave()
+    {
+        Destroy(gameObject);
+        GameObject tempObject1 = Instantiate(Ninjaflyleave, this.transform.position, Quaternion.identity);
+        tempObject1.transform.localScale = this.transform.lossyScale;
+        Debug.Log(123);
+
     }
 }
 

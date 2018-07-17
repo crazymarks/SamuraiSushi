@@ -10,11 +10,15 @@ public class Floating : MonoBehaviour {
     [HideInInspector]
     public bool isMoving = true;   //移動中　trueの場合は目標点に到着
     Vector3 targetPoint;   //目標点の座標
+    Vector3 leavetargetPoint;
     // Use this for initialization  
     void Start()
     {
         targetPoint = new Vector3(Random.Range(-3f, 3f), Random.Range(2.5f, 4f), gameObject.transform.position.z);      //ランダムに目標点を生成
+        
     }
+
+    
 
     void Move()
     {
@@ -46,7 +50,8 @@ public class Floating : MonoBehaviour {
 
     }
 
-  
 
-    }
+
+
+}
 
