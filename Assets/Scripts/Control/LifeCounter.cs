@@ -20,7 +20,7 @@ public class LifeCounter : MonoBehaviour {
     {
         lifeCount--;
         lifes[lifeCount].SetActive(false);
-        if(lifeCount == 0)
+        if(lifeCount <= 0)
         {
             GameObject.Find("GameController").GetComponent<GameController>().GameOver1(); 
         }

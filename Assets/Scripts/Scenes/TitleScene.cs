@@ -8,6 +8,7 @@ public class TitleScene : MonoBehaviour {
 
     public GameObject flashText;
     public GameObject loadingBG;
+    public Text loadingProgress;
     public Image loadingBar;
     private float nextTime;
     private float interval = 0.5f;
@@ -48,7 +49,8 @@ public class TitleScene : MonoBehaviour {
         async = SceneManager.LoadSceneAsync("MainGame");
         while (!async.isDone)
         {
-            loadingBar.fillAmount = async.progress;            
+            loadingBar.fillAmount = async.progress;
+            loadingProgress.text = (async.progress * 100).ToString() + "%";
             yield return new WaitForSeconds(0);
         }
         yield return async;
