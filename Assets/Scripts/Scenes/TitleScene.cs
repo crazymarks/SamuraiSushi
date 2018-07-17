@@ -47,12 +47,15 @@ public class TitleScene : MonoBehaviour {
     private IEnumerator Loading()
     {
         async = SceneManager.LoadSceneAsync("MainGame");
-        while (!async.isDone)
+        while (async.progress < 0.9f)
         {
             loadingBar.fillAmount = async.progress;
             loadingProgress.text = (async.progress * 100).ToString("F0") + "%";
-            yield return new WaitForSeconds(0);
+            yield return null;            
         }
+        //進行度が90%で止まってしまう仕様なのでロードが終わったら手動で100%にする
+        loadingBar.fillAmount = 1.0f;
+        loadingProgress.text = "100" + "%";
         yield return async;
     }
 }
