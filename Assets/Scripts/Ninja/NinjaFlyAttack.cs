@@ -24,6 +24,8 @@ public class NinjaFlyAttack : MonoBehaviour {
         lifeCounter = GameObject.Find("Lifes").GetComponent<LifeCounter>();
         n = Random.Range(0, 180);//（手裏剣最初のｚ）
         this.transform.Rotate(0f, 0f, n);
+        //ＳＥを流す
+        GameObject.Find("SEPlayer").GetComponent<PlaySE>().ShurikenShot();
     }
 
     
@@ -71,6 +73,8 @@ public class NinjaFlyAttack : MonoBehaviour {
     {
         Destroy(this.gameObject);
         lifeCounter.Damage();
+        //ＳＥを流す
+        GameObject.Find("SEPlayer").GetComponent<PlaySE>().ShurikenHitted();
         GameObject DamageObject = Instantiate(Damage, new Vector3(0f, 0f, 0.6f), Quaternion.identity);
     }
 
@@ -94,7 +98,8 @@ public class NinjaFlyAttack : MonoBehaviour {
                 this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, 11f);
                 counteredPoint2 = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, 0);
                 counteredPoint = new Vector3 (Camera.main.ScreenToWorldPoint(counteredPoint).x, Camera.main.ScreenToWorldPoint(counteredPoint).y,0);
-                
+                //ＳＥを流す
+                GameObject.Find("SEPlayer").GetComponent<PlaySE>().ShurikenCounter();
             }
             beCountered = true;
 

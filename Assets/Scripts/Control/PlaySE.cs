@@ -17,6 +17,9 @@ public class PlaySE : MonoBehaviour
     public AudioClip EndByWin;
     public AudioClip EndByNinjya;
     public AudioClip EndByKiller;
+    public AudioClip ShurikenCounter1;
+    public AudioClip ShurikenShot1;
+    public AudioClip ShurikenHitted1;
 
     int N;
     void Start()
@@ -89,5 +92,20 @@ public class PlaySE : MonoBehaviour
         public void KillerWinEnd()
     {
         SEmaintain.PlayOneShot(EndByKiller);
+    }
+
+    public void ShurikenCounter()
+    {
+        SEmaintain.PlayOneShot(ShurikenCounter1);
+    }
+
+    public void ShurikenShot()
+    {
+        SEmaintain.PlayOneShot(ShurikenShot1);
+    }
+
+    public void ShurikenHitted()
+    {
+        SEmaintain.PlayOneShot(ShurikenHitted1);
     }
 }
