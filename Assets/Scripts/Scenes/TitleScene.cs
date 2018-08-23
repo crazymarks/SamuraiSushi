@@ -8,6 +8,8 @@ public class TitleScene : MonoBehaviour {
 
     public GameObject flashText;
     public GameObject loadingBG;
+    private AudioSource mainSE;
+    public AudioClip startSE;
     public Text loadingProgress;
     public Image loadingBar;
     private float nextTime;
@@ -19,6 +21,7 @@ public class TitleScene : MonoBehaviour {
     {
         loadingBG.SetActive(false);
         nextTime = Time.time;
+        mainSE = GetComponent<AudioSource>();
     }
 
     void Update () {
@@ -38,14 +41,16 @@ public class TitleScene : MonoBehaviour {
         }
 
         if (Input.GetMouseButtonDown(0))
-        {           
+        {
+            mainSE.PlayOneShot(startSE);
             StartCoroutine("Loading");
-            loadingBG.SetActive(true);
         }
 	}
 
     private IEnumerator Loading()
     {
+        yield return new WaitForSeconds(2);
+        loadingBG.SetActive(true);
         async = SceneManager.LoadSceneAsync("MainGame");
         while (async.progress < 0.9f)
         {
