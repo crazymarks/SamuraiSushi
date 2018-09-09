@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -18,13 +19,13 @@ public class GameController : MonoBehaviour {
     public GameObject Fugu;          //リスト中のコードは　3
     public Vector3 FishPosition = new Vector3(0f, -3f, 6f);
     [SerializeField, HeaderAttribute("最初の魚の生成時間")]
-    public float firstFishCreateTime = 1f;  //最初の生成時間
+    public float firstFishCreateTime ;  //最初の生成時間
     [SerializeField, HeaderAttribute("魚の生成間隔")]
-    public float CreateSpeed = 2.0f;   
+    public float CreateSpeed;   
     [SerializeField, HeaderAttribute("魚の出現確率だが、自分で百分比を計算 例：Maguroは M/(M+T+F)")]
-    public  float probabilityMaguroTest = 0.5f;  //マグロの出現確率 テスト用
-    public  float probabilityTakoTest = 0.4f;    //タコの出現確率　テスト用
-    public  float probabilityFuguTest = 0.1f;    //フグの出現確率　テスト用
+    //public  float probabilityMaguroTest = 0.5f;  //マグロの出現確率 テスト用
+    //public  float probabilityTakoTest = 0.4f;    //タコの出現確率　テスト用
+    //public  float probabilityFuguTest = 0.1f;    //フグの出現確率　テスト用
 
     public static float probabilityMaguro=0.5f;  //マグロの出現確率
     public static float probabilityTako=0.4f;    //タコの出現確率
@@ -83,6 +84,7 @@ public class GameController : MonoBehaviour {
     public Text LifeText;
     private int Life = 3;
     public GameObject Win;
+    public GameObject FinalWin;
     public GameObject KillerEnding;
     public GameObject NinjyaEnding;
     private bool GameoverFlag = false;
@@ -93,14 +95,18 @@ public class GameController : MonoBehaviour {
     bool isHeal = true;
     public GameObject lifeCounter;
     public Text ComboText;
-    public Image popularGage;
-   //combo相関
+    public Text PopText;
+    //combo相関
 
-//------------------------------fuction--------------------------------------------------------------------
-	void Start () {
+
+    public float flag = 0;//リザルトの時間判定
+    public int Resultflag = 0;//リザルトの行動判定（０、無行動。１、タイトルシン遷移可能。２、つきの日に入る）
+                         //------------------------------fuction--------------------------------------------------------------------
+    void Start () {
+        PassDatas();
         Time.timeScale = 1;                   //ゲーム開始の時　timescaleを１に戻る（時間の流れを戻す）
         Life = 3;
-       Invoke("create_fish",firstFishCreateTime);  //魚が一定時間後生成
+        Invoke("create_fish",firstFishCreateTime);  //魚が一定時間後生成
         CheckLoop();
         Money = 0;
         eatedSushi = 0;
@@ -109,29 +115,51 @@ public class GameController : MonoBehaviour {
         SushiList.Clear();
         mainBGM.Play();
         lifeCounter = GameObject.Find("Lifes") ;
+        timer.start();
     }
-	
-	void Update ()
+    void Update ()
     {
-		//タイマー更新
-		timer.Update();
-		
+        //タイマー更新
+        timer.Update();
+        flag += 0.01f;
+        if (flag >= 2.0f&& GetComponent<LevelReader>().Day < 5)
+        {
+            if(Resultflag == 1)
+            {
+                BackToTitle();
+                Resultflag = 0;
+            }
+            if (Resultflag == 2)
+            {
+                EnterNextDay();
+                Resultflag = 0;
+            }
+        }
+        if(flag >= 3.0f && GetComponent<LevelReader>().Day >= 5)
+        {
+            if (Resultflag == 1)
+            {
+                BackToTitle();
+                Resultflag = 0;
+            }
+        }
         //テスト用　正式版消す
-        probabilityMaguro = probabilityMaguroTest;  
-        probabilityTako = probabilityTakoTest;    
-        probabilityFugu = probabilityFuguTest;
+        //probabilityMaguro = probabilityMaguroTest;  
+        //probabilityTako = probabilityTakoTest;    
+        //probabilityFugu = probabilityFuguTest;
         PofCustomers = PofCustomersTest;  //お客さんになる確率
         //テスト用　正式版消す
         customers_list_check();
-
-        popularGage.fillAmount = (float)eatedSushi / maxFishAmount;  //切った魚の数に変更      
+        PopText.text= eatedSushi.ToString() + "/" + maxFishAmount.ToString();//切った魚の数に変更
         if (eatedSushi >= maxFishAmount && GameoverFlag == false)   //金は一定に達成すると、ゲームクリア
         {
+            flag = 0;
             GameoverFlag = true;
             GameClear();
         }
         if (currentHumanity <= 0 && GameoverFlag == false)    //人間性がなくなったら、ゲームオーバー
         {
+            flag = 0;
             GameoverFlag = true;
             GameOver2();
         }
@@ -393,6 +421,8 @@ public class GameController : MonoBehaviour {
 
     public void GameOver1()　　　//プレイヤーが殺されたによるエンディング
     {
+        flag = 0;
+        Resultflag = 1;
         Time.timeScale = 0.1f;
         Invoke("GameOverNinjya", 0.2f);
         mainBGM.Stop();
@@ -406,9 +436,11 @@ public class GameController : MonoBehaviour {
 
     void GameOver2()     //町人を殺しすぎて、人間性がなくなったゲームオーバー
     {
+        flag = 0;
+        Resultflag = 1;
         Time.timeScale = 0.1f;
         Invoke("GameOverKiller", 0.2f);
-        mainBGM.Stop();
+        mainBGM.Stop(); 
         GameObject.Find("SEPlayer").GetComponent<PlaySE>().KillerWinEnd();
     }
     void GameOverKiller()   //「閉店」の画面が少し遅延して出す
@@ -422,14 +454,39 @@ public class GameController : MonoBehaviour {
     void GameClear()          //一定寿司が町人に食べさせると、ゲームクリア
     {
         Vector3 pos = new Vector3(0, 0, 1);
-        Instantiate(Win, pos, Quaternion.identity);
+        if(GetComponent<LevelReader>().Day < 5)
+        {
+            Resultflag = 2;
+            Instantiate(Win, pos, Quaternion.identity);
+        }
+        else
+        {
+            Resultflag = 1;
+            Instantiate(FinalWin, pos, Quaternion.identity);
+        }
         mainBGM.Stop();
         GameObject.Find("SEPlayer").GetComponent<PlaySE>().WinEnd();
     }
 
-    public void reset_scene()
+    public void BackToTitle()   //タイトルに戻す
     {
-        Application.LoadLevelAsync(0);
+        SceneManager.LoadSceneAsync("TitleScene");
     }
 
+    public void EnterNextDay()      //つきの日に入る
+    {
+        GetComponent<LevelReader>().Day++;
+        GetComponent<LevelReader>().Writein();
+        SceneManager.LoadSceneAsync("MainGame");
+    }
+
+    public void PassDatas()         //LevelReader--->GameController
+    {
+        firstFishCreateTime = GameObject.Find("GameController").GetComponent<LevelReader>().firstFishCreateTime;
+        CreateSpeed = GameObject.Find("GameController").GetComponent<LevelReader>().FishCreateSpeed;
+        probabilityMaguro = GameObject.Find("GameController").GetComponent<LevelReader>().probabilityMaguro;
+        probabilityTako = GameObject.Find("GameController").GetComponent<LevelReader>().probabilityTako;
+        probabilityFugu = GameObject.Find("GameController").GetComponent<LevelReader>().probabilityFugu;
+        maxFishAmount = GameObject.Find("GameController").GetComponent<LevelReader>().maxFishAmount;
+    }
 }

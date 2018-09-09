@@ -14,15 +14,19 @@ public class NinjaCreate : MonoBehaviour {
     public float maxCreateTime = 2f;   //生成時間最小値
 
     [SerializeField, HeaderAttribute("忍者の出現確率だが、自分で百分比を計算 例：跳びは F/(W+F)")]
-    public float probabilityNinjaFlyTest = 0.5f;  //飛び忍者の出現確率 テスト用
-    public float probabilityNinjaWallTest = 0.5f;　　//壁忍者の出現確率　テスト用
+    public float probabilityNinjaFlyTest;  //飛び忍者の出現確率 テスト用
+    public float probabilityNinjaWallTest;　　//壁忍者の出現確率　テスト用
 
-    public static float probabilityNinjaFly = 0.5f;  //飛び忍者の出現確率
-    public static float probabilityNinjaWall = 0.5f;　　//壁忍者の出現確率
+    public static float probabilityNinjaFly;  //飛び忍者の出現確率
+    public static float probabilityNinjaWall;　　//壁忍者の出現確率
 　
     // Use this for initialization
     void Start () {
+        NinjiaDataPass();
+        if (firstCreateTime != 0)
+        {
         Invoke("NinjaChoose",firstCreateTime);
+        }
     }
     /// <summary>
     /// テスト用　正式版消す
@@ -33,7 +37,17 @@ public class NinjaCreate : MonoBehaviour {
     　　 probabilityNinjaFly = probabilityNinjaFlyTest;  //飛び忍者の出現確率
     　　 probabilityNinjaWall = probabilityNinjaWallTest;  //壁忍者の出現確率
 　　　　　//テスト用　正式版消す
-}
+    }
+    void NinjiaDataPass()
+    {
+        firstCreateTime = GetComponent<LevelReader>().NinjiaFirstCreateTime;
+        minCreateTime = GetComponent<LevelReader>().NinjiaMinCreateTime;
+        maxCreateTime = GetComponent<LevelReader>().NinjiaMaxCreateTime;
+        probabilityNinjaFly = GetComponent<LevelReader>().probabilityNinjaFly;
+        probabilityNinjaWall = GetComponent<LevelReader>().probabilityNinjaWall;
+        probabilityNinjaFlyTest = probabilityNinjaFly;
+        probabilityNinjaWallTest = probabilityNinjaWall;
+    }
         /// <summary>
         /// 忍者の種類を選択
         /// </summary>

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class YouDied : MonoBehaviour
 {
@@ -15,12 +16,11 @@ public class YouDied : MonoBehaviour
     float speed3 = 30;
     public GameObject DoorRight;
     public GameObject DoorLeft;
-    int DoorState = 0;
+    int DoorState ;
     //2
     void Start()
-
     {
-
+        DoorState = 0;
         step1 = speed * Time.deltaTime;
         step2 = speed2 * Time.deltaTime;
         step3 = speed3 * Time.deltaTime;
@@ -28,11 +28,14 @@ public class YouDied : MonoBehaviour
         DoorRight = Instantiate(DoorRight, new Vector3(12.0f, 0.0f, 0.5f), Quaternion.identity);
     }
     //「you　die」がだんだん透明化して、最後ゲームが止まる
+
+    
     void Update()
     {
         if (DoorState == 0)
             if ((DoorLeft.transform.position.x <= -4 || DoorRight.transform.position.x >= 4))
             {
+                GameObject.Find("TextDay").GetComponent<TextDayControllr>().Toumei();
                 DoorLeft.transform.localPosition = Vector3.MoveTowards(DoorLeft.transform.localPosition, new Vector3(-4.0f, 0.0f, 0.5f), step1);
                 DoorRight.transform.localPosition = Vector3.MoveTowards(DoorRight.transform.localPosition, new Vector3(4.0f, 0.0f, 0.5f), step1);
                 if (DoorLeft.transform.position.x >= -4 || DoorRight.transform.position.x <= 4)

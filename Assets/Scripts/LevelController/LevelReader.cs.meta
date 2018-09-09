@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ae925f27d058ece478ddd47b48e0fb3e
+timeCreated: 1535695117
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - DayControllerTxtFile: {fileID: 4900000, guid: dfee89d1f9b16cf43ae1995e100106ee,
+      type: 3}
+  - DayDataTxtFile: {instanceID: 0}
+  executionOrder: 5
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

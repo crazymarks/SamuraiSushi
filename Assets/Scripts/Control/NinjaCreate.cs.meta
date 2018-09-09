@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 2400be7c2ca2f3d49b5b961664545a94
-timeCreated: 1526605091
-licenseType: Pro
+timeCreated: 1535695117
+licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
@@ -10,7 +10,7 @@ MonoImporter:
       type: 2}
   - NinjaWall: {fileID: 1753411264124618, guid: 00d0151dda6c21d4a947f1ea50d21cb4,
       type: 2}
-  executionOrder: 0
+  executionOrder: 15
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

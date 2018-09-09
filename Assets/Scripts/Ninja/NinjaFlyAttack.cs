@@ -6,11 +6,11 @@ public class NinjaFlyAttack : MonoBehaviour {
     private float Speed = 500.0f;
     private float ScaleRate1 = 0.5f;
     private float ScaleRate2 = 0.1f;
-    private float countTime = 0f;   //ダメージ受けるまでの時間
-    private Vector3 counteredPoint; //接触した位置
-    private Vector3 counteredPoint2;　   //接触する時の位置
-    private bool beCountered = false; //切られたかどうか
     LifeCounter lifeCounter;
+    private float countTime = 0f; //ダメージ受けるまでの時間
+    private Vector3 counteredPoint;//接触した位置
+    private Vector3 counteredPoint2;//接触する時の位置
+    private bool beCountered = false; //切られたかどうか
 
     //Damageアニメ
     public GameObject Damage;
@@ -19,13 +19,11 @@ public class NinjaFlyAttack : MonoBehaviour {
     int n ;
     //private float step1;    //使われていない
     //float speed = 50;       //使われていない
-
     void Start () {
         lifeCounter = GameObject.Find("Lifes").GetComponent<LifeCounter>();
-        n = Random.Range(0, 180);//（手裏剣最初のｚ）
+
+        n = Random.Range(0, 180);//(手裏剣最初のｚ)
         this.transform.Rotate(0f, 0f, n);
-        //ＳＥを流す
-        GameObject.Find("SEPlayer").GetComponent<PlaySE>().ShurikenShot();
     }
 
     
@@ -35,7 +33,7 @@ public class NinjaFlyAttack : MonoBehaviour {
     bool firstAttack = false;//移動中　trueの場合は目標点に到着
     void Update()
     {
-        if(beCountered == false)
+        if (beCountered == false)
         {
             ScaleRate1 = ScaleRate1 + 0.025f;//ｘ大きくする速度
             ScaleRate2 = ScaleRate2 + 0.01f; //ｙ大きくする速度
@@ -56,7 +54,7 @@ public class NinjaFlyAttack : MonoBehaviour {
             ScaleRate1 = ScaleRate1 * 0.93f;//ｘ大きくする速度
             ScaleRate2 = ScaleRate2 * 0.93f; //ｙ大きくする速度
 
-          transform.position =Vector3.MoveTowards(gameObject.transform.position,(counteredPoint2-counteredPoint)+ gameObject.transform.position, 5f*Time.deltaTime);//y下げる
+            transform.position = Vector3.MoveTowards(gameObject.transform.position, (counteredPoint2 - counteredPoint) + gameObject.transform.position, 5f * Time.deltaTime);//y下げる
 
             transform.localScale = new Vector3(ScaleRate1, ScaleRate2, 1);//xy大きくする
 
@@ -68,7 +66,7 @@ public class NinjaFlyAttack : MonoBehaviour {
 
 
     }
-  
+
     void go_die()
     {
         Destroy(this.gameObject);
@@ -79,25 +77,25 @@ public class NinjaFlyAttack : MonoBehaviour {
     }
 
 
-     void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
 
         if (other.name == "Line")
         {
             if (beCountered == false)
             {
-                if (GameObject.Find("Katana").GetComponent<KatanaMouse>().enabled==true)
+                if (GameObject.Find("Katana").GetComponent<KatanaMouse>().enabled == true)
                 {
                     counteredPoint = Input.mousePosition;
                 }
-                else if(GameObject.Find("Katana").GetComponent<Katana>().enabled == true)
+                else if (GameObject.Find("Katana").GetComponent<Katana>().enabled == true)
                 {
                     counteredPoint = Input.GetTouch(0).position;
                 }
 
                 this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, 11f);
                 counteredPoint2 = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, 0);
-                counteredPoint = new Vector3 (Camera.main.ScreenToWorldPoint(counteredPoint).x, Camera.main.ScreenToWorldPoint(counteredPoint).y,0);
+                counteredPoint = new Vector3(Camera.main.ScreenToWorldPoint(counteredPoint).x, Camera.main.ScreenToWorldPoint(counteredPoint).y, 0);
                 //ＳＥを流す
                 GameObject.Find("SEPlayer").GetComponent<PlaySE>().ShurikenCounter();
             }
@@ -105,4 +103,5 @@ public class NinjaFlyAttack : MonoBehaviour {
 
         }
     }
+
 }

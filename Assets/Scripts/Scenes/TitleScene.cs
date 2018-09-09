@@ -3,32 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
+
 
 public class TitleScene : MonoBehaviour {
 
     public GameObject flashText;
     public GameObject loadingBG;
-    private AudioSource mainSE;
-    public AudioClip startSE;
     public Text loadingProgress;
     public Image loadingBar;
-    private float nextTime;
-    private float interval = 0.5f;
+    public float nextTime;
+    public float interval = 0.5f;
+    public float textAlpha;
+    public AsyncOperation async;
+    public string dayresetnum = "1";
 
-    private AsyncOperation async;
+    public string path;
+
 
     void Start()
     {
+        loadingBar.GetComponent<Image>().material.color = new Color(1, 1, 1, 1);
         loadingBG.SetActive(false);
         nextTime = Time.time;
-        mainSE = GetComponent<AudioSource>();
+        dayreset();
+        flashText.GetComponent<CanvasRenderer>().SetAlpha(1.0f);
     }
 
     void Update () {
-
-        if(Time.time > nextTime)
+        if (Time.time > nextTime)
         {
-            float textAlpha = flashText.GetComponent<CanvasRenderer>().GetAlpha();
+            textAlpha = flashText.GetComponent<CanvasRenderer>().GetAlpha();
             if(textAlpha == 1.0f)
             {
                 flashText.GetComponent<CanvasRenderer>().SetAlpha(0.0f);
@@ -41,16 +46,38 @@ public class TitleScene : MonoBehaviour {
         }
 
         if (Input.GetMouseButtonDown(0))
-        {
-            mainSE.PlayOneShot(startSE);
+        {           
             StartCoroutine("Loading");
+            loadingBG.SetActive(true);
         }
 	}
+    public void dayreset()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            path = Application.persistentDataPath;
+        }
+        else if (Application.platform == RuntimePlatform.WindowsPlayer)
+        {
+            path = Application.dataPath;
+        }
+        else if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            path = Application.dataPath;
+        }
 
+        StreamWriter sw;
+        FileInfo fi;
+        fi = new FileInfo(path + @"\Resources\Datas\daycontroller.txt");
+        sw = fi.CreateText();
+        sw.WriteLine(dayresetnum);
+        sw.Flush();
+        sw.Close();
+        sw.Dispose();
+
+    }
     private IEnumerator Loading()
     {
-        yield return new WaitForSeconds(2);
-        loadingBG.SetActive(true);
         async = SceneManager.LoadSceneAsync("MainGame");
         while (async.progress < 0.9f)
         {

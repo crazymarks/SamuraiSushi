@@ -1,25 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LifeCounter : MonoBehaviour {
-    public List<GameObject> lifes;
     int lifeCount;
-
+    public GameObject LifeImage;
     public GameObject youDied;
 
 	void Start () {
-        lifeCount = transform.childCount;      
+        lifeCount = 6;      
 	}
 	
 	void Update () {
-		
-	}
+        LifeImage.GetComponent<Image>().sprite = Resources.Load("NewUI/life_" + lifeCount.ToString(), typeof(Sprite)) as Sprite;
+    }
 
     public void Damage()
     {
         lifeCount--;
-        lifes[lifeCount].SetActive(false);
         if(lifeCount <= 0)
         {
             GameObject.Find("GameController").GetComponent<GameController>().GameOver1(); 
@@ -28,10 +27,9 @@ public class LifeCounter : MonoBehaviour {
 
     public void ComboHeal()
     {
-        if (lifeCount <= 4)
+        if (lifeCount <= 5)
         {
             lifeCount++;
-            lifes[lifeCount - 1].SetActive(true);
         }
     }
 

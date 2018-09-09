@@ -29,8 +29,8 @@ public class PeopleCreate : MonoBehaviour {
     public float minCreateTime = 0.5f;   //生成時間最大値
     public float maxCreateTime = 2f;   //生成時間最小値
 
-    public float SlowSpeedProb = 0.4f;//人が遅い速度になる確率(この数値より小さい場合)、デフォルト値
-    public float FastSpeedProb = 0.9f;//人が早い速度になる確率(この数値より大きい場合)、デフォルト値
+    public float SlowSpeedProb = 0.3f;//人が遅い速度になる確率(この数値より小さい場合)、デフォルト値
+    public float FastSpeedProb = 0.8f;//人が早い速度になる確率(この数値より大きい場合)、デフォルト値
     //速度の調整はTimer.Scriptで時間ごとで調整しています
 
     //町人相関
@@ -39,6 +39,7 @@ public class PeopleCreate : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        PeopleDatasPass();
         MiddleZone = GameObject.Find("MiddleZone");
         Invoke("create_people",firstCreateTime);
     }
@@ -48,6 +49,12 @@ public class PeopleCreate : MonoBehaviour {
         MaxX = MaxXTest;
         MaxY = MaxYTest;
         TopCreateVar = TopCreateVarTest;
+    }
+    void PeopleDatasPass()
+    {
+        firstCreateTime= GameObject.Find("GameController").GetComponent<LevelReader>().peoplefirstCreateTime;
+        minCreateTime = GameObject.Find("GameController").GetComponent<LevelReader>().peopleminCreateTime;
+        maxCreateTime = GameObject.Find("GameController").GetComponent<LevelReader>().peoplemaxCreateTime;
     }
     /// <summary>
     /// 町人の生成(amount/type/point/etc.)
