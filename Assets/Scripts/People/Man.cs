@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Man : PeopleBase {
     public GameObject ManFrontUpperBody;
     public GameObject ManFrontLowerBody;
@@ -9,14 +8,63 @@ public class Man : PeopleBase {
     public Sprite back;
     public Sprite side;//左向き
     public Sprite side2;//右向き
+                        //9/10　色かわりのため書いたもの　直した場所は　”//！”で確認してください
+    SpriteRenderer r; //SpriteRendererにセットする
+    //色のRGB
+    float R = 255.0f;
+    float G = 255.0f;
+    float B = 255.0f;
+
+    public bool bromatoxism = false;//变色开关
+
+
+
+    // Use this for initialization
+    void Start()
+    {
+        r = gameObject.GetComponent<SpriteRenderer>();   //SpriteRendererにセットする
+
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        //色の　R　　　　  G　　         B
+        //　　　255-111    255-219       255 -117
+        //      114        36            78
+        //      22.8       7.2         　15.6
+        //　　  0.76      　0.24 　　　    0.52
+        //色々変わりの速さ
+        if (bromatoxism == true)
+        {
+            if (R > 111.0f && G > 219.0f && B > 117.0f)
+            {
+                R = R - 1.52f;
+                G = G - 0.48f;
+                B = B - 1.04f;
+                r.color = new Color(R / 255.0f, G / 255.0f, B / 255.0f, 255.0f / 255.0f);
+
+            }
+
+        }
+
+    }
+
+
 
     public void after_eatsushi(int x)
     {
         IsCustomer = false;
         if (x == 3)　　//毒寿司なら死ぬ
-        {
-            killed_by_poison();
-        }else
+        {//!-------------
+            bromatoxism = true;//色変わり始める
+
+            Invoke("killed_by_poison", 3f);//3sまち
+                                         
+        }
+        else
         {
             state_change();
         }
