@@ -75,7 +75,7 @@ public class NinjaWall : MonoBehaviour {
     void Frame1()
     {
         //transform.position.xを正しく場所にするため
-       Vector3 pos = new Vector3(this.transform.position.x+0.06f, this.transform.position.y +1.1f, 2);
+       Vector3 pos = new Vector3(this.transform.position.x+0.06f, this.transform.position.y +10.24f*this.transform.localScale.y*0.25f, 2);
 
         //Frameを作り
       deleteFrame = Instantiate(Frame, pos, Quaternion.identity);
