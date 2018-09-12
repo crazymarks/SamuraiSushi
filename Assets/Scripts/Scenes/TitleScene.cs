@@ -27,6 +27,7 @@ public class TitleScene : MonoBehaviour {
     {
         loadingBar.GetComponent<Image>().material.color = new Color(1, 1, 1, 1);
         loadingBG.SetActive(false);
+        Invoke("ActiveText", 5.0f);
         nextTime = Time.time;
         mainSE = GetComponent<AudioSource>();
         dayreset();
@@ -48,7 +49,7 @@ public class TitleScene : MonoBehaviour {
             nextTime += interval;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (flashText.activeInHierarchy && Input.GetMouseButtonDown(0))
         {
             mainSE.Play();
             StartCoroutine("Loading");
@@ -80,6 +81,12 @@ public class TitleScene : MonoBehaviour {
         sw.Dispose();
 
     }
+
+    void ActiveText()
+    {
+        flashText.SetActive(true);
+    }
+
     private IEnumerator Loading()
     {
         yield return new WaitForSeconds(2);

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
+# Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamuraiSushi", "SamuraiSushi.csproj", "{E56B9F51-D85A-48F1-9C72-A3258B36DB0E}"
 EndProject
 Global
