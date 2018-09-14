@@ -11,7 +11,7 @@ public class Woman : PeopleBase {
     public Sprite side2;//右向き
                         //!9/14　色かわりのため書いたもの　直した場所は　”//！9/14”で確認してください
     SpriteRenderer r; //SpriteRendererにセットする
-    public GameObject doku;
+    public GameObject Doku;
     //色のRGB
     float R = 255.0f;
     float G = 255.0f;
@@ -64,8 +64,9 @@ public class Woman : PeopleBase {
         if (x == 3)　　//毒寿司なら死ぬ
         {//!-------------
             bromatoxism = true;//色変わり始める
-            doku = Instantiate(doku, new Vector3(0.0f, -0.5f, 5.0f), Quaternion.identity);
-            Invoke("killed_by_poison", 1f);//1sまち
+            Doku = Instantiate(Doku, new Vector3(0.0f, -0.5f, 5.0f), Quaternion.identity);
+            //！9/14
+            Invoke("killed_by_poison", 1.5f);//1.5sまち
 
         }
         else
@@ -73,7 +74,6 @@ public class Woman : PeopleBase {
             state_change();
         }
     }
-
     protected override void be_killed()
     {
         base.be_killed();
