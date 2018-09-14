@@ -463,9 +463,9 @@ public class GameController : MonoBehaviour {
         {
             Resultflag = 1;
             Instantiate(FinalWin, pos, Quaternion.identity);
+            GameObject.Find("SEPlayer").GetComponent<PlaySE>().WinEnd();
         }
         mainBGM.Stop();
-        GameObject.Find("SEPlayer").GetComponent<PlaySE>().WinEnd();
     }
 
     public void BackToTitle()   //タイトルに戻す

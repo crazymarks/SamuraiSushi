@@ -7,11 +7,19 @@ public class Delete : MonoBehaviour {
     public float time;
     public GameObject OpeningLeft;
     public GameObject OpeningRight;
+    public int Day;
 	// Use this for initialization
 	void Start () {
-
-        Invoke("_Delete", 5.0f);
-	}
+        Day = GameObject.Find("GameController").GetComponent<LevelReader>().Day;
+        if (Day == 1)
+        {
+            _Delete();
+        }
+        else
+        {
+            Invoke("_Delete", 5.0f);
+        }
+    }
 	public void _Delete()
     {
         Destroy(this.gameObject);
