@@ -9,8 +9,9 @@ public class Woman : PeopleBase {
     public Sprite back;
     public Sprite side;//左向き
     public Sprite side2;//右向き
-    //9/10　色かわりのため書いたもの　直した場所は　”//！”で確認してください
+                        //!9/14　色かわりのため書いたもの　直した場所は　”//！9/14”で確認してください
     SpriteRenderer r; //SpriteRendererにセットする
+    public GameObject doku;
     //色のRGB
     float R = 255.0f;
     float G = 255.0f;
@@ -18,38 +19,43 @@ public class Woman : PeopleBase {
 
     public bool bromatoxism = false;//变色开关
 
+
+
     // Use this for initialization
     void Start()
     {
         r = gameObject.GetComponent<SpriteRenderer>();   //SpriteRendererにセットする
-     
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+
         //色の　R　　　　  G　　         B
         //　　　255-111    255-219       255 -117
         //      114        36            78
         //      22.8       7.2         　15.6
-        //　　  0.76      　0.24 　　　    0.52
+        //　　  0.76      　0.24 　　　    0.52 
+        //!9/14修正
+        //!*3   22.8        7.2        15.6
         //色々変わりの速さ
         if (bromatoxism == true)
         {
             if (R > 111.0f && G > 219.0f && B > 117.0f)
             {
-                R = R - 1.52f;
-                G = G - 0.48f;
-                B = B - 1.04f;
-                r.color = new Color(R  / 255.0f, G  / 255.0f, B / 255.0f, 255.0f / 255.0f);
+                R = R - 11.4f;
+                G = G - 3.5f;
+                B = B - 7.8f;
+                r.color = new Color(R / 255.0f, G / 255.0f, B / 255.0f, 255.0f / 255.0f);
 
             }
 
         }
-       
+
     }
+
 
 
     public void after_eatsushi(int x)
@@ -58,9 +64,9 @@ public class Woman : PeopleBase {
         if (x == 3)　　//毒寿司なら死ぬ
         {//!-------------
             bromatoxism = true;//色変わり始める
+            doku = Instantiate(doku, new Vector3(0.0f, -0.5f, 5.0f), Quaternion.identity);
+            Invoke("killed_by_poison", 1f);//1sまち
 
-            Invoke("killed_by_poison", 3f);//3sまち
-         //!------------ 
         }
         else
         {
