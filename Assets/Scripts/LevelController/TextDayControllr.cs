@@ -5,22 +5,34 @@ using UnityEngine.UI;
 
 public class TextDayControllr : MonoBehaviour {
     public Image TextDay;
-    public string day;
+    public string daytext;
+    public int day;
     public float TextDaya;
     public float flag;
+    public float flagtime;
     // Use this for initialization
     void Start () {
         GetComponent<Image>().material.color = new Color(1, 1, 1, 1);
+        daytext = GameObject.Find("GameController").GetComponent<LevelReader>().DayControllerMytxt;
+        day = int.Parse(daytext);
+        if (day == 1)
+        {
+            flagtime = 1.0f;
+        }
+        else
+        {
+            flagtime = 3.0f;
+        }
         flag = 0;
+        TextDay.GetComponent<Image>().sprite = Resources.Load("TextPic/textday"+ daytext, typeof(Sprite)) as Sprite;
         TextDaya = 1.0f;
-        day =GameObject.Find("GameController").GetComponent<LevelReader>().DayControllerMytxt;
-        TextDay.GetComponent<Image>().sprite = Resources.Load("TextPic/textday"+day,typeof(Sprite)) as Sprite;
     }
 	
+
 	// Update is called once per frame
 	void Update () {
-        flag += 0.01f;
-        if (TextDaya > 0&&flag>=3.0f)
+        flag += 0.01f;  
+        if (TextDaya > 0&&flag>= flagtime)
         {
             TextDaya -= 0.01f;
             TextDay.GetComponent<Image>().color = new Color(1, 1, 1, TextDaya);
