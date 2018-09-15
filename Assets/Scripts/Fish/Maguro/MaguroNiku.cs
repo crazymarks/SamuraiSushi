@@ -12,22 +12,49 @@ public class MaguroNiku : MonoBehaviour {
 
     //about controller
     GameObject GameController;
+    //！
+    public GameObject Kira;
+    int Kirasuu = 0;
 
-	// Use this for initialization
-	void Start () {
+    //
+
+    // Use this for initialization
+    void Start () {
         Rigidbody = GetComponent<Rigidbody2D>();
         Rigidbody.AddForce(Force, ForceMode2D.Impulse);
+        //!鱼片出来的时候就出现
+        //Kira = Instantiate(Kira, new Vector3(), Quaternion.identity);
+        kira ();
+        // Kira.transform.localPosition =  new Vector3(this.transform.position.x, this.transform.position.y + 0.1f, 5.0f);
+        //
+        GameController = GameObject.Find("GameController");
+    }
+    void kira() {
+  
+        if (Kirasuu< 3){
 
-        GameController=GameObject.Find("GameController");
-	}
-	
-	// Update is called once per frame
-	void OnTriggerEnter2D(Collider2D collision) {
+            Kira = Instantiate(Kira, new Vector3(this.transform.position.x, this.transform.position.y + 0.1f, 5.0f), Quaternion.identity);
+            Kirasuu++;
+          
+            Invoke("kira", 0.2f);
+        }
+    }
+    void Update()
+    {　　// tuki
+       
+    }
+        // Update is called once per frame
+        void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Rice")
         {
+            
             //delete niku and rice  create sushi 
             //send message to game control
-            SushiPosition = new Vector2(this.transform.position.x, this.transform.position.y - 0.1f);
+           SushiPosition = new Vector2(this.transform.position.x, this.transform.position.y - 0.1f);
+            //
+           
+
+
             Destroy(collision.gameObject);
             Destroy(this.gameObject);
 
