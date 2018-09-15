@@ -12,37 +12,19 @@ public class MaguroNiku : MonoBehaviour {
 
     //about controller
     GameObject GameController;
-    //9/15!　魚が切られたときのキラキラ表現
-    //"9/15!"で修正位置を確認してください
-    public GameObject Kira;
-    int Kirasuu = 0;
-
-    //
-
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         Rigidbody = GetComponent<Rigidbody2D>();
         Rigidbody.AddForce(Force, ForceMode2D.Impulse);
-       
+
         GameController = GameObject.Find("GameController");
-        //！9/15!MaguroNikuとともに現れ
-        kira();
-        //
     }
-
-    void kira() {
-        //！9/15!　きらきらが現れに回数
-        if (Kirasuu< 2){
-            
-            //きらきらの位置
-            Kira = Instantiate(Kira, new Vector3(this.transform.position.x, this.transform.position.y + 0.1f, 5.0f), Quaternion.identity);
-            Kirasuu++;
-          
-            Invoke("kira", 0.2f);//毎回の待ち時間
-        }
-    }
-
-        void OnTriggerEnter2D(Collider2D collision) {
+    private void Update()
+    {
+        //new Vector3(this.transform.position.x, this.transform.position.y, 10.0f);
+    }    //使えない
+    void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Rice")
         {
             

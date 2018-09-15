@@ -51,9 +51,7 @@ public class Woman : PeopleBase {
     {
         IsCustomer = false;
         if (x == 3)　　//毒寿司なら死ぬ
-        {//!-------------
-         //bromatoxism = true;//色変わり始める
-         // Doku = Instantiate(Doku, new Vector3(0.0f, -0.5f, 5.0f), Quaternion.identity);
+        {//!
          //！9/16
             bromatoxism();
         }

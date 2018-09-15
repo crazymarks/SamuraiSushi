@@ -40,7 +40,7 @@ public class Man : PeopleBase {
             B = B - 7.8f;
             r.color = new Color(R / 255.0f, G / 255.0f, B / 255.0f, 255.0f / 255.0f);
             Invoke("bromatoxism", 0.06f);
-            //0.6f 10回
+            //0.06f 10回
         }
         else
         {
@@ -52,9 +52,7 @@ public class Man : PeopleBase {
     {
         IsCustomer = false;
         if (x == 3)　　//毒寿司なら死ぬ
-        {//!-------------
-         //bromatoxism = true;//色変わり始める
-         // Doku = Instantiate(Doku, new Vector3(0.0f, -0.5f, 5.0f), Quaternion.identity);
+        {//!
          //！9/16
             bromatoxism();
         }
