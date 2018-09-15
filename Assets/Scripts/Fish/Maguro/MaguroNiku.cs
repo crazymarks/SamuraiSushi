@@ -12,7 +12,8 @@ public class MaguroNiku : MonoBehaviour {
 
     //about controller
     GameObject GameController;
-    //！9/15　魚が切られたときのキラキラ表現
+    //9/15!　魚が切られたときのキラキラ表現
+    //"9/15!"で修正位置を確認してください
     public GameObject Kira;
     int Kirasuu = 0;
 
@@ -24,13 +25,13 @@ public class MaguroNiku : MonoBehaviour {
         Rigidbody.AddForce(Force, ForceMode2D.Impulse);
        
         GameController = GameObject.Find("GameController");
-        //！9/15MaguroNikuとともに現れ
+        //！9/15!MaguroNikuとともに現れ
         kira();
         //
     }
 
     void kira() {
-        //！9/15　きらきらが現れに回数
+        //！9/15!　きらきらが現れに回数
         if (Kirasuu< 2){
             
             //きらきらの位置

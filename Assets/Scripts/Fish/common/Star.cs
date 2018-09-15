@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Star : MonoBehaviour {
-
+    //kiraのソースコードです。
+    //!9/15!/
     // Use this for initialization
     void Start()
     {
