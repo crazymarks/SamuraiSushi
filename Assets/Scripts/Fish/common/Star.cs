@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Star : MonoBehaviour {
     //kiraのソースコードです。
-    //!9/15!/
+    //!9/16!/
     // Use this for initialization
    
     void Start()
     {
-        Destroy(gameObject, 1.0f);
+        Destroy(gameObject, 5.0f);
 
     }
     private void Update()
