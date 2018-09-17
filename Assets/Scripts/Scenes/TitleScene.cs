@@ -32,6 +32,7 @@ public class TitleScene : MonoBehaviour {
         mainSE = GetComponent<AudioSource>();
         dayreset();
         flashText.GetComponent<CanvasRenderer>().SetAlpha(1.0f);
+        Time.timeScale = 1.0f;
     }
 
     void Update () {
