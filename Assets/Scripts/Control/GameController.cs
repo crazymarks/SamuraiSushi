@@ -122,7 +122,7 @@ public class GameController : MonoBehaviour {
         //タイマー更新
         timer.Update();
         flag += 0.01f;
-        if (flag >= 2.0f&& GetComponent<LevelReader>().Day < 5)
+        if (flag >= 2.0f&& GetComponent<LevelReader>().Day < 3)
         {
             if(Resultflag == 1)
             {
@@ -135,7 +135,7 @@ public class GameController : MonoBehaviour {
                 Resultflag = 0;
             }
         }
-        if(flag >= 3.0f && GetComponent<LevelReader>().Day >= 5)
+        if(flag >= 3.0f && GetComponent<LevelReader>().Day >= 3)
         {
             if (Resultflag == 1)
             {
@@ -454,7 +454,7 @@ public class GameController : MonoBehaviour {
     void GameClear()          //一定寿司が町人に食べさせると、ゲームクリア
     {
         Vector3 pos = new Vector3(0, 0, 1);
-        if(GetComponent<LevelReader>().Day < 5)
+        if(GetComponent<LevelReader>().Day < 3)
         {
             Resultflag = 2;
             Instantiate(Win, pos, Quaternion.identity);
