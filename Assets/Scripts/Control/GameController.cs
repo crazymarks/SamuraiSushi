@@ -101,7 +101,18 @@ public class GameController : MonoBehaviour {
 
     public float flag = 0;//リザルトの時間判定
     public int Resultflag = 0;//リザルトの行動判定（０、無行動。１、タイトルシン遷移可能。２、つきの日に入る）
-                         //------------------------------fuction--------------------------------------------------------------------
+
+    //チュートリアル用相関
+    int tutorialState=1;
+    public GameObject tutorial1;
+    public GameObject tutorial2;
+    public GameObject tutorial3;
+    public GameObject tutorial4;
+    public GameObject tutorial5;
+    public GameObject nextButton;
+
+
+    //------------------------------fuction--------------------------------------------------------------------
     void Start () {
         PassDatas();
         Time.timeScale = 1;                   //ゲーム開始の時　timescaleを１に戻る（時間の流れを戻す）
@@ -116,6 +127,8 @@ public class GameController : MonoBehaviour {
         mainBGM.Play();
         lifeCounter = GameObject.Find("Lifes") ;
         timer.start();
+
+        ShowTutorial();//チュートリアル表示
     }
     void Update ()
     {
@@ -488,5 +501,65 @@ public class GameController : MonoBehaviour {
         probabilityTako = GameObject.Find("GameController").GetComponent<LevelReader>().probabilityTako;
         probabilityFugu = GameObject.Find("GameController").GetComponent<LevelReader>().probabilityFugu;
         maxFishAmount = GameObject.Find("GameController").GetComponent<LevelReader>().maxFishAmount;
+    }
+
+    /// <summary>
+    /// チュートリアル表示用
+    /// </summary>
+    void ShowTutorial()
+    {
+        Debug.Log(tutorialState);
+        if (GetComponent<LevelReader>().Day==1)
+        {
+            Time.timeScale = 0;
+            nextButton.SetActive(true);
+            if (tutorialState == 1)
+            {
+                tutorial1.SetActive(true);
+            }
+            else if (tutorialState == 2)
+            {
+                tutorial1.SetActive(false);
+                tutorial2.SetActive(true);
+            }
+            else if (tutorialState == 3)
+            {
+                tutorial2.SetActive(false);
+                tutorial3.SetActive(true);
+            }
+            else if (tutorialState == 4)
+            {
+                tutorial3.SetActive(false);
+                tutorial4.SetActive(true);
+            }
+            else
+            {
+                tutorial4.SetActive(false);
+                Time.timeScale = 1f;
+                GameObject.Find("TextDay").GetComponent<TextDayControllr>().flag2=true;
+                nextButton.SetActive(false);
+            }
+                        
+        }
+        if (GetComponent<LevelReader>().Day == 2)
+        {
+            Time.timeScale = 0;
+            nextButton.SetActive(true);
+            if (tutorialState == 1)
+            {
+                tutorial5.SetActive(true);
+            }else
+            {
+                tutorial5.SetActive(false);
+                Time.timeScale = 1f;
+                GameObject.Find("TextDay").GetComponent<TextDayControllr>().flag2 = true;
+                nextButton.SetActive(false);
+            }
+        }
+    }
+    public void SetTutorialState()
+    {
+        tutorialState++;
+        ShowTutorial();
     }
 }
